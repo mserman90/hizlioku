@@ -104,22 +104,22 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-5">
+    <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-5 transition-colors">
       <div className="flex items-center gap-3">
-        <div className="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold">
+        <div className="w-12 h-12 rounded-2xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">
           <UploadCloud className="w-6 h-6" />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-slate-900">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-white">
             Otomatik PDF & Belge Dönüştürücü
           </h3>
-          <p className="text-xs text-slate-500">
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             PDF, TXT veya MD dosyalarınızı yükleyin; anında temiz metne dönüştürülüp RSVP'ye aktarılır
           </p>
         </div>
       </div>
 
-      <div className="border-2 border-dashed border-slate-300 hover:border-brand-500 rounded-2xl p-6 text-center transition cursor-pointer bg-slate-50 relative group">
+      <div className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-2xl p-6 text-center transition cursor-pointer bg-slate-50 dark:bg-slate-800/50 relative group">
         <input
           type="file"
           accept=".pdf,.txt,.md,.json"
@@ -129,17 +129,17 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
         />
         {loading ? (
           <div className="flex flex-col items-center justify-center py-2">
-            <Loader2 className="w-8 h-8 text-brand-600 animate-spin mb-2" />
-            <span className="text-sm font-semibold text-slate-800">{loadingMsg}</span>
-            <span className="text-xs text-slate-400 mt-1">Lütfen bekleyin...</span>
+            <Loader2 className="w-8 h-8 text-brand-600 dark:text-brand-400 animate-spin mb-2" />
+            <span className="text-sm font-semibold text-slate-800 dark:text-slate-200">{loadingMsg}</span>
+            <span className="text-xs text-slate-400 dark:text-slate-500 mt-1">Lütfen bekleyin...</span>
           </div>
         ) : (
           <>
-            <FileText className="w-8 h-8 text-slate-400 mx-auto mb-2 group-hover:text-brand-600 transition" />
-            <span className="text-sm font-semibold text-slate-700 block">
+            <FileText className="w-8 h-8 text-slate-400 dark:text-slate-500 mx-auto mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition" />
+            <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 block">
               {fileName ? fileName : "PDF veya Metin Belgesi Seçmek İçin Tıklayın / Sürükleyin"}
             </span>
-            <span className="text-xs text-slate-400 block mt-1">
+            <span className="text-xs text-slate-400 dark:text-slate-500 block mt-1">
               Desteklenen formatlar: <strong>.pdf</strong> (otomatik metne dönüştürülür), <strong>.txt</strong>, <strong>.md</strong>
             </span>
           </>
@@ -147,25 +147,25 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
       </div>
 
       {error && (
-        <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-amber-900 text-xs flex items-start gap-2.5">
-          <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0 mt-0.5" />
+        <div className="p-3.5 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 text-amber-900 dark:text-amber-200 text-xs flex items-start gap-2.5">
+          <AlertCircle className="w-4 h-4 text-amber-600 dark:text-amber-400 flex-shrink-0 mt-0.5" />
           <span>{error}</span>
         </div>
       )}
 
       {extractedText && stats && (
         <div className="space-y-4 animate-in fade-in duration-200">
-          <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-900 text-xs">
+          <div className="flex items-center justify-between p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900 text-emerald-900 dark:text-emerald-200 text-xs">
             <div className="flex items-center gap-1.5 font-bold">
-              <Check className="w-4 h-4 text-emerald-600" />
+              <Check className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
               <span>Dönüştürme Başarılı!</span>
             </div>
-            <div className="font-semibold text-emerald-800">
+            <div className="font-semibold text-emerald-800 dark:text-emerald-300">
               {stats.wordCount.toLocaleString("tr-TR")} kelime • {stats.charCount.toLocaleString("tr-TR")} karakter
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-100 text-xs text-slate-700 max-h-32 overflow-y-auto font-mono whitespace-pre-wrap leading-relaxed border border-slate-200">
+          <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-700 dark:text-slate-200 max-h-32 overflow-y-auto font-mono whitespace-pre-wrap leading-relaxed border border-slate-200 dark:border-slate-700">
             {extractedText.slice(0, 500)}
             {extractedText.length > 500 ? "..." : ""}
           </div>

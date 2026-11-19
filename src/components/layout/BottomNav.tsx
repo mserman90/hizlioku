@@ -45,7 +45,7 @@ export const BottomNav: React.FC = () => {
   ];
 
   return (
-    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-t border-slate-200 safe-area-pb">
+    <nav className="md:hidden fixed bottom-0 left-0 right-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur border-t border-slate-200 dark:border-slate-800 safe-area-pb transition-colors">
       <div className="flex items-center justify-around h-16 px-2">
         {navItems.map((item) => {
           const Icon = item.icon;
@@ -60,8 +60,8 @@ export const BottomNav: React.FC = () => {
               className={clsx(
                 "flex flex-col items-center justify-center flex-1 h-full min-h-[44px] min-w-[44px] py-1 text-xs font-medium transition",
                 isActive
-                  ? "text-brand-600 font-semibold"
-                  : "text-slate-500 hover:text-slate-800"
+                  ? "text-brand-600 dark:text-brand-400 font-semibold"
+                  : "text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200"
               )}
             >
               <Icon className={clsx("w-5 h-5 mb-1", isActive && "stroke-[2.5px]")} />

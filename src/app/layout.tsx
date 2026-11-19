@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
+import { ThemeProvider } from "@/context/ThemeContext";
 import { Navbar } from "@/components/layout/Navbar";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { SkipToContent } from "@/components/ui/SkipToContent";
@@ -23,16 +24,18 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="tr">
-      <body className="min-h-screen flex flex-col antialiased bg-slate-50 text-slate-900 pb-16 md:pb-0 selection:bg-brand-500/20 selection:text-brand-900">
+    <html lang="tr" suppressHydrationWarning>
+      <body className="min-h-screen flex flex-col antialiased bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 pb-16 md:pb-0 selection:bg-brand-500/20 selection:text-brand-900 transition-colors duration-200">
         <SkipToContent />
-        <AuthProvider>
-          <Navbar />
-          <main id="main-content" className="flex-1 flex flex-col focus:outline-none" tabIndex={-1}>
-            {children}
-          </main>
-          <BottomNav />
-        </AuthProvider>
+        <ThemeProvider>
+          <AuthProvider>
+            <Navbar />
+            <main id="main-content" className="flex-1 flex flex-col focus:outline-none" tabIndex={-1}>
+              {children}
+            </main>
+            <BottomNav />
+          </AuthProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

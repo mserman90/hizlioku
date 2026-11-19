@@ -125,31 +125,31 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
     <div
       className={`w-full max-w-3xl mx-auto space-y-6 transition-all ${
         isFullscreen
-          ? "fixed inset-0 z-50 bg-white p-6 sm:p-12 flex flex-col justify-between max-w-none"
+          ? "fixed inset-0 z-50 bg-white dark:bg-slate-950 p-6 sm:p-12 flex flex-col justify-between max-w-none"
           : ""
       }`}
     >
       {/* Top Header & Context */}
-      <div className="flex items-center justify-between border-b border-slate-200 pb-4">
+      <div className="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-4">
         <div>
           <button
             onClick={onBackToSelector}
-            className="text-xs font-semibold text-brand-600 hover:underline mb-1 inline-block"
+            className="text-xs font-semibold text-brand-600 dark:text-brand-400 hover:underline mb-1 inline-block"
           >
             ← Başka Metin Seç
           </button>
-          <h2 className="text-lg sm:text-xl font-bold text-slate-900 truncate max-w-md">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-900 dark:text-white truncate max-w-md">
             {title}
           </h2>
         </div>
 
         <div className="flex items-center gap-3">
-          <div className="text-xs font-bold px-3 py-1 bg-slate-100 rounded-full text-slate-700">
+          <div className="text-xs font-bold px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-700 dark:text-slate-300">
             {currentIndex + 1} / {words.length} kelime
           </div>
           <button
             onClick={() => setIsFullscreen((prev) => !prev)}
-            className="p-2 text-slate-500 hover:text-slate-800 rounded-xl hover:bg-slate-100 transition"
+            className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition"
             title="Tam Ekran"
           >
             {isFullscreen ? <Minimize2 className="w-5 h-5" /> : <Maximize2 className="w-5 h-5" />}
@@ -158,30 +158,30 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+      <div className="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
         <div
-          className="bg-brand-600 h-full transition-all duration-150"
+          className="bg-brand-600 dark:bg-brand-500 h-full transition-all duration-150"
           style={{ width: `${((currentIndex + 1) / words.length) * 100}%` }}
         />
       </div>
 
-      {/* RSVP Word Stage */}
-      <div className="w-full min-h-[240px] sm:min-h-[320px] rounded-3xl bg-slate-50 border-2 border-slate-200 shadow-inner flex flex-col items-center justify-center p-6 relative">
+      {/* RSVP Word Stage - High-comfort dark mode for zero eye fatigue */}
+      <div className="w-full min-h-[240px] sm:min-h-[320px] rounded-3xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 shadow-inner flex flex-col items-center justify-center p-6 relative transition-colors">
         <OrpWordDisplay word={currentWord} />
 
         {/* Small subtle helper */}
-        <div className="absolute bottom-3 text-[11px] text-slate-400">
+        <div className="absolute bottom-3 text-[11px] text-slate-400 dark:text-slate-500">
           Klavye: [Boşluk] Duraklat/Başlat • [Sol/Sağ Ok] -5/+5 Kelime
         </div>
       </div>
 
       {/* Primary Controls */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-white p-6 rounded-3xl border border-slate-200 shadow-sm">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-6 bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm transition-colors">
         {/* Playback Buttons */}
         <div className="flex items-center gap-2">
           <button
             onClick={handleReset}
-            className="p-3 text-slate-600 hover:bg-slate-100 rounded-xl transition min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-3 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition min-w-[44px] min-h-[44px] flex items-center justify-center"
             title="Başa Dön"
           >
             <RotateCcw className="w-5 h-5" />
@@ -189,7 +189,7 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
 
           <button
             onClick={handleRewind5}
-            className="p-3 text-slate-600 hover:bg-slate-100 rounded-xl transition min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-3 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition min-w-[44px] min-h-[44px] flex items-center justify-center"
             title="5 Kelime Geri Sar"
           >
             <SkipBack className="w-5 h-5" />
@@ -217,7 +217,7 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
 
           <button
             onClick={handleSkip5}
-            className="p-3 text-slate-600 hover:bg-slate-100 rounded-xl transition min-w-[44px] min-h-[44px] flex items-center justify-center"
+            className="p-3 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-xl transition min-w-[44px] min-h-[44px] flex items-center justify-center"
             title="5 Kelime İleri Sar"
           >
             <SkipForward className="w-5 h-5" />
@@ -227,8 +227,8 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
         {/* WPM Speed Slider */}
         <div className="flex items-center gap-4 w-full sm:w-auto">
           <div className="flex flex-col items-end">
-            <span className="text-[11px] font-bold text-slate-400 uppercase">Okuma Hızı</span>
-            <span className="text-xl font-black text-brand-600">{wpm} WPM</span>
+            <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase">Okuma Hızı</span>
+            <span className="text-xl font-black text-brand-600 dark:text-brand-400">{wpm} WPM</span>
           </div>
 
           <div className="flex-1 sm:w-48">
@@ -241,7 +241,7 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
               onChange={(e) => setWpm(Number(e.target.value))}
               className="w-full accent-brand-600 cursor-pointer"
             />
-            <div className="flex justify-between text-[10px] text-slate-400 mt-0.5">
+            <div className="flex justify-between text-[10px] text-slate-400 dark:text-slate-500 mt-0.5">
               <span>150</span>
               <span>500</span>
               <span>1000</span>

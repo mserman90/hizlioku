@@ -14,10 +14,10 @@ export const Card: React.FC<CardProps> = ({
   return (
     <div
       className={clsx(
-        "bg-white border rounded-2xl p-6 transition-all",
+        "bg-white dark:bg-slate-900 border rounded-2xl p-6 transition-all",
         childFriendly
-          ? "border-amber-200 shadow-lg shadow-amber-100 rounded-3xl"
-          : "border-slate-200 shadow-sm hover:shadow-md",
+          ? "border-amber-200 dark:border-amber-900/60 shadow-lg shadow-amber-100 dark:shadow-none rounded-3xl"
+          : "border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-md",
         className
       )}
       {...props}
