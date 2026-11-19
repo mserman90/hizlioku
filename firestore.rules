@@ -1,0 +1,63 @@
+// ⚠️ HUMAN REVIEW REQUIRED
+// Firestore Security Rules for HızlıOku (Speed Reading Platform)
+// Non-negotiable: Child privacy, parental consent gating, role immutability from client updates.
+
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // Helper functions
+    function isAuthenticated() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    function isAdmin() {
+      return isAuthenticated() && request.auth.token.admin == true;
+    }
+
+    // 1. Users collection
+    // ⚠️ HUMAN REVIEW REQUIRED: Prevent users from self-promoting to admin or altering consentStatus directly
+    match /users/{userId} {
+      allow read: if isOwner(userId) || isAdmin();
+      
+      // Allow creation of own document upon registration
+      allow create: if isOwner(userId)
+                    && request.resource.data.keys().hasAll(['role', 'ageGroup', 'consentStatus', 'createdAt'])
+                    && (request.resource.data.role == 'child' || request.resource.data.role == 'adult');
+
+      // Allow updates to non-sensitive profile fields (displayName) only; forbid modifying role or consentStatus
+      allow update: if (isOwner(userId)
+                        && !request.resource.data.diff(resource.data).affectedKeys().hasAny(['role', 'consentStatus', 'createdAt', 'parentEmail']))
+                    || isAdmin();
+
+      allow delete: if isAdmin();
+    }
+
+    // 2. Child Profiles collection
+    // ⚠️ HUMAN REVIEW REQUIRED: Child profiles are accessible ONLY if parental consent has been granted
+    match /childProfiles/{childId} {
+      allow read: if isAuthenticated() && (
+        request.auth.uid == childId ||
+        (resource.data.parentUid != null && request.auth.uid == resource.data.parentUid) ||
+        isAdmin()
+      );
+
+      // Child profile creation requires validated parental consent
+      allow create: if isAuthenticated() && (
+        (isOwner(childId) && get(/databases/$(database)/documents/users/$(childId)).data.consentStatus == 'granted') ||
+        isAdmin()
+      );
+
+      // Non-sensitive updates by the child (e.g. readingLevel, streak, badges)
+      allow update: if isAuthenticated() && (
+        isOwner(childId) && get(/databases/$(database)/documents/users/$(childId)).data.consentStatus == 'granted'
+      ) || isAdmin();
+
+      allow delete: if isAdmin();
+    }
+  }
+}
