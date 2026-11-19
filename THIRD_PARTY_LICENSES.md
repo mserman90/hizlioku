@@ -8,6 +8,7 @@ This project relies on open-source libraries. Below is the inventory of initial 
 | `react` | ^18.3.1 | MIT | UI component library |
 | `react-dom` | ^18.3.1 | MIT | React DOM renderer |
 | `firebase` | ^10.14.1 | Apache-2.0 | Authentication and Cloud Firestore SDK |
+| `pdfjs-dist` | ^3.11.174 | Apache-2.0 | Client-side PDF parsing and plain text extraction |
 | `lucide-react` | ^0.460.0 | ISC | Accessible UI icons |
 | `clsx` | ^2.1.1 | MIT | Utility for constructing `className` strings conditionally |
 | `tailwind-merge` | ^2.5.4 | MIT | Utility for merging Tailwind CSS classes safely |
