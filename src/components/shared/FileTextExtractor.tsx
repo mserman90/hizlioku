@@ -75,7 +75,11 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
       }
     } catch (err: any) {
       console.error("File extraction error:", err);
-      setError(err.message || "Dosya ayrıştırılırken beklenmedik bir hata oluştu.");
+      let errorText = err.message || "Dosya ayrıştırılırken beklenmedik bir hata oluştu.";
+      if (errorText.includes("Illegal character") || errorText.includes("41")) {
+        errorText = "Bu PDF dosyasında standart dışı bir karakter/sözdizimi (Illegal character: 41) tespit edildi. Kurtarma motoru çalıştırıldı ancak metin okunamadı. Lütfen PDF'inizi tarayıcıdan açıp metni kopyalayarak 'Kendi Metnini Yapıştır' alanına aktarınız.";
+      }
+      setError(errorText);
     } finally {
       setLoading(false);
     }
