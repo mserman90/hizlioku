@@ -47,21 +47,21 @@ export const TargetPacer: React.FC<TargetPacerProps> = ({
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+    <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
       <div className="flex items-center gap-3">
-        <div className="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold">
+        <div className="w-12 h-12 rounded-2xl bg-brand-50 dark:bg-brand-950/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold">
           <Target className="w-6 h-6" />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-slate-900">Hedef Hız ve Alıştırma Asistanı</h3>
-          <p className="text-xs text-slate-500">Mevcut temponuza göre hedefinizi ve seansınızı planlayın</p>
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">Hedef Hız ve Alıştırma Asistanı</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400">Mevcut temponuza göre hedefinizi ve seansınızı planlayın</p>
         </div>
       </div>
 
       <div className="space-y-4">
         <div className="flex items-center justify-between">
-          <span className="text-xs font-bold text-slate-600 uppercase">Hedef Okuma Hızı</span>
-          <span className="text-xl font-black text-brand-600">{target} WPM</span>
+          <span className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase">Hedef Okuma Hızı</span>
+          <span className="text-xl font-black text-brand-600 dark:text-brand-400">{target} WPM</span>
         </div>
 
         <input
@@ -74,7 +74,7 @@ export const TargetPacer: React.FC<TargetPacerProps> = ({
           className="w-full accent-brand-600 cursor-pointer"
         />
 
-        <div className="flex justify-between text-[11px] text-slate-400">
+        <div className="flex justify-between text-[11px] text-slate-400 dark:text-slate-500">
           <span>Temel (200 WPM)</span>
           <span>Akıcı (500 WPM)</span>
           <span>İleri (900 WPM)</span>
@@ -82,16 +82,16 @@ export const TargetPacer: React.FC<TargetPacerProps> = ({
       </div>
 
       {/* Dynamic Recommendation Card */}
-      <div className="p-4 rounded-2xl bg-brand-50/70 border border-brand-100 space-y-2 text-xs sm:text-sm text-brand-950">
-        <div className="flex items-center gap-2 font-bold text-brand-900">
-          <Compass className="w-4 h-4 text-brand-600" />
+      <div className="p-4 rounded-2xl bg-brand-50/70 dark:bg-brand-950/40 border border-brand-100 dark:border-brand-900 space-y-2 text-xs sm:text-sm text-brand-950 dark:text-brand-100">
+        <div className="flex items-center gap-2 font-bold text-brand-900 dark:text-brand-200">
+          <Compass className="w-4 h-4 text-brand-600 dark:text-brand-400" />
           Kişiselleştirilmiş Seans Önerisi:
         </div>
-        <p className="text-slate-600 leading-relaxed">
+        <p className="text-slate-600 dark:text-slate-300 leading-relaxed">
           {target} WPM hedefine ulaşmak için <strong>{rec.duration}</strong> sürecek{" "}
           <strong>{rec.textLength}</strong> uzunluğunda metinlerle pratik yapmanız önerilir.
         </p>
-        <div className="text-xs text-brand-800 font-semibold pt-1">
+        <div className="text-xs text-brand-800 dark:text-brand-300 font-semibold pt-1">
           📌 Odak Alanı: {rec.focus}
         </div>
       </div>

@@ -40,61 +40,61 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
     <div className="space-y-6">
       {/* Metrics Highlights */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
-          <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase mb-1">
-            <TrendingUp className="w-4 h-4 text-brand-600" />
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs">
+          <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-bold uppercase mb-1">
+            <TrendingUp className="w-4 h-4 text-brand-600 dark:text-brand-400" />
             Ortalama Hız
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-slate-900">
-            {avgWpm} <span className="text-xs font-semibold text-slate-500">WPM</span>
+          <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">
+            {avgWpm} <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">WPM</span>
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
-          <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase mb-1">
-            <CheckCircle2 className="w-4 h-4 text-emerald-600" />
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs">
+          <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-bold uppercase mb-1">
+            <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             Ortalama Kavrama
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-slate-900">
+          <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">
             %{avgComprehension}
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
-          <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase mb-1">
-            <Activity className="w-4 h-4 text-indigo-600" />
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs">
+          <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-bold uppercase mb-1">
+            <Activity className="w-4 h-4 text-indigo-600 dark:text-indigo-400" />
             Toplam Oturum
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-slate-900">
+          <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">
             {sessions.length}
           </div>
         </div>
 
-        <div className="bg-white p-5 rounded-3xl border border-slate-200 shadow-xs">
-          <div className="flex items-center gap-2 text-slate-400 text-xs font-bold uppercase mb-1">
+        <div className="bg-white dark:bg-slate-900 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-xs">
+          <div className="flex items-center gap-2 text-slate-400 dark:text-slate-500 text-xs font-bold uppercase mb-1">
             <Award className="w-4 h-4 text-amber-500" />
             Okunan Kelime
           </div>
-          <div className="text-2xl sm:text-3xl font-black text-slate-900">
+          <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">
             {totalWords.toLocaleString("tr-TR")}
           </div>
         </div>
       </div>
 
       {/* WPM Trend Chart */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
+      <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h3 className="text-lg font-bold text-slate-900">Haftalık WPM Gelişimi</h3>
-            <p className="text-xs text-slate-500">Son oturumlardaki okuma hızı trendi</p>
+            <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">Haftalık WPM Gelişimi</h3>
+            <p className="text-xs text-slate-500 dark:text-slate-400">Son oturumlardaki okuma hızı trendi</p>
           </div>
-          <span className="text-xs font-bold px-3 py-1 rounded-full bg-brand-50 text-brand-700">
+          <span className="text-xs font-bold px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300">
             En Yüksek: {Math.max(...sessions.map((s) => s.wpm))} WPM
           </span>
         </div>
 
         {/* Responsive Bar Visualization */}
-        <div className="h-48 flex items-end justify-between gap-2 sm:gap-4 pt-6 border-b border-slate-100">
+        <div className="h-48 flex items-end justify-between gap-2 sm:gap-4 pt-6 border-b border-slate-100 dark:border-slate-800">
           {sessions.map((session) => {
             const heightPercent = Math.max(10, Math.round((session.wpm / maxWpm) * 100));
             return (
@@ -103,7 +103,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
                 className="flex-1 flex flex-col items-center gap-2 h-full justify-end group"
               >
                 {/* Value on hover */}
-                <div className="text-[10px] font-bold text-slate-500 opacity-0 group-hover:opacity-100 transition">
+                <div className="text-[10px] font-bold text-slate-500 dark:text-slate-400 opacity-0 group-hover:opacity-100 transition">
                   {session.wpm}
                 </div>
                 {/* Bar */}
@@ -112,7 +112,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
                   style={{ height: `${heightPercent}%` }}
                 />
                 {/* Label */}
-                <span className="text-xs font-bold text-slate-600 pt-1">
+                <span className="text-xs font-bold text-slate-600 dark:text-slate-400 pt-1">
                   {session.date}
                 </span>
               </div>
@@ -122,9 +122,9 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
       </div>
 
       {/* Comprehension vs Speed Insight */}
-      <div className="bg-white p-6 sm:p-8 rounded-3xl border border-slate-200 shadow-sm">
-        <h3 className="text-lg font-bold text-slate-900 mb-2">Kavrama & Odak Dengesi</h3>
-        <p className="text-xs text-slate-600 mb-4 leading-relaxed">
+      <div className="bg-white dark:bg-slate-900 p-6 sm:p-8 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm">
+        <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100 mb-2">Kavrama & Odak Dengesi</h3>
+        <p className="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
           Hızlı okuma alıştırmalarında kavrama oranının %75 ve üzerinde tutulması pedagojik olarak tavsiye edilir. Kavrama %70 altına indiğinde hızı 25-50 WPM düşürerek göz kaslarınızı adapte edebilirsiniz.
         </p>
 
@@ -132,15 +132,15 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
           {sessions.slice(-4).map((s) => (
             <div
               key={s.id}
-              className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm"
+              className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm"
             >
               <div className="flex items-center gap-2">
-                <span className="font-bold text-slate-800">{s.date} Seansı</span>
-                <span className="text-slate-400">•</span>
-                <span className="text-slate-600 font-semibold">{s.wpm} WPM</span>
+                <span className="font-bold text-slate-800 dark:text-slate-200">{s.date} Seansı</span>
+                <span className="text-slate-400 dark:text-slate-500">•</span>
+                <span className="text-slate-600 dark:text-slate-300 font-semibold">{s.wpm} WPM</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="w-24 sm:w-32 bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div className="w-24 sm:w-32 bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
                   <div
                     className={`h-full ${
                       s.comprehensionScore >= 80
@@ -152,7 +152,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
                     style={{ width: `${s.comprehensionScore}%` }}
                   />
                 </div>
-                <span className="font-bold text-slate-700 w-10 text-right">
+                <span className="font-bold text-slate-700 dark:text-slate-200 w-10 text-right">
                   %{s.comprehensionScore}
                 </span>
               </div>

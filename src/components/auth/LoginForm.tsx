@@ -60,22 +60,22 @@ export const LoginForm: React.FC = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-100">
+    <div className="w-full max-w-md mx-auto bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-100 dark:border-slate-800 transition-colors">
       <div className="text-center mb-6">
-        <div className="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center mx-auto mb-3 shadow-inner">
+        <div className="w-12 h-12 rounded-2xl bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400 flex items-center justify-center mx-auto mb-3 shadow-inner">
           <LogIn className="w-6 h-6" />
         </div>
-        <h1 className="text-2xl font-bold text-slate-900">Hesabınıza Giriş Yapın</h1>
-        <p className="text-slate-500 text-sm mt-1">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">Hesabınıza Giriş Yapın</h1>
+        <p className="text-slate-500 dark:text-slate-400 text-sm mt-1">
           Hızlı okuma çalışmalarınıza kaldığınız yerden devam edin
         </p>
-        <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-semibold">
+        <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-[11px] font-semibold">
           ✓ Çevrimdışı / Demo Modu Aktif (Anında Giriş Yapabilirsiniz)
         </div>
       </div>
 
       {error && (
-        <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
+        <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-sm">
           {error}
         </div>
       )}
@@ -105,11 +105,11 @@ export const LoginForm: React.FC = () => {
       </form>
 
       <div className="my-6 flex items-center gap-3">
-        <div className="h-px bg-slate-200 flex-1"></div>
-        <span className="text-xs uppercase text-slate-400 font-semibold tracking-wider">
+        <div className="h-px bg-slate-200 dark:bg-slate-800 flex-1"></div>
+        <span className="text-xs uppercase text-slate-400 dark:text-slate-500 font-semibold tracking-wider">
           veya
         </span>
-        <div className="h-px bg-slate-200 flex-1"></div>
+        <div className="h-px bg-slate-200 dark:bg-slate-800 flex-1"></div>
       </div>
 
       <Button
@@ -118,7 +118,7 @@ export const LoginForm: React.FC = () => {
         fullWidth
         onClick={handleGoogle}
         disabled={loading}
-        className="flex items-center gap-2"
+        className="flex items-center gap-2 dark:bg-slate-800 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-700"
       >
         <svg className="w-5 h-5" viewBox="0 0 24 24">
           <path
@@ -141,9 +141,9 @@ export const LoginForm: React.FC = () => {
         Google ile Giriş Yap (Yetişkin)
       </Button>
 
-      <div className="mt-6 text-center text-sm text-slate-500">
+      <div className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
         Hesabınız yok mu?{" "}
-        <Link href="/signup" className="font-semibold text-brand-600 hover:underline">
+        <Link href="/signup" className="font-semibold text-brand-600 dark:text-brand-400 hover:underline">
           Kayıt Olun
         </Link>
       </div>

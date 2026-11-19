@@ -78,24 +78,24 @@ export const ComprehensionQuiz: React.FC<ComprehensionQuizProps> = ({
       </div>
 
       {/* Quiz Container */}
-      <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm space-y-6">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm space-y-6">
         <div className="flex items-center gap-2">
-          <HelpCircle className="w-5 h-5 text-brand-600" />
-          <h2 className="text-xl font-bold text-slate-900">Kavrama Değerlendirmesi</h2>
+          <HelpCircle className="w-5 h-5 text-brand-600 dark:text-brand-400" />
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">Kavrama Değerlendirmesi</h2>
         </div>
 
         {isSubmitted && results && (
-          <div className="p-4 rounded-2xl bg-brand-50 border border-brand-200 flex items-center justify-between">
+          <div className="p-4 rounded-2xl bg-brand-50 dark:bg-brand-950/50 border border-brand-200 dark:border-brand-800 flex items-center justify-between">
             <div className="flex items-center gap-3">
-              <Trophy className="w-8 h-8 text-brand-600" />
+              <Trophy className="w-8 h-8 text-brand-600 dark:text-brand-400" />
               <div>
-                <h3 className="font-bold text-slate-900 text-sm">Kavrama Başarısı</h3>
-                <p className="text-xs text-slate-500">
+                <h3 className="font-bold text-slate-900 dark:text-slate-100 text-sm">Kavrama Başarısı</h3>
+                <p className="text-xs text-slate-500 dark:text-slate-400">
                   {results.correct} / {questions.length} Doğru Cevap
                 </p>
               </div>
             </div>
-            <div className="text-2xl sm:text-3xl font-black text-brand-600">
+            <div className="text-2xl sm:text-3xl font-black text-brand-600 dark:text-brand-400">
               %{results.score}
             </div>
           </div>
@@ -107,8 +107,8 @@ export const ComprehensionQuiz: React.FC<ComprehensionQuizProps> = ({
             const chosen = selectedAnswers[q.id];
 
             return (
-              <div key={q.id} className="p-4 rounded-2xl bg-slate-50 border border-slate-200 space-y-3">
-                <div className="font-bold text-slate-800 text-sm">
+              <div key={q.id} className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 space-y-3">
+                <div className="font-bold text-slate-800 dark:text-slate-100 text-sm">
                   {qIndex + 1}. {q.question}
                 </div>
 
@@ -117,17 +117,17 @@ export const ComprehensionQuiz: React.FC<ComprehensionQuizProps> = ({
                     const isSelected = chosen === optIndex;
                     const isCorrect = q.correctIndex === optIndex;
 
-                    let optionStyle = "border-slate-200 bg-white hover:border-slate-300";
+                    let optionStyle = "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600";
                     if (isSubmitted) {
                       if (isCorrect) {
-                        optionStyle = "border-emerald-500 bg-emerald-50 text-emerald-900 font-semibold";
+                        optionStyle = "border-emerald-500 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-900 dark:text-emerald-200 font-semibold";
                       } else if (isSelected && !isCorrect) {
-                        optionStyle = "border-rose-500 bg-rose-50 text-rose-900 line-through";
+                        optionStyle = "border-rose-500 bg-rose-50 dark:bg-rose-950/60 text-rose-900 dark:text-rose-200 line-through";
                       } else {
-                        optionStyle = "border-slate-200 bg-white opacity-60";
+                        optionStyle = "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 opacity-60 text-slate-600 dark:text-slate-400";
                       }
                     } else if (isSelected) {
-                      optionStyle = "border-brand-500 bg-brand-50/60 text-brand-900 font-semibold";
+                      optionStyle = "border-brand-500 bg-brand-50/60 dark:bg-brand-950/50 text-brand-900 dark:text-brand-200 font-semibold";
                     }
 
                     return (

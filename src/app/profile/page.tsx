@@ -36,21 +36,21 @@ export default function ProfilePage() {
   return (
     <RoleGuard requireConsent={false}>
       <div className="max-w-2xl mx-auto px-4 py-8">
-        <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200">
-          <div className="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100">
-            <div className="w-16 h-16 rounded-2xl bg-brand-100 text-brand-700 flex items-center justify-center font-bold text-2xl">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-200 dark:border-slate-800">
+          <div className="flex items-center gap-4 mb-6 pb-6 border-b border-slate-100 dark:border-slate-800">
+            <div className="w-16 h-16 rounded-2xl bg-brand-100 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300 flex items-center justify-center font-bold text-2xl">
               {user?.displayName ? user.displayName[0].toUpperCase() : "U"}
             </div>
             <div>
-              <h1 className="text-2xl font-bold text-slate-900">
+              <h1 className="text-2xl font-bold text-slate-900 dark:text-slate-100">
                 {user?.displayName}
               </h1>
-              <p className="text-sm text-slate-500">{user?.email || "E-posta belirtilmemiş"}</p>
+              <p className="text-sm text-slate-500 dark:text-slate-400">{user?.email || "E-posta belirtilmemiş"}</p>
             </div>
           </div>
 
           {message && (
-            <div className="mb-6 p-3 rounded-xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm">
+            <div className="mb-6 p-3 rounded-xl bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-900 text-emerald-800 dark:text-emerald-300 text-sm">
               {message}
             </div>
           )}
@@ -58,10 +58,10 @@ export default function ProfilePage() {
           <div className="space-y-6">
             {/* Account Details Badges */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <span className="text-xs text-slate-400 font-semibold uppercase">Hesap Türü</span>
-                <div className="mt-1 flex items-center gap-2 font-bold text-slate-800">
-                  <Shield className="w-4 h-4 text-brand-600" />
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                <span className="text-xs text-slate-400 dark:text-slate-500 font-semibold uppercase">Hesap Türü</span>
+                <div className="mt-1 flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
+                  <Shield className="w-4 h-4 text-brand-600 dark:text-brand-400" />
                   <span>
                     {user?.role === "child"
                       ? "Çocuk (6–12 Yaş)"
@@ -72,20 +72,20 @@ export default function ProfilePage() {
                 </div>
               </div>
 
-              <div className="p-4 rounded-2xl bg-slate-50 border border-slate-200">
-                <span className="text-xs text-slate-400 font-semibold uppercase">Veli Onay Durumu</span>
-                <div className="mt-1 flex items-center gap-2 font-bold text-slate-800">
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700">
+                <span className="text-xs text-slate-400 dark:text-slate-500 font-semibold uppercase">Veli Onay Durumu</span>
+                <div className="mt-1 flex items-center gap-2 font-bold text-slate-800 dark:text-slate-200">
                   {user?.consentStatus === "granted" || user?.consentStatus === "not_required" ? (
                     <>
-                      <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                      <span className="text-emerald-700">
+                      <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                      <span className="text-emerald-700 dark:text-emerald-400">
                         {user.consentStatus === "not_required" ? "Gerekli Değil (13+)" : "Onaylandı"}
                       </span>
                     </>
                   ) : (
                     <>
-                      <Clock className="w-4 h-4 text-amber-500" />
-                      <span className="text-amber-700">Onay Bekleniyor</span>
+                      <Clock className="w-4 h-4 text-amber-500 dark:text-amber-400" />
+                      <span className="text-amber-700 dark:text-amber-400">Onay Bekleniyor</span>
                     </>
                   )}
                 </div>
@@ -93,15 +93,15 @@ export default function ProfilePage() {
             </div>
 
             {/* Reading Level Placeholder */}
-            <div className="p-4 rounded-2xl bg-brand-50 border border-brand-100 flex items-center justify-between">
+            <div className="p-4 rounded-2xl bg-brand-50 dark:bg-brand-950/40 border border-brand-100 dark:border-brand-900 flex items-center justify-between">
               <div className="flex items-center gap-3">
-                <Award className="w-6 h-6 text-brand-600" />
+                <Award className="w-6 h-6 text-brand-600 dark:text-brand-400" />
                 <div>
-                  <h3 className="text-sm font-bold text-brand-900">Mevcut Okuma Seviyesi</h3>
-                  <p className="text-xs text-brand-700">Başlangıç Seviyesi (Faz 2 ile aktive edilecektir)</p>
+                  <h3 className="text-sm font-bold text-brand-900 dark:text-brand-200">Mevcut Okuma Seviyesi</h3>
+                  <p className="text-xs text-brand-700 dark:text-brand-300">Başlangıç Seviyesi (Faz 2 ile aktive edilecektir)</p>
                 </div>
               </div>
-              <span className="text-sm font-extrabold text-brand-700 px-3 py-1 bg-white rounded-xl shadow-xs">
+              <span className="text-sm font-extrabold text-brand-700 dark:text-brand-300 px-3 py-1 bg-white dark:bg-slate-800 rounded-xl shadow-xs">
                 Seviye 1
               </span>
             </div>
@@ -120,7 +120,7 @@ export default function ProfilePage() {
               </Button>
             </form>
 
-            <div className="pt-6 border-t border-slate-200">
+            <div className="pt-6 border-t border-slate-200 dark:border-slate-800">
               <Button
                 type="button"
                 variant="danger"

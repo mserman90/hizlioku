@@ -42,18 +42,18 @@ export default function AdultDashboardPage() {
       {/* Modules Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         {/* RSVP Reader Card */}
-        <div className="bg-white rounded-3xl p-6 border-2 border-brand-200 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border-2 border-brand-200 dark:border-brand-800/60 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-brand-50 dark:bg-brand-950/50 text-brand-600 dark:text-brand-400 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
               <Eye className="w-6 h-6" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-brand-600">
+            <span className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">
               Ana Modül
             </span>
-            <h2 className="text-lg font-bold text-slate-900 mt-1 mb-2">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
               RSVP & ORP Okuyucu
             </h2>
-            <p className="text-xs text-slate-600 mb-6 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
               150–1000 WPM ayarı, ORP odak harfi vurgusu ve kavrama değerlendirmesi.
             </p>
           </div>
@@ -66,18 +66,18 @@ export default function AdultDashboardPage() {
         </div>
 
         {/* Schulte Table Card */}
-        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-indigo-50 text-indigo-600 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-indigo-50 dark:bg-indigo-950/50 text-indigo-600 dark:text-indigo-400 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
               <Grid className="w-6 h-6" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600">
+            <span className="text-xs font-bold uppercase tracking-wider text-indigo-600 dark:text-indigo-400">
               Göz Kası Antrenmanı 1
             </span>
-            <h2 className="text-lg font-bold text-slate-900 mt-1 mb-2">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
               Schulte Tablosu (5×5)
             </h2>
-            <p className="text-xs text-slate-600 mb-6 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
               5x5 sayı matrisi ile periferik görme alanınızı genişletin ve algı hızınızı artırın.
             </p>
           </div>
@@ -90,18 +90,18 @@ export default function AdultDashboardPage() {
         </div>
 
         {/* Zigzag Saccade Card */}
-        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-amber-50 text-amber-600 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
               <Compass className="w-6 h-6" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-600">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
               Göz Kası Antrenmanı 2
             </span>
-            <h2 className="text-lg font-bold text-slate-900 mt-1 mb-2">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
               Zigzag & Sakkad Takibi
             </h2>
-            <p className="text-xs text-slate-600 mb-6 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
               Dinamik sıçrama egzersizi ile göz koordinasyonunuzu ve sıçrama hızınızı artırın.
             </p>
           </div>
@@ -114,18 +114,18 @@ export default function AdultDashboardPage() {
         </div>
 
         {/* Analytics Card */}
-        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-emerald-50 text-emerald-600 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-50 dark:bg-emerald-950/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
               <Activity className="w-6 h-6" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-600">
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-600 dark:text-emerald-400">
               Gelişim Takibi
             </span>
-            <h2 className="text-lg font-bold text-slate-900 mt-1 mb-2">
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
               Analitik & Trendler
             </h2>
-            <p className="text-xs text-slate-600 mb-6 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
               Haftalık WPM değişim eğriniz, ortalama kavrama yüzdeniz ve hedef tempo asistanı.
             </p>
           </div>

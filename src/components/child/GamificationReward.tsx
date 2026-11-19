@@ -18,35 +18,35 @@ export const GamificationReward: React.FC<GamificationRewardProps> = ({
   onDone,
 }) => {
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-3xl p-6 sm:p-8 text-center border-2 border-amber-300 shadow-xl animate-in fade-in zoom-in-95 duration-200">
+    <div className="w-full max-w-md mx-auto bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 text-center border-2 border-amber-300 dark:border-amber-700/80 shadow-xl animate-in fade-in zoom-in-95 duration-200">
       <div className="w-20 h-20 rounded-full bg-gradient-to-tr from-amber-400 to-yellow-300 flex items-center justify-center text-amber-950 mx-auto mb-4 shadow-lg shadow-amber-300/50">
         <Trophy className="w-10 h-10 animate-bounce" />
       </div>
 
-      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 text-amber-800 text-xs font-bold mb-2">
+      <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 text-xs font-bold mb-2">
         <Sparkles className="w-4 h-4" /> Harika Bir Başarı!
       </div>
 
-      <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-2">
+      <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-slate-100 mb-2">
         Tebrikler, Seansı Tamamladın! 🎉
       </h2>
 
-      <p className="text-sm text-slate-600 mb-6">
+      <p className="text-sm text-slate-600 dark:text-slate-300 mb-6">
         Gözlerin hızlandı ve odaklanman güçlendi. Bugün harika bir pratik yaptın!
       </p>
 
       {/* Rewards Grid */}
       <div className="grid grid-cols-2 gap-3 mb-6">
-        <div className="p-4 rounded-2xl bg-amber-50 border border-amber-200 text-center">
-          <span className="text-xs text-amber-800 font-semibold">Kazanılan Puan</span>
-          <div className="text-2xl sm:text-3xl font-black text-amber-600 mt-1">
+        <div className="p-4 rounded-2xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900/60 text-center">
+          <span className="text-xs text-amber-800 dark:text-amber-300 font-semibold">Kazanılan Puan</span>
+          <div className="text-2xl sm:text-3xl font-black text-amber-600 dark:text-amber-400 mt-1">
             +{points}
           </div>
         </div>
 
-        <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-center">
-          <span className="text-xs text-emerald-800 font-semibold">Okunan Kelime</span>
-          <div className="text-2xl sm:text-3xl font-black text-emerald-600 mt-1">
+        <div className="p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-900/60 text-center">
+          <span className="text-xs text-emerald-800 dark:text-emerald-300 font-semibold">Okunan Kelime</span>
+          <div className="text-2xl sm:text-3xl font-black text-emerald-600 dark:text-emerald-400 mt-1">
             {completedCount}
           </div>
         </div>

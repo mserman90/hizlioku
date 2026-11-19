@@ -19,9 +19,9 @@ export const DyslexiaToolbar: React.FC<DyslexiaToolbarProps> = ({
   onChange,
 }) => {
   return (
-    <div className="bg-white/90 backdrop-blur rounded-2xl p-4 border border-amber-200/80 shadow-sm flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm">
-      <div className="flex items-center gap-2 font-bold text-slate-800">
-        <Sliders className="w-4 h-4 text-amber-600" />
+    <div className="bg-white/90 dark:bg-slate-900/90 backdrop-blur rounded-2xl p-4 border border-amber-200/80 dark:border-amber-900/60 shadow-sm flex flex-wrap items-center justify-between gap-4 text-xs sm:text-sm">
+      <div className="flex items-center gap-2 font-bold text-slate-800 dark:text-slate-100">
+        <Sliders className="w-4 h-4 text-amber-600 dark:text-amber-400" />
         <span>Okuma Kolaylaştırıcı</span>
       </div>
 
@@ -34,8 +34,8 @@ export const DyslexiaToolbar: React.FC<DyslexiaToolbarProps> = ({
           }
           className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border font-semibold transition ${
             settings.isDyslexicFont
-              ? "bg-amber-100 border-amber-400 text-amber-900"
-              : "bg-slate-50 border-slate-200 text-slate-700 hover:bg-slate-100"
+              ? "bg-amber-100 dark:bg-amber-950/70 border-amber-400 dark:border-amber-600 text-amber-900 dark:text-amber-200"
+              : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 hover:bg-slate-100 dark:hover:bg-slate-700"
           }`}
           title="Harf ayırt ediciliği yüksek disleksi dostu yazı tipi"
         >
@@ -44,8 +44,8 @@ export const DyslexiaToolbar: React.FC<DyslexiaToolbarProps> = ({
         </button>
 
         {/* Letter Spacing Selector */}
-        <div className="flex items-center gap-1 bg-slate-100 p-1 rounded-xl">
-          <span className="text-[11px] font-medium text-slate-500 px-1">Aralık:</span>
+        <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+          <span className="text-[11px] font-medium text-slate-500 dark:text-slate-400 px-1">Aralık:</span>
           {(["normal", "wide", "wider"] as const).map((spacing) => (
             <button
               key={spacing}
@@ -53,8 +53,8 @@ export const DyslexiaToolbar: React.FC<DyslexiaToolbarProps> = ({
               onClick={() => onChange({ ...settings, letterSpacing: spacing })}
               className={`px-2 py-1 rounded-lg text-xs font-semibold transition ${
                 settings.letterSpacing === spacing
-                  ? "bg-white text-slate-900 shadow-xs"
-                  : "text-slate-600 hover:text-slate-900"
+                  ? "bg-white dark:bg-slate-700 text-slate-900 dark:text-slate-100 shadow-xs"
+                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
               }`}
             >
               {spacing === "normal" ? "1x" : spacing === "wide" ? "1.5x" : "2x"}

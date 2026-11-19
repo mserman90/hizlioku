@@ -48,18 +48,18 @@ export default function ChildDashboardPage() {
       {/* Modules Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {/* Flash-Reading Exercise Card */}
-        <div className="bg-white rounded-3xl p-6 border-2 border-amber-300 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border-2 border-amber-300 dark:border-amber-800/80 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
+            <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
               <BookOpen className="w-6 h-6" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-700">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
               Eğlenceli Alıştırma
             </span>
-            <h2 className="text-xl font-bold text-slate-900 mt-1 mb-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
               Flaş Okuma Alıştırmaları
             </h2>
-            <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
               Kelimeler ve heceler ekranda belirir ve kaybolur. Gözlerinle yakala, disleksi modunu dene ve puanları topla!
             </p>
           </div>
@@ -77,18 +77,18 @@ export default function ChildDashboardPage() {
         </div>
 
         {/* Parent / Guardian Progress Preview */}
-        <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col justify-between">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between">
           <div>
-            <div className="w-12 h-12 rounded-2xl bg-emerald-100 text-emerald-700 flex items-center justify-center font-bold mb-4">
+            <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold mb-4">
               <ShieldCheck className="w-6 h-6" />
             </div>
-            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700">
+            <span className="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">
               Ebeveyn Bilgilendirme
             </span>
-            <h2 className="text-xl font-bold text-slate-900 mt-1 mb-2">
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
               Veli Gözetim Alanı
             </h2>
-            <p className="text-sm text-slate-600 mb-6 leading-relaxed">
+            <p className="text-sm text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
               Veliniz tamamladığınız seansları, serinizi ve kazandığınız başarı rozetlerini buradan inceleyebilir.
             </p>
           </div>

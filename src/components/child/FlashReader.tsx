@@ -16,11 +16,11 @@ const SPEED_CONFIG: Record<SpeedMode, { interval: number; label: string; badge: 
 };
 
 const OVERLAY_COLORS = {
-  none: "bg-white",
-  warm: "bg-amber-50/80",
-  blue: "bg-sky-50/80",
-  mint: "bg-emerald-50/80",
-  peach: "bg-rose-50/80",
+  none: "bg-white dark:bg-slate-900",
+  warm: "bg-amber-50/80 dark:bg-amber-950/40",
+  blue: "bg-sky-50/80 dark:bg-sky-950/40",
+  mint: "bg-emerald-50/80 dark:bg-emerald-950/40",
+  peach: "bg-rose-50/80 dark:bg-rose-950/40",
 };
 
 export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToMenu }) => {
@@ -108,15 +108,15 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
   if (!isStarted) {
     return (
       <div className="w-full max-w-2xl mx-auto space-y-6">
-        <div className="bg-white rounded-3xl p-6 sm:p-8 border-2 border-amber-200 shadow-sm">
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border-2 border-amber-200 dark:border-amber-800/80 shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
               <div className="w-10 h-10 rounded-xl bg-amber-400 text-amber-950 flex items-center justify-center font-bold">
                 <Sparkles className="w-5 h-5" />
               </div>
               <div>
-                <h2 className="text-xl font-bold text-slate-900">Flaş Okuma Alıştırması</h2>
-                <p className="text-xs text-slate-500">Gözlerinle kelimeleri yakala ve puan kazan!</p>
+                <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">Flaş Okuma Alıştırması</h2>
+                <p className="text-xs text-slate-500 dark:text-slate-400">Gözlerinle kelimeleri yakala ve puan kazan!</p>
               </div>
             </div>
 
@@ -124,7 +124,7 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
               <button
                 type="button"
                 onClick={onBackToMenu}
-                className="text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1"
+                className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1"
               >
                 <ArrowLeft className="w-4 h-4" /> Geri
               </button>
@@ -133,7 +133,7 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
 
           {/* Exercise type selection */}
           <div className="space-y-4 mb-6">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+            <label className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               1. Alıştırma Türü
             </label>
             <div className="grid grid-cols-3 gap-3">
@@ -148,12 +148,12 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
                   onClick={() => setExerciseType(t.id as any)}
                   className={`p-4 rounded-2xl border-2 text-center transition ${
                     exerciseType === t.id
-                      ? "border-amber-400 bg-amber-50 text-amber-950 font-bold shadow-sm"
-                      : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                      ? "border-amber-400 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-950 dark:text-amber-200 font-bold shadow-sm"
+                      : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
                   }`}
                 >
                   <div className="text-base font-bold">{t.label}</div>
-                  <div className="text-[11px] text-slate-500 mt-0.5">{t.desc}</div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t.desc}</div>
                 </button>
               ))}
             </div>
@@ -161,7 +161,7 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
 
           {/* Speed selection */}
           <div className="space-y-4 mb-8">
-            <label className="text-xs font-bold uppercase tracking-wider text-slate-700">
+            <label className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               2. Flaş Hızı
             </label>
             <div className="grid grid-cols-3 gap-3">
@@ -172,11 +172,11 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
                   onClick={() => setSpeedMode(mode)}
                   className={`p-4 rounded-2xl border-2 text-center transition ${
                     speedMode === mode
-                      ? "border-amber-400 bg-amber-50 text-amber-950 font-bold shadow-sm"
-                      : "border-slate-200 bg-white text-slate-700 hover:border-slate-300"
+                      ? "border-amber-400 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-950 dark:text-amber-200 font-bold shadow-sm"
+                      : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
                   }`}
                 >
-                  <div className="text-xs text-amber-800 font-semibold mb-1">
+                  <div className="text-xs text-amber-800 dark:text-amber-300 font-semibold mb-1">
                     {SPEED_CONFIG[mode].badge}
                   </div>
                   <div className="text-sm font-bold capitalize">
@@ -219,18 +219,18 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
             setIsStarted(false);
             setIsPaused(false);
           }}
-          className="text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1"
+          className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1"
         >
           <RotateCcw className="w-4 h-4" /> Durdur ve Başa Dön
         </button>
 
-        <div className="text-xs font-bold text-amber-800 bg-amber-100 px-3 py-1 rounded-full">
+        <div className="text-xs font-bold text-amber-800 dark:text-amber-200 bg-amber-100 dark:bg-amber-950/60 px-3 py-1 rounded-full">
           {currentIndex + 1} / {items.length}
         </div>
       </div>
 
       {/* Progress Bar */}
-      <div className="w-full bg-slate-200 h-2.5 rounded-full overflow-hidden">
+      <div className="w-full bg-slate-200 dark:bg-slate-700 h-2.5 rounded-full overflow-hidden">
         <div
           className="bg-amber-400 h-full transition-all duration-300"
           style={{ width: `${((currentIndex + 1) / items.length) * 100}%` }}
@@ -239,12 +239,12 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
 
       {/* Flash Presentation Box */}
       <div
-        className={`w-full min-h-[260px] sm:min-h-[340px] rounded-3xl border-4 border-amber-300 shadow-xl flex items-center justify-center p-6 sm:p-12 transition-all ${
+        className={`w-full min-h-[260px] sm:min-h-[340px] rounded-3xl border-4 border-amber-300 dark:border-amber-700/80 shadow-xl flex items-center justify-center p-6 sm:p-12 transition-all ${
           OVERLAY_COLORS[dyslexia.overlayColor]
         } ${dyslexia.isDyslexicFont ? "font-sans tracking-wide" : "font-sans"}`}
       >
         <div
-          className={`text-center font-extrabold text-slate-900 select-none animate-in fade-in zoom-in-95 duration-100 ${
+          className={`text-center font-extrabold text-slate-900 dark:text-slate-100 select-none animate-in fade-in zoom-in-95 duration-100 ${
             exerciseType === "sentences"
               ? "text-2xl sm:text-4xl leading-relaxed"
               : "text-4xl sm:text-6xl md:text-7xl"

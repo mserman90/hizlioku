@@ -91,10 +91,10 @@ export const SignupForm: React.FC<{ initialAgeGroup?: AgeGroup }> = ({
   };
 
   return (
-    <div className="w-full max-w-md mx-auto bg-white rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-100">
+    <div className="w-full max-w-md mx-auto bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 shadow-xl border border-slate-100 dark:border-slate-800 transition-colors">
       <button
         onClick={() => setAgeGroup(null)}
-        className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 mb-4 transition"
+        className="flex items-center gap-1.5 text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 mb-4 transition"
       >
         <ArrowLeft className="w-4 h-4" /> Yaş Grubunu Değiştir
       </button>
@@ -102,27 +102,29 @@ export const SignupForm: React.FC<{ initialAgeGroup?: AgeGroup }> = ({
       <div className="text-center mb-6">
         <div
           className={`w-12 h-12 rounded-2xl flex items-center justify-center mx-auto mb-3 shadow-inner ${
-            isChild ? "bg-amber-100 text-amber-700" : "bg-brand-50 text-brand-600"
+            isChild
+              ? "bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300"
+              : "bg-brand-50 dark:bg-brand-950/60 text-brand-600 dark:text-brand-400"
           }`}
         >
           <UserPlus className="w-6 h-6" />
         </div>
-        <h1 className="text-2xl font-bold text-slate-900">
+        <h1 className="text-2xl font-bold text-slate-900 dark:text-white">
           {isChild ? "Çocuk Hesabı Oluştur" : "Yetişkin Hesabı Oluştur"}
         </h1>
-        <p className="text-slate-500 text-xs sm:text-sm mt-1">
+        <p className="text-slate-500 dark:text-slate-400 text-xs sm:text-sm mt-1">
           {isChild
             ? "6–12 Yaş | Veli izni gerektirir, güvenli ve reklamsızdır"
             : "13+ Yaş | Kişiselleştirilmiş RSVP ve anlama analizleri"}
         </p>
-        <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-semibold">
+        <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 dark:bg-emerald-950/50 border border-emerald-200 dark:border-emerald-800 text-emerald-800 dark:text-emerald-300 text-[11px] font-semibold">
           ✓ Çevrimdışı / Demo Modu Aktif (Anında Deneyebilirsiniz)
         </div>
       </div>
 
       {isChild && (
-        <div className="mb-5 p-3.5 rounded-2xl bg-amber-50/80 border border-amber-200 text-amber-900 text-xs leading-relaxed flex items-start gap-2.5">
-          <ShieldAlert className="w-5 h-5 flex-shrink-0 text-amber-700 mt-0.5" />
+        <div className="mb-5 p-3.5 rounded-2xl bg-amber-50/80 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 text-amber-900 dark:text-amber-200 text-xs leading-relaxed flex items-start gap-2.5">
+          <ShieldAlert className="w-5 h-5 flex-shrink-0 text-amber-700 dark:text-amber-400 mt-0.5" />
           <div>
             <strong>Çocuk Gizliliği İlkesi:</strong> Veli onayı verilene kadar çocuğa ait hiçbir okuma süreci, puan veya metin kaydı saklanmaz.
           </div>
@@ -130,7 +132,7 @@ export const SignupForm: React.FC<{ initialAgeGroup?: AgeGroup }> = ({
       )}
 
       {error && (
-        <div className="mb-4 p-3 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-sm">
+        <div className="mb-4 p-3 rounded-xl bg-rose-50 dark:bg-rose-950/50 border border-rose-200 dark:border-rose-900 text-rose-700 dark:text-rose-300 text-sm">
           {error}
         </div>
       )}
@@ -188,11 +190,11 @@ export const SignupForm: React.FC<{ initialAgeGroup?: AgeGroup }> = ({
       {!isChild && (
         <>
           <div className="my-6 flex items-center gap-3">
-            <div className="h-px bg-slate-200 flex-1"></div>
-            <span className="text-xs uppercase text-slate-400 font-semibold tracking-wider">
+            <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div>
+            <span className="text-xs uppercase text-slate-400 dark:text-slate-500 font-semibold tracking-wider">
               veya
             </span>
-            <div className="h-px bg-slate-200 flex-1"></div>
+            <div className="h-px bg-slate-200 dark:bg-slate-700 flex-1"></div>
           </div>
 
           <Button
@@ -226,9 +228,9 @@ export const SignupForm: React.FC<{ initialAgeGroup?: AgeGroup }> = ({
         </>
       )}
 
-      <div className="mt-6 text-center text-sm text-slate-500">
+      <div className="mt-6 text-center text-sm text-slate-500 dark:text-slate-400">
         Zaten hesabınız var mı?{" "}
-        <Link href="/login" className="font-semibold text-brand-600 hover:underline">
+        <Link href="/login" className="font-semibold text-brand-600 dark:text-brand-400 hover:underline">
           Giriş Yapın
         </Link>
       </div>

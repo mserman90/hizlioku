@@ -69,21 +69,21 @@ export const ZigzagExercise: React.FC = () => {
   return (
     <div className="w-full max-w-2xl mx-auto space-y-6">
       {/* Header Info */}
-      <div className="bg-white rounded-3xl p-6 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
         <div>
-          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 text-indigo-700 text-xs font-bold mb-2">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 text-xs font-bold mb-2">
             <Eye className="w-4 h-4" /> Sakkadik Göz Hareketi Egzersizi
           </div>
-          <h2 className="text-xl font-bold text-slate-900">Zigzag & Periferik İzleme</h2>
-          <p className="text-xs text-slate-500 mt-1">
+          <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100">Zigzag & Periferik İzleme</h2>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
             Gözünüzü hareket eden hedef noktaya odaklayarak sıçrama hızınızı ve kontrolünüzü artırın.
           </p>
         </div>
 
         <div className="flex items-center gap-2">
-          <div className="text-center px-3 py-1.5 bg-slate-100 rounded-xl">
+          <div className="text-center px-3 py-1.5 bg-slate-100 dark:bg-slate-800 rounded-xl">
             <span className="text-[10px] text-slate-400 font-bold uppercase">Döngü</span>
-            <div className="text-lg font-black text-slate-800">{completedCycles}</div>
+            <div className="text-lg font-black text-slate-800 dark:text-slate-100">{completedCycles}</div>
           </div>
         </div>
       </div>
@@ -137,10 +137,10 @@ export const ZigzagExercise: React.FC = () => {
       </div>
 
       {/* Speed & Playback Controls */}
-      <div className="bg-white p-6 rounded-3xl border border-slate-200 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div className="bg-white dark:bg-slate-900 p-6 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-center justify-between gap-4">
         {/* Speed Selector */}
         <div className="flex items-center gap-2">
-          <span className="text-xs font-bold text-slate-500 uppercase">Hız:</span>
+          <span className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase">Hız:</span>
           {(["slow", "medium", "fast"] as PatternSpeed[]).map((s) => (
             <button
               key={s}
@@ -149,7 +149,7 @@ export const ZigzagExercise: React.FC = () => {
               className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
                 speed === s
                   ? "bg-brand-600 text-white shadow-xs"
-                  : "bg-slate-100 text-slate-600 hover:bg-slate-200"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700"
               }`}
             >
               {s === "slow" ? "Yavaş (800ms)" : s === "medium" ? "Orta (500ms)" : "Hızlı (300ms)"}

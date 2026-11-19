@@ -37,14 +37,14 @@ export const UsageReportExport: React.FC = () => {
   };
 
   return (
-    <div className="bg-white rounded-3xl p-6 sm:p-8 border border-slate-200 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+    <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
       <div className="flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-700 flex items-center justify-center font-bold">
+        <div className="w-10 h-10 rounded-xl bg-emerald-50 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center font-bold">
           <FileSpreadsheet className="w-5 h-5" />
         </div>
         <div>
-          <h3 className="text-lg font-bold text-slate-900">Kullanım Raporu İhracı</h3>
-          <p className="text-xs text-slate-500">
+          <h3 className="text-lg font-bold text-slate-900 dark:text-slate-100">Kullanım Raporu İhracı</h3>
+          <p className="text-xs text-slate-500 dark:text-slate-400">
             Anonimleştirilmiş toplam oturum, kullanıcı ve ortalama WPM verilerini CSV olarak indirin
           </p>
         </div>

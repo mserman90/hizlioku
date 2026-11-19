@@ -51,7 +51,7 @@ export default function RsvpPage() {
           <div className="flex items-center gap-2 mb-2">
             <Link
               href="/dashboard/adult"
-              className="text-xs font-semibold text-slate-500 hover:text-slate-800 flex items-center gap-1"
+              className="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-800 dark:hover:text-slate-200 flex items-center gap-1"
             >
               <ArrowLeft className="w-4 h-4" /> Yetişkin Paneline Dön
             </Link>
@@ -84,21 +84,21 @@ export default function RsvpPage() {
       )}
 
       {step === "summary" && (
-        <div className="w-full max-w-xl mx-auto bg-white rounded-3xl p-8 border border-slate-200 shadow-sm text-center space-y-6">
-          <div className="w-16 h-16 rounded-full bg-emerald-100 text-emerald-700 flex items-center justify-center mx-auto text-2xl font-black">
+        <div className="w-full max-w-xl mx-auto bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm text-center space-y-6">
+          <div className="w-16 h-16 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-700 dark:text-emerald-300 flex items-center justify-center mx-auto text-2xl font-black">
             ✓
           </div>
-          <h2 className="text-2xl font-bold text-slate-900">Oturum Tamamlandı!</h2>
+          <h2 className="text-2xl font-bold text-slate-900 dark:text-slate-100">Oturum Tamamlandı!</h2>
           <div className="grid grid-cols-2 gap-4 max-w-xs mx-auto">
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/80 rounded-2xl border border-slate-200 dark:border-slate-700">
               <span className="text-xs text-slate-400 font-bold uppercase">Hız</span>
-              <div className="text-2xl font-black text-brand-600 mt-1">
+              <div className="text-2xl font-black text-brand-600 dark:text-brand-400 mt-1">
                 {sessionMetrics.wpm} WPM
               </div>
             </div>
-            <div className="p-4 bg-slate-50 rounded-2xl border border-slate-200">
+            <div className="p-4 bg-slate-50 dark:bg-slate-800/80 rounded-2xl border border-slate-200 dark:border-slate-700">
               <span className="text-xs text-slate-400 font-bold uppercase">Okunan Kelime</span>
-              <div className="text-2xl font-black text-slate-900 mt-1">
+              <div className="text-2xl font-black text-slate-900 dark:text-slate-100 mt-1">
                 {sessionMetrics.wordCount}
               </div>
             </div>
@@ -106,13 +106,13 @@ export default function RsvpPage() {
           <div className="flex flex-col sm:flex-row gap-3 pt-2">
             <button
               onClick={() => setStep("select_text")}
-              className="flex-1 py-3 px-4 rounded-xl border border-slate-200 text-slate-700 font-bold text-sm hover:bg-slate-50"
+              className="flex-1 py-3 px-4 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-200 font-bold text-sm hover:bg-slate-50 dark:hover:bg-slate-800 transition"
             >
               Yeni Metin Seç
             </button>
             <Link
               href="/dashboard/adult"
-              className="flex-1 py-3 px-4 rounded-xl bg-brand-600 text-white font-bold text-sm text-center hover:bg-brand-700 shadow-sm"
+              className="flex-1 py-3 px-4 rounded-xl bg-brand-600 text-white font-bold text-sm text-center hover:bg-brand-700 shadow-sm transition"
             >
               Panele Dön
             </Link>
