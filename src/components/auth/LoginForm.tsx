@@ -69,6 +69,9 @@ export const LoginForm: React.FC = () => {
         <p className="text-slate-500 text-sm mt-1">
           Hızlı okuma çalışmalarınıza kaldığınız yerden devam edin
         </p>
+        <div className="mt-3 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-semibold">
+          ✓ Çevrimdışı / Demo Modu Aktif (Anında Giriş Yapabilirsiniz)
+        </div>
       </div>
 
       {error && (
