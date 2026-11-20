@@ -10,10 +10,13 @@ import {
   RotateCcw,
   SkipBack,
   SkipForward,
-  Sliders,
   Maximize2,
   Minimize2,
+  Sliders,
+  Sparkles,
+  Eye,
   CheckCircle,
+  X,
 } from "lucide-react";
 
 interface RsvpReaderProps {
@@ -44,17 +47,31 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
   const [isPlaying, setIsPlaying] = useState(false);
   const [isFullscreen, setIsFullscreen] = useState(false);
 
+  // Advanced Reading Settings
+  const [enableSmartPacing, setEnableSmartPacing] = useState(true);
+  const [chunkSize, setChunkSize] = useState<1 | 2 | 3>(1);
+  const [showSettings, setShowSettings] = useState(false);
+
+  // 20-20-20 Eye Rest Break state
+  const [isEyeRestOpen, setIsEyeRestOpen] = useState(false);
+  const [restCountdown, setRestCountdown] = useState(20);
+  const restTimerRef = useRef<NodeJS.Timeout | null>(null);
+
   // Time tracking
   const startTimeRef = useRef<number | null>(null);
   const totalElapsedMsRef = useRef<number>(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
-  const currentWord = words[currentIndex] || "";
+  // Dynamic chunk word
+  const currentWord = React.useMemo(() => {
+    return words.slice(currentIndex, currentIndex + chunkSize).join(" ") || "";
+  }, [words, currentIndex, chunkSize]);
 
   // Advance word function
   const stepForward = useCallback(() => {
     setCurrentIndex((prev) => {
-      if (prev + 1 >= words.length) {
+      const next = prev + chunkSize;
+      if (next >= words.length) {
         setIsPlaying(false);
         const durationSec = Math.max(1, Math.round(totalElapsedMsRef.current / 1000));
         onFinishReading({
@@ -64,29 +81,59 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
         });
         return prev;
       }
-      return prev + 1;
+      return next;
     });
-  }, [words.length, wpm, onFinishReading]);
+  }, [words.length, wpm, chunkSize, onFinishReading]);
 
-  // Main RSVP interval loop
+  // Main RSVP dynamic interval loop (adaptive setTimeout)
   useEffect(() => {
     if (!isPlaying) {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) clearTimeout(timerRef.current);
       return;
     }
 
-    const intervalMs = calculateRsvpIntervalMs(wpm);
-    const tickStart = Date.now();
+    const chunkWords = words.slice(currentIndex, currentIndex + chunkSize);
+    const triggerWord = chunkWords[chunkWords.length - 1] || "";
+    const intervalMs = calculateRsvpIntervalMs(wpm, triggerWord, enableSmartPacing);
 
-    timerRef.current = setInterval(() => {
+    timerRef.current = setTimeout(() => {
       totalElapsedMsRef.current += intervalMs;
-      stepForward();
+      // Auto-trigger 20-20-20 rule if continuous reading exceeds 20 minutes (1200000 ms)
+      if (totalElapsedMsRef.current >= 1200000 && !isEyeRestOpen) {
+        setIsPlaying(false);
+        setIsEyeRestOpen(true);
+      } else {
+        stepForward();
+      }
     }, intervalMs);
 
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [isPlaying, wpm, stepForward]);
+  }, [isPlaying, currentIndex, wpm, chunkSize, enableSmartPacing, stepForward, words, isEyeRestOpen]);
+
+  // 20-20-20 Timer Countdown Loop
+  useEffect(() => {
+    if (!isEyeRestOpen) {
+      if (restTimerRef.current) clearInterval(restTimerRef.current);
+      setRestCountdown(20);
+      return;
+    }
+
+    restTimerRef.current = setInterval(() => {
+      setRestCountdown((prev) => {
+        if (prev <= 1) {
+          if (restTimerRef.current) clearInterval(restTimerRef.current);
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+
+    return () => {
+      if (restTimerRef.current) clearInterval(restTimerRef.current);
+    };
+  }, [isEyeRestOpen]);
 
   // Keyboard navigation shortcuts
   useEffect(() => {
@@ -96,23 +143,23 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
         setIsPlaying((prev) => !prev);
       } else if (e.code === "ArrowLeft") {
         e.preventDefault();
-        setCurrentIndex((prev) => Math.max(0, prev - 5));
+        setCurrentIndex((prev) => Math.max(0, prev - 5 * chunkSize));
       } else if (e.code === "ArrowRight") {
         e.preventDefault();
-        setCurrentIndex((prev) => Math.min(words.length - 1, prev + 5));
+        setCurrentIndex((prev) => Math.min(words.length - 1, prev + 5 * chunkSize));
       }
     };
 
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [words.length]);
+  }, [words.length, chunkSize]);
 
   const handleRewind5 = () => {
-    setCurrentIndex((prev) => Math.max(0, prev - 5));
+    setCurrentIndex((prev) => Math.max(0, prev - 5 * chunkSize));
   };
 
   const handleSkip5 = () => {
-    setCurrentIndex((prev) => Math.min(words.length - 1, prev + 5));
+    setCurrentIndex((prev) => Math.min(words.length - 1, prev + 5 * chunkSize));
   };
 
   const handleReset = () => {
@@ -249,6 +296,98 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
           </div>
         </div>
       </div>
+
+      {/* Advanced Reading Science Controls (Smart Pacing, Chunking, Eye Rest) */}
+      <div className="bg-white/80 dark:bg-slate-900/80 backdrop-blur rounded-2xl p-4 border border-slate-200 dark:border-slate-800 shadow-xs flex flex-wrap items-center justify-between gap-3 text-xs">
+        <div className="flex flex-wrap items-center gap-3">
+          {/* Smart Cognitive Pacing Toggle */}
+          <button
+            type="button"
+            onClick={() => setEnableSmartPacing((prev) => !prev)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border font-semibold transition ${
+              enableSmartPacing
+                ? "bg-brand-50 dark:bg-brand-950/60 border-brand-300 dark:border-brand-800 text-brand-700 dark:text-brand-300 shadow-xs"
+                : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+            }`}
+            title="Noktalama işaretleri (. , ? !) ve uzun kelimelerde beyne kavrama payı bırakan akıllı duraklama"
+          >
+            <Sparkles className="w-3.5 h-3.5" />
+            <span>Dinamik Noktalama: {enableSmartPacing ? "Açık (Akıllı)" : "Kapalı"}</span>
+          </button>
+
+          {/* Chunk Size Selector */}
+          <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+            <span className="text-[11px] font-semibold text-slate-500 dark:text-slate-400 px-1">Öbek:</span>
+            {([1, 2, 3] as const).map((size) => (
+              <button
+                key={size}
+                type="button"
+                onClick={() => setChunkSize(size)}
+                className={`px-2 py-0.5 rounded-lg text-xs font-bold transition ${
+                  chunkSize === size
+                    ? "bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-300 shadow-xs"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
+                }`}
+                title={`${size} kelimelik fiksasyon öbeği`}
+              >
+                {size}x
+              </button>
+            ))}
+          </div>
+        </div>
+
+        {/* 20-20-20 Eye Rest Trigger */}
+        <button
+          type="button"
+          onClick={() => {
+            setIsPlaying(false);
+            setIsEyeRestOpen(true);
+          }}
+          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-900 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition"
+          title="20-20-20 kuralı ile göz kaslarınızı dinlendirin"
+        >
+          <Eye className="w-3.5 h-3.5" />
+          <span>Göz Dinlendir (20-20-20)</span>
+        </button>
+      </div>
+
+      {/* 20-20-20 Eye Rest Modal */}
+      {isEyeRestOpen && (
+        <div className="fixed inset-0 z-50 bg-slate-950/75 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 text-center border-2 border-indigo-400 dark:border-indigo-600 shadow-2xl animate-in fade-in zoom-in-95 duration-200">
+            <div className="w-16 h-16 rounded-full bg-indigo-100 dark:bg-indigo-950/80 text-indigo-600 dark:text-indigo-400 flex items-center justify-center mx-auto mb-4">
+              <Eye className="w-8 h-8 animate-pulse" />
+            </div>
+
+            <h3 className="text-xl font-bold text-slate-900 dark:text-slate-100 mb-2">
+              20-20-20 Göz Dinlendirme Molası
+            </h3>
+
+            <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+              Yoğun odaklanma göz kırpma refleksini azaltır. Lütfen ekrandan uzaklaşın ve <strong>en az 6 metre (20 feet)</strong> uzaktaki bir nesneye bakın.
+            </p>
+
+            <div className="my-6">
+              <div className="text-4xl sm:text-5xl font-black text-indigo-600 dark:text-indigo-400">
+                {restCountdown}s
+              </div>
+              <span className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider">
+                Kalan Dinlenme Süresi
+              </span>
+            </div>
+
+            <Button
+              type="button"
+              variant="primary"
+              fullWidth
+              onClick={() => setIsEyeRestOpen(false)}
+              className="flex items-center justify-center gap-2"
+            >
+              <span>{restCountdown === 0 ? "Okumaya Geri Dön" : "Molayı Tamamla"}</span>
+            </Button>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

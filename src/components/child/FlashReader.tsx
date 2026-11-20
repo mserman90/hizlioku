@@ -2,10 +2,11 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { CHILD_EXERCISE_DATA, WordExerciseItem } from "@/data/childWordLists";
+import { syllabifyWord, SYLLABLE_COLORS } from "@/lib/turkishSyllabifier";
 import { DyslexiaToolbar, DyslexiaSettings } from "./DyslexiaToolbar";
 import { GamificationReward } from "./GamificationReward";
 import { Button } from "@/components/ui/Button";
-import { Play, Pause, RotateCcw, Sparkles, Volume2, VolumeX, ArrowLeft } from "lucide-react";
+import { Play, Pause, RotateCcw, Sparkles, Volume2, VolumeX, ArrowLeft, Layers } from "lucide-react";
 
 type SpeedMode = "slow" | "medium" | "fast";
 
@@ -31,6 +32,10 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
   const [isPaused, setIsPaused] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
+  // New Educational enhancements
+  const [enableSyllables, setEnableSyllables] = useState(true);
+  const [enableAudio, setEnableAudio] = useState(false);
+
   // Active session state
   const [items, setItems] = useState<WordExerciseItem[]>([]);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -45,6 +50,20 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Web Speech API Voice Synthesizer
+  const speakText = useCallback((textToSpeak: string) => {
+    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
+    try {
+      window.speechSynthesis.cancel();
+      const utterance = new SpeechSynthesisUtterance(textToSpeak);
+      utterance.lang = "tr-TR";
+      utterance.rate = speedMode === "fast" ? 1.2 : speedMode === "medium" ? 1.0 : 0.85;
+      window.speechSynthesis.speak(utterance);
+    } catch {
+      // Ignore speech synthesis failures in unsupported environments
+    }
+  }, [speedMode]);
+
   // Initialize randomized batch of 12 items
   const startSession = () => {
     const pool = [...CHILD_EXERCISE_DATA[exerciseType]];
@@ -55,21 +74,35 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
     setIsPaused(false);
     setIsFinished(false);
     setPoints(0);
+    if (enableAudio && shuffled[0]?.text) {
+      speakText(shuffled[0].text);
+    }
   };
 
   const currentItem = items[currentIndex];
 
+  // Syllables calculation
+  const currentSyllables = React.useMemo(() => {
+    if (!currentItem?.text) return [];
+    if (exerciseType === "sentences" || !enableSyllables) return [currentItem.text];
+    return syllabifyWord(currentItem.text);
+  }, [currentItem, exerciseType, enableSyllables]);
+
   const advanceNext = useCallback(() => {
     setCurrentIndex((prev) => {
-      if (prev + 1 >= items.length) {
+      const nextIndex = prev + 1;
+      if (nextIndex >= items.length) {
         setIsFinished(true);
         setIsStarted(false);
         setPoints(items.length * (speedMode === "fast" ? 15 : speedMode === "medium" ? 10 : 5));
         return prev;
       }
-      return prev + 1;
+      if (enableAudio && items[nextIndex]?.text) {
+        speakText(items[nextIndex].text);
+      }
+      return nextIndex;
     });
-  }, [items.length, speedMode]);
+  }, [items, speedMode, enableAudio, speakText]);
 
   // Flash presentation timer loop
   useEffect(() => {
@@ -187,6 +220,60 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
             </div>
           </div>
 
+          {/* Educational Tools Toolbar (Syllables & Speech) */}
+          <div className="space-y-4 mb-6">
+            <label className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              3. Eğitici Destekler
+            </label>
+            <div className="grid grid-cols-2 gap-3">
+              <button
+                type="button"
+                onClick={() => setEnableSyllables((prev) => !prev)}
+                className={`p-3.5 rounded-2xl border-2 text-left transition flex items-center justify-between ${
+                  enableSyllables
+                    ? "border-amber-400 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-950 dark:text-amber-200 font-bold"
+                    : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                }`}
+              >
+                <div>
+                  <div className="text-sm font-bold flex items-center gap-1.5">
+                    <Layers className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+                    <span>Renkli Heceler</span>
+                  </div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                    Türkçe heceleme kuralları
+                  </div>
+                </div>
+                <span className="text-xs font-black">
+                  {enableSyllables ? "Açık" : "Kapalı"}
+                </span>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => setEnableAudio((prev) => !prev)}
+                className={`p-3.5 rounded-2xl border-2 text-left transition flex items-center justify-between ${
+                  enableAudio
+                    ? "border-emerald-400 dark:border-emerald-500 bg-emerald-50 dark:bg-emerald-950/60 text-emerald-950 dark:text-emerald-200 font-bold"
+                    : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300"
+                }`}
+              >
+                <div>
+                  <div className="text-sm font-bold flex items-center gap-1.5">
+                    <Volume2 className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                    <span>Sesli Telaffuz</span>
+                  </div>
+                  <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">
+                    Kelimeleri sesli oku
+                  </div>
+                </div>
+                <span className="text-xs font-black">
+                  {enableAudio ? "Açık" : "Kapalı"}
+                </span>
+              </button>
+            </div>
+          </div>
+
           {/* Dyslexia Toolbar */}
           <div className="mb-8">
             <DyslexiaToolbar settings={dyslexia} onChange={setDyslexia} />
@@ -224,8 +311,20 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
           <RotateCcw className="w-4 h-4" /> Durdur ve Başa Dön
         </button>
 
-        <div className="text-xs font-bold text-amber-800 dark:text-amber-200 bg-amber-100 dark:bg-amber-950/60 px-3 py-1 rounded-full">
-          {currentIndex + 1} / {items.length}
+        <div className="flex items-center gap-2">
+          {enableAudio && (
+            <button
+              type="button"
+              onClick={() => speakText(currentItem?.text || "")}
+              className="p-1.5 text-emerald-600 dark:text-emerald-400 hover:bg-emerald-50 dark:hover:bg-emerald-950/60 rounded-xl transition"
+              title="Kelimeyi sesli tekrar dinle"
+            >
+              <Volume2 className="w-4 h-4" />
+            </button>
+          )}
+          <div className="text-xs font-bold text-amber-800 dark:text-amber-200 bg-amber-100 dark:bg-amber-950/60 px-3 py-1 rounded-full">
+            {currentIndex + 1} / {items.length}
+          </div>
         </div>
       </div>
 
@@ -239,15 +338,15 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
 
       {/* Flash Presentation Box */}
       <div
-        className={`w-full min-h-[260px] sm:min-h-[340px] rounded-3xl border-4 border-amber-300 dark:border-amber-700/80 shadow-xl flex items-center justify-center p-6 sm:p-12 transition-all ${
+        className={`w-full min-h-[260px] sm:min-h-[340px] rounded-3xl border-4 border-amber-300 dark:border-amber-700/80 shadow-xl flex items-center justify-center p-6 sm:p-12 transition-all relative ${
           OVERLAY_COLORS[dyslexia.overlayColor]
         } ${dyslexia.isDyslexicFont ? "font-sans tracking-wide" : "font-sans"}`}
       >
         <div
-          className={`text-center font-extrabold text-slate-900 dark:text-slate-100 select-none animate-in fade-in zoom-in-95 duration-100 ${
+          className={`text-center font-extrabold select-none animate-in fade-in zoom-in-95 duration-100 ${
             exerciseType === "sentences"
-              ? "text-2xl sm:text-4xl leading-relaxed"
-              : "text-4xl sm:text-6xl md:text-7xl"
+              ? "text-2xl sm:text-4xl leading-relaxed text-slate-900 dark:text-slate-100"
+              : "text-4xl sm:text-6xl md:text-7xl flex flex-wrap items-center justify-center gap-1"
           }`}
           style={{
             letterSpacing:
@@ -258,8 +357,29 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
                 : "normal",
           }}
         >
-          {currentItem?.text || "..."}
+          {exerciseType === "sentences" || !enableSyllables ? (
+            <span className="text-slate-900 dark:text-slate-100">{currentItem?.text || "..."}</span>
+          ) : (
+            currentSyllables.map((syl, sIdx) => {
+              const colorClass = SYLLABLE_COLORS[sIdx % SYLLABLE_COLORS.length];
+              return (
+                <span key={sIdx} className={`${colorClass} transition-colors`}>
+                  {syl}
+                </span>
+              );
+            })
+          )}
         </div>
+
+        {/* Audio speaker quick-touch badge */}
+        <button
+          type="button"
+          onClick={() => speakText(currentItem?.text || "")}
+          className="absolute top-4 right-4 p-2.5 rounded-2xl bg-white/70 dark:bg-slate-800/70 hover:bg-white dark:hover:bg-slate-800 text-slate-600 dark:text-slate-300 shadow-xs transition"
+          title="Kelimeyi sesli dinle"
+        >
+          <Volume2 className="w-5 h-5 text-emerald-600 dark:text-emerald-400" />
+        </button>
       </div>
 
       {/* Action Bar */}

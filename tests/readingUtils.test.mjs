@@ -14,6 +14,33 @@ assert.strictEqual(calculateRsvpIntervalMs(600), 100, "600 WPM should equal 100m
 assert.strictEqual(calculateRsvpIntervalMs(150), 400, "150 WPM should equal 400ms interval");
 assert.throws(() => calculateRsvpIntervalMs(0), /greater than zero/, "0 WPM should throw an error");
 
+// 1.1 Dynamic Punctuation & Cognitive Pacing Tests
+assert.strictEqual(
+  calculateRsvpIntervalMs(300, "kitap.", true),
+  400,
+  "Sentence terminator (.) should double interval (2.0x = 400ms)"
+);
+assert.strictEqual(
+  calculateRsvpIntervalMs(300, "koştu!", true),
+  400,
+  "Exclamation (!) should double interval (2.0x = 400ms)"
+);
+assert.strictEqual(
+  calculateRsvpIntervalMs(300, "ancak,", true),
+  300,
+  "Comma (,) should multiply interval by 1.5x (300ms)"
+);
+assert.strictEqual(
+  calculateRsvpIntervalMs(300, "kütüphaneler", true),
+  250,
+  "12-char long word should multiply interval by 1.25x (250ms)"
+);
+assert.strictEqual(
+  calculateRsvpIntervalMs(300, "kitap.", false),
+  200,
+  "Smart pacing disabled should yield baseline (200ms)"
+);
+
 // 2. WPM Calculation Tests
 assert.strictEqual(calculateWpm(100, 30000), 200, "100 words in 30 seconds should be 200 WPM");
 assert.strictEqual(calculateWpm(500, 60000), 500, "500 words in 1 minute should be 500 WPM");

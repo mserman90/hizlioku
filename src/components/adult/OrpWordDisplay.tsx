@@ -20,7 +20,8 @@ export const OrpWordDisplay: React.FC<OrpWordDisplayProps> = ({
     );
   }
 
-  const orpIndex = getOrpIndex(word);
+  const firstWord = word.split(" ")[0] || word;
+  const orpIndex = getOrpIndex(firstWord);
   const prefix = word.slice(0, orpIndex);
   const orpChar = word.charAt(orpIndex);
   const suffix = word.slice(orpIndex + 1);

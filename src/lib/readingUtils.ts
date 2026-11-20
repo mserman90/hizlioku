@@ -4,12 +4,45 @@
  */
 
 /**
- * Calculates RSVP frame duration (ms per word) from target WPM.
- * Example: 300 WPM = 60000 / 300 = 200 ms per word.
+ * Calculates RSVP frame duration (ms per word) from target WPM,
+ * optionally applying dynamic cognitive pacing based on punctuation and word length.
+ * 
+ * Cognitive Wrap-up multipliers (Rayner et al., 2016):
+ * - Sentence terminators (. ! ? …): 2.0x pause
+ * - Clause delimiters (, ; : — – -): 1.5x pause
+ * - Long words (11+ characters): 1.25x pause
+ * 
+ * Example: 300 WPM = 200 ms baseline; with sentence terminator = 400 ms.
  */
-export function calculateRsvpIntervalMs(wpm: number): number {
+export function calculateRsvpIntervalMs(
+  wpm: number,
+  word?: string,
+  enableSmartPacing: boolean = false
+): number {
   if (wpm <= 0) throw new Error("WPM must be greater than zero");
-  return Math.round(60000 / wpm);
+  const baseMs = 60000 / wpm;
+
+  if (!enableSmartPacing || !word) {
+    return Math.round(baseMs);
+  }
+
+  const cleanWord = word.trim();
+  let multiplier = 1.0;
+
+  // Sentence ending punctuation
+  if (/[.!?…]$/.test(cleanWord)) {
+    multiplier = 2.0;
+  }
+  // Clause / mid-sentence pause punctuation
+  else if (/[,;:—–-]$/.test(cleanWord)) {
+    multiplier = 1.5;
+  }
+  // Morphologically long word (Turkish compound words and agglutinative suffixes)
+  else if (cleanWord.length >= 11) {
+    multiplier = 1.25;
+  }
+
+  return Math.round(baseMs * multiplier);
 }
 
 /**
