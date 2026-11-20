@@ -6,6 +6,7 @@ import { FileTextExtractor } from "@/components/shared/FileTextExtractor";
 import { RsvpReader } from "@/components/adult/RsvpReader";
 import { ComprehensionQuiz } from "@/components/adult/ComprehensionQuiz";
 import { ComprehensionQuestion } from "@/data/publicTexts";
+import { generateComprehensionQuestions } from "@/lib/questionGenerator";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -27,7 +28,13 @@ export default function RsvpPage() {
   const handleSelectText = (text: string, title: string, qs?: ComprehensionQuestion[]) => {
     setSelectedText(text);
     setTextTitle(title);
-    setQuestions(qs || []);
+    if (qs && qs.length > 0) {
+      setQuestions(qs);
+    } else {
+      // Automatically generate 3 comprehension questions for custom or PDF texts
+      const generated = generateComprehensionQuestions(text, 3);
+      setQuestions(generated);
+    }
     setStep("reading");
   };
 

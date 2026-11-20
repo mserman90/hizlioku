@@ -5,11 +5,18 @@ import { ThemeProvider } from "@/context/ThemeContext";
 import { Navbar } from "@/components/layout/Navbar";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { SkipToContent } from "@/components/ui/SkipToContent";
+import { PwaRegister } from "@/components/ui/PwaRegister";
 
 export const metadata: Metadata = {
   title: "HızlıOku — Bilimsel ve Yaşa Uygun Hızlı Okuma Platformu",
   description:
     "Çocuklar (6–12) için oyunlaştırılmış fonetik flaş okuma, yetişkinler (13+) için RSVP ve ORP destekli kanıta dayalı hızlı okuma eğitimi.",
+  manifest: "./manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "black-translucent",
+    title: "HızlıOku",
+  },
 };
 
 export const viewport: Viewport = {
@@ -34,6 +41,7 @@ export default function RootLayout({
               {children}
             </main>
             <BottomNav />
+            <PwaRegister />
           </AuthProvider>
         </ThemeProvider>
       </body>
