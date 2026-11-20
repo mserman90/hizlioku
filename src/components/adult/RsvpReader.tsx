@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { OrpWordDisplay } from "./OrpWordDisplay";
+import { BionicReaderModal } from "./BionicReaderModal";
 import { calculateRsvpIntervalMs } from "@/lib/readingUtils";
 import { Button } from "@/components/ui/Button";
 import {
@@ -17,6 +18,7 @@ import {
   Eye,
   CheckCircle,
   X,
+  BookOpen,
 } from "lucide-react";
 
 interface RsvpReaderProps {
@@ -56,6 +58,9 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
   const [isEyeRestOpen, setIsEyeRestOpen] = useState(false);
   const [restCountdown, setRestCountdown] = useState(20);
   const restTimerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Bionic Reading Modal state
+  const [isBionicModalOpen, setIsBionicModalOpen] = useState(false);
 
   // Time tracking
   const startTimeRef = useRef<number | null>(null);
@@ -337,19 +342,42 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
         </div>
 
         {/* 20-20-20 Eye Rest Trigger */}
-        <button
-          type="button"
-          onClick={() => {
-            setIsPlaying(false);
-            setIsEyeRestOpen(true);
-          }}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-900 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition"
-          title="20-20-20 kuralı ile göz kaslarınızı dinlendirin"
-        >
-          <Eye className="w-3.5 h-3.5" />
-          <span>Göz Dinlendir (20-20-20)</span>
-        </button>
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={() => {
+              setIsPlaying(false);
+              setIsBionicModalOpen(true);
+            }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-purple-200 dark:border-purple-900 bg-purple-50 dark:bg-purple-950/50 text-purple-700 dark:text-purple-300 font-semibold hover:bg-purple-100 dark:hover:bg-purple-900/60 transition"
+            title="Metni Bionic Reading (Biyonik Odaklanma) modunda görüntüle"
+          >
+            <BookOpen className="w-3.5 h-3.5" />
+            <span>Biyonik Metin</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={() => {
+              setIsPlaying(false);
+              setIsEyeRestOpen(true);
+            }}
+            className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl border border-indigo-200 dark:border-indigo-900 bg-indigo-50 dark:bg-indigo-950/50 text-indigo-700 dark:text-indigo-300 font-semibold hover:bg-indigo-100 dark:hover:bg-indigo-900/60 transition"
+            title="20-20-20 kuralı ile göz kaslarınızı dinlendirin"
+          >
+            <Eye className="w-3.5 h-3.5" />
+            <span>Göz Dinlendir (20-20-20)</span>
+          </button>
+        </div>
       </div>
+
+      {/* Bionic Reader Modal */}
+      <BionicReaderModal
+        isOpen={isBionicModalOpen}
+        onClose={() => setIsBionicModalOpen(false)}
+        title={title}
+        text={text}
+      />
 
       {/* 20-20-20 Eye Rest Modal */}
       {isEyeRestOpen && (
