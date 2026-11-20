@@ -1,12 +1,12 @@
 "use client";
 
 import React, { useState, useEffect, useRef, useCallback } from "react";
-import { CHILD_EXERCISE_DATA, WordExerciseItem } from "@/data/childWordLists";
+import { CHILD_EXERCISE_DATA, WordExerciseItem, ChildGradeLevel } from "@/data/childWordLists";
 import { syllabifyWord, SYLLABLE_COLORS } from "@/lib/turkishSyllabifier";
 import { DyslexiaToolbar, DyslexiaSettings } from "./DyslexiaToolbar";
 import { GamificationReward } from "./GamificationReward";
 import { Button } from "@/components/ui/Button";
-import { Play, Pause, RotateCcw, Sparkles, Volume2, VolumeX, ArrowLeft, Layers } from "lucide-react";
+import { Play, Pause, RotateCcw, Sparkles, Volume2, VolumeX, ArrowLeft, Layers, BookOpen, GraduationCap } from "lucide-react";
 
 type SpeedMode = "slow" | "medium" | "fast";
 
@@ -26,7 +26,8 @@ const OVERLAY_COLORS = {
 
 export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToMenu }) => {
   // Step 1: Configuration state
-  const [exerciseType, setExerciseType] = useState<"syllables" | "words" | "sentences">("words");
+  const [exerciseType, setExerciseType] = useState<"syllables" | "words" | "sentences" | "stories">("words");
+  const [selectedGrade, setSelectedGrade] = useState<"all" | ChildGradeLevel>("all");
   const [speedMode, setSpeedMode] = useState<SpeedMode>("medium");
   const [isStarted, setIsStarted] = useState(false);
   const [isPaused, setIsPaused] = useState(false);
@@ -66,8 +67,12 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
 
   // Initialize randomized batch of 12 items
   const startSession = () => {
-    const pool = [...CHILD_EXERCISE_DATA[exerciseType]];
-    const shuffled = pool.sort(() => Math.random() - 0.5).slice(0, 12);
+    const rawPool = CHILD_EXERCISE_DATA[exerciseType] || [];
+    const filtered = rawPool.filter(
+      (item) => selectedGrade === "all" || item.grade === selectedGrade
+    );
+    const pool = filtered.length > 0 ? filtered : rawPool;
+    const shuffled = [...pool].sort(() => Math.random() - 0.5).slice(0, 12);
     setItems(shuffled);
     setCurrentIndex(0);
     setIsStarted(true);
@@ -84,7 +89,9 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
   // Syllables calculation
   const currentSyllables = React.useMemo(() => {
     if (!currentItem?.text) return [];
-    if (exerciseType === "sentences" || !enableSyllables) return [currentItem.text];
+    if (exerciseType === "sentences" || exerciseType === "stories" || !enableSyllables) {
+      return [currentItem.text];
+    }
     return syllabifyWord(currentItem.text);
   }, [currentItem, exerciseType, enableSyllables]);
 
@@ -169,24 +176,55 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
             <label className="text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
               1. Alıştırma Türü
             </label>
-            <div className="grid grid-cols-3 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
               {[
                 { id: "syllables", label: "Heceler", desc: "Temel fonetik" },
                 { id: "words", label: "Kelimeler", desc: "Kelime tanıma" },
                 { id: "sentences", label: "Cümleler", desc: "Kısa cümleler" },
+                { id: "stories", label: "Masallar", desc: "Eğitici hikayeler" },
               ].map((t) => (
                 <button
                   key={t.id}
                   type="button"
                   onClick={() => setExerciseType(t.id as any)}
-                  className={`p-4 rounded-2xl border-2 text-center transition ${
+                  className={`p-3.5 rounded-2xl border-2 text-center transition ${
                     exerciseType === t.id
                       ? "border-amber-400 dark:border-amber-500 bg-amber-50 dark:bg-amber-950/60 text-amber-950 dark:text-amber-200 font-bold shadow-sm"
                       : "border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 hover:border-slate-300 dark:hover:border-slate-600"
                   }`}
                 >
-                  <div className="text-base font-bold">{t.label}</div>
-                  <div className="text-[11px] text-slate-500 dark:text-slate-400 mt-0.5">{t.desc}</div>
+                  <div className="text-sm font-bold">{t.label}</div>
+                  <div className="text-[10px] text-slate-500 dark:text-slate-400 mt-0.5">{t.desc}</div>
+                </button>
+              ))}
+            </div>
+          </div>
+
+          {/* Grade / Level Selection */}
+          <div className="space-y-3 mb-6">
+            <div className="flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-slate-700 dark:text-slate-300">
+              <GraduationCap className="w-4 h-4 text-amber-600 dark:text-amber-400" />
+              <span>Sınıf / Seviye Filtresi</span>
+            </div>
+            <div className="flex flex-wrap gap-2">
+              {[
+                { id: "all", label: "Tüm Seviyeler" },
+                { id: "grade1", label: "1. Sınıf (6-7 Yaş)" },
+                { id: "grade2", label: "2. Sınıf (7-8 Yaş)" },
+                { id: "grade3", label: "3. Sınıf (8-9 Yaş)" },
+                { id: "grade4", label: "4. Sınıf (9-10 Yaş)" },
+              ].map((g) => (
+                <button
+                  key={g.id}
+                  type="button"
+                  onClick={() => setSelectedGrade(g.id as any)}
+                  className={`px-3 py-1.5 rounded-xl text-xs font-semibold border transition ${
+                    selectedGrade === g.id
+                      ? "bg-amber-400 border-amber-500 text-amber-950 font-bold shadow-xs"
+                      : "bg-slate-100 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-200"
+                  }`}
+                >
+                  {g.label}
                 </button>
               ))}
             </div>

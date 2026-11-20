@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node tests/readingUtils.test.mjs && node tests/turkishSyllabifier.test.mjs && node tests/questionGenerator.test.mjs",
+    "test": "node tests/readingUtils.test.mjs && node tests/turkishSyllabifier.test.mjs && node tests/questionGenerator.test.mjs && node tests/sessionHistory.test.mjs",
     "lint": "next lint"
   },
   "dependencies": {

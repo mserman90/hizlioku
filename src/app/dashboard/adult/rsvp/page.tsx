@@ -7,6 +7,7 @@ import { RsvpReader } from "@/components/adult/RsvpReader";
 import { ComprehensionQuiz } from "@/components/adult/ComprehensionQuiz";
 import { ComprehensionQuestion } from "@/data/publicTexts";
 import { generateComprehensionQuestions } from "@/lib/questionGenerator";
+import { saveSessionRecord } from "@/lib/sessionHistory";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
 
@@ -86,7 +87,18 @@ export default function RsvpPage() {
           wordCount={sessionMetrics.wordCount}
           durationSeconds={sessionMetrics.durationSeconds}
           onRestart={() => setStep("reading")}
-          onComplete={(score) => setStep("summary")}
+          onComplete={(score) => {
+            saveSessionRecord({
+              textTitle: textTitle || "Okuma Metni",
+              wpm: sessionMetrics.wpm,
+              comprehensionScore: score,
+              wordCount: sessionMetrics.wordCount,
+              durationSeconds: sessionMetrics.durationSeconds,
+              smartPacingEnabled: true,
+              chunkSize: 1,
+            });
+            setStep("summary");
+          }}
         />
       )}
 

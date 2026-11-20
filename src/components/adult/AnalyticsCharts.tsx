@@ -1,40 +1,27 @@
 "use client";
 
-import React from "react";
-import { TrendingUp, Award, Clock, Activity, CheckCircle2 } from "lucide-react";
-
-export interface SessionRecord {
-  id: string;
-  date: string;
-  wpm: number;
-  comprehensionScore: number;
-  wordCount: number;
-  durationSeconds: number;
-}
+import React, { useState, useEffect } from "react";
+import { TrendingUp, Award, Clock, Activity, CheckCircle2, RotateCcw } from "lucide-react";
+import { loadSessionHistory, computeSessionStats, ReadingSessionRecord } from "@/lib/sessionHistory";
 
 interface AnalyticsChartsProps {
-  sessions?: SessionRecord[];
+  sessions?: ReadingSessionRecord[];
 }
 
 export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
-  sessions = [
-    { id: "1", date: "Pzt", wpm: 220, comprehensionScore: 70, wordCount: 150, durationSeconds: 41 },
-    { id: "2", date: "Sal", wpm: 260, comprehensionScore: 80, wordCount: 200, durationSeconds: 46 },
-    { id: "3", date: "Çar", wpm: 290, comprehensionScore: 75, wordCount: 250, durationSeconds: 52 },
-    { id: "4", date: "Per", wpm: 320, comprehensionScore: 85, wordCount: 280, durationSeconds: 52 },
-    { id: "5", date: "Cum", wpm: 350, comprehensionScore: 90, wordCount: 350, durationSeconds: 60 },
-    { id: "6", date: "Cmt", wpm: 380, comprehensionScore: 80, wordCount: 400, durationSeconds: 63 },
-    { id: "7", date: "Paz", wpm: 410, comprehensionScore: 95, wordCount: 450, durationSeconds: 66 },
-  ],
+  sessions: propSessions,
 }) => {
-  const maxWpm = Math.max(...sessions.map((s) => s.wpm), 500);
-  const avgWpm = Math.round(
-    sessions.reduce((acc, s) => acc + s.wpm, 0) / (sessions.length || 1)
-  );
-  const avgComprehension = Math.round(
-    sessions.reduce((acc, s) => acc + s.comprehensionScore, 0) / (sessions.length || 1)
-  );
-  const totalWords = sessions.reduce((acc, s) => acc + s.wordCount, 0);
+  const [sessions, setSessions] = useState<ReadingSessionRecord[]>(propSessions || []);
+
+  useEffect(() => {
+    if (!propSessions) {
+      setSessions(loadSessionHistory());
+    }
+  }, [propSessions]);
+
+  const stats = computeSessionStats(sessions);
+  const maxWpm = Math.max(stats.maxWpm, 500);
+  const displaySessions = sessions.slice(-7);
 
   return (
     <div className="space-y-6">
@@ -46,7 +33,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
             Ortalama Hız
           </div>
           <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">
-            {avgWpm} <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">WPM</span>
+            {stats.avgWpm} <span className="text-xs font-semibold text-slate-500 dark:text-slate-400">WPM</span>
           </div>
         </div>
 
@@ -56,7 +43,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
             Ortalama Kavrama
           </div>
           <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">
-            %{avgComprehension}
+            %{stats.avgComprehension}
           </div>
         </div>
 
@@ -76,7 +63,7 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
             Okunan Kelime
           </div>
           <div className="text-2xl sm:text-3xl font-black text-slate-900 dark:text-slate-100">
-            {totalWords.toLocaleString("tr-TR")}
+            {stats.totalWords.toLocaleString("tr-TR")}
           </div>
         </div>
       </div>
@@ -89,13 +76,13 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
             <p className="text-xs text-slate-500 dark:text-slate-400">Son oturumlardaki okuma hızı trendi</p>
           </div>
           <span className="text-xs font-bold px-3 py-1 rounded-full bg-brand-50 dark:bg-brand-950/60 text-brand-700 dark:text-brand-300">
-            En Yüksek: {Math.max(...sessions.map((s) => s.wpm))} WPM
+            En Yüksek: {stats.maxWpm} WPM
           </span>
         </div>
 
         {/* Responsive Bar Visualization */}
         <div className="h-48 flex items-end justify-between gap-2 sm:gap-4 pt-6 border-b border-slate-100 dark:border-slate-800">
-          {sessions.map((session) => {
+          {displaySessions.map((session) => {
             const heightPercent = Math.max(10, Math.round((session.wpm / maxWpm) * 100));
             return (
               <div
@@ -134,10 +121,12 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
               key={s.id}
               className="flex items-center justify-between p-3.5 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-xs sm:text-sm"
             >
-              <div className="flex items-center gap-2">
-                <span className="font-bold text-slate-800 dark:text-slate-200">{s.date} Seansı</span>
+              <div className="flex items-center gap-2 max-w-[50%] truncate">
+                <span className="font-bold text-slate-800 dark:text-slate-200 truncate">
+                  {s.textTitle || `${s.date} Seansı`}
+                </span>
                 <span className="text-slate-400 dark:text-slate-500">•</span>
-                <span className="text-slate-600 dark:text-slate-300 font-semibold">{s.wpm} WPM</span>
+                <span className="text-slate-600 dark:text-slate-300 font-semibold whitespace-nowrap">{s.wpm} WPM</span>
               </div>
               <div className="flex items-center gap-2">
                 <div className="w-24 sm:w-32 bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
