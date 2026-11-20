@@ -6,12 +6,13 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node tests/readingUtils.test.mjs && node tests/turkishSyllabifier.test.mjs && node tests/questionGenerator.test.mjs && node tests/sessionHistory.test.mjs",
+    "test": "node tests/readingUtils.test.mjs && node tests/turkishSyllabifier.test.mjs && node tests/questionGenerator.test.mjs && node tests/sessionHistory.test.mjs && node tests/epubExtractor.test.mjs && node tests/childProgress.test.mjs",
     "lint": "next lint"
   },
   "dependencies": {
     "clsx": "^2.1.1",
     "firebase": "^10.14.1",
+    "jszip": "^3.10.2",
     "lucide-react": "^0.460.0",
     "next": "^14.2.18",
     "pdfjs-dist": "^3.11.174",
@@ -20,6 +21,7 @@
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
+    "@types/jszip": "^3.4.0",
     "@types/node": "^20.17.6",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",

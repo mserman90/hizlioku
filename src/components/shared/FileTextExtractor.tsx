@@ -4,6 +4,7 @@ import React, { useState } from "react";
 import { UploadCloud, FileText, AlertCircle, Check, ArrowRight, Download, Loader2 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { extractTextFromPdf } from "@/lib/pdfExtractor";
+import { extractEpubText } from "@/lib/epubExtractor";
 
 interface FileTextExtractorProps {
   onExtracted: (text: string, title: string) => void;
@@ -47,6 +48,15 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
         const words = text.trim().split(/\s+/).filter(Boolean);
         setExtractedText(text.trim());
         setStats({ wordCount: words.length, charCount: text.length });
+      } else if (ext === "epub") {
+        setLoadingMsg("EPUB e-kitap bölümleri taranıyor ve metne dönüştürülüyor...");
+        const buffer = await file.arrayBuffer();
+        const epubResult = await extractEpubText(buffer);
+        setExtractedText(epubResult.text);
+        setStats({ wordCount: epubResult.wordCount, charCount: epubResult.text.length });
+        if (epubResult.title && epubResult.title !== "EPUB E-Kitap") {
+          setFileName(`${epubResult.title} (${epubResult.author})`);
+        }
       } else if (ext === "txt" || ext === "md" || ext === "json") {
         setLoadingMsg("Metin belgesi okunuyor...");
         const reader = new FileReader();
@@ -111,10 +121,10 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
         </div>
         <div>
           <h3 className="text-lg font-bold text-slate-900 dark:text-white">
-            Otomatik PDF & Belge Dönüştürücü
+            Otomatik PDF, EPUB & Belge Dönüştürücü
           </h3>
           <p className="text-xs text-slate-500 dark:text-slate-400">
-            PDF, TXT veya MD dosyalarınızı yükleyin; anında temiz metne dönüştürülüp RSVP'ye aktarılır
+            PDF, EPUB e-kitap, TXT veya MD dosyalarınızı yükleyin; anında temiz metne dönüştürülüp RSVP'ye aktarılır
           </p>
         </div>
       </div>
@@ -122,7 +132,7 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
       <div className="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 rounded-2xl p-6 text-center transition cursor-pointer bg-slate-50 dark:bg-slate-800/50 relative group">
         <input
           type="file"
-          accept=".pdf,.txt,.md,.json"
+          accept=".pdf,.epub,.txt,.md,.json"
           onChange={handleFileUpload}
           disabled={loading}
           className="absolute inset-0 opacity-0 cursor-pointer w-full h-full disabled:cursor-not-allowed"
@@ -137,10 +147,10 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
           <>
             <FileText className="w-8 h-8 text-slate-400 dark:text-slate-500 mx-auto mb-2 group-hover:text-brand-600 dark:group-hover:text-brand-400 transition" />
             <span className="text-sm font-semibold text-slate-700 dark:text-slate-300 block">
-              {fileName ? fileName : "PDF veya Metin Belgesi Seçmek İçin Tıklayın / Sürükleyin"}
+              {fileName ? fileName : "PDF, EPUB veya Metin Belgesi Seçmek İçin Tıklayın / Sürükleyin"}
             </span>
             <span className="text-xs text-slate-400 dark:text-slate-500 block mt-1">
-              Desteklenen formatlar: <strong>.pdf</strong> (otomatik metne dönüştürülür), <strong>.txt</strong>, <strong>.md</strong>
+              Desteklenen formatlar: <strong>.pdf</strong>, <strong>.epub</strong> (e-kitaplar), <strong>.txt</strong>, <strong>.md</strong>
             </span>
           </>
         )}

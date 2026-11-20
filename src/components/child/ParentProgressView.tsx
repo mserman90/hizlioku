@@ -4,10 +4,11 @@
 // Parent / Guardian Progress View: Adheres to data minimization principles.
 // Displays aggregate milestone achievements without behavioral profiling.
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { ShieldCheck, Flame, Trophy, Calendar, CheckCircle2 } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { loadChildProgress, ChildMilestoneSummary } from "@/lib/childProgress";
 
 interface ParentProgressProps {
   childName?: string;
@@ -18,10 +19,28 @@ interface ParentProgressProps {
 
 export const ParentProgressView: React.FC<ParentProgressProps> = ({
   childName = "Çocuğunuz",
-  sessionsCompleted = 4,
-  streakDays = 3,
-  badges = ["İlk Adım", "3 Günlük Seri", "Kelime Avcısı"],
+  sessionsCompleted: propSessions,
+  streakDays: propStreak,
+  badges: propBadges,
 }) => {
+  const [data, setData] = useState<ChildMilestoneSummary>({
+    sessionsCompleted: propSessions ?? 4,
+    streakDays: propStreak ?? 3,
+    badges: propBadges ?? ["İlk Adım", "3 Günlük Seri", "Kelime Avcısı"],
+    totalPoints: 120,
+  });
+
+  useEffect(() => {
+    const loaded = loadChildProgress();
+    setData({
+      sessionsCompleted: propSessions ?? loaded.sessionsCompleted,
+      streakDays: propStreak ?? loaded.streakDays,
+      badges: propBadges ?? loaded.badges,
+      totalPoints: loaded.totalPoints,
+    });
+  }, [propSessions, propStreak, propBadges]);
+
+  const { sessionsCompleted, streakDays, badges } = data;
   return (
     <div className="w-full max-w-2xl mx-auto space-y-6">
       {/* Top Banner */}

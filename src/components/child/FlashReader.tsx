@@ -3,6 +3,7 @@
 import React, { useState, useEffect, useRef, useCallback } from "react";
 import { CHILD_EXERCISE_DATA, WordExerciseItem, ChildGradeLevel } from "@/data/childWordLists";
 import { syllabifyWord, SYLLABLE_COLORS } from "@/lib/turkishSyllabifier";
+import { recordChildSession } from "@/lib/childProgress";
 import { DyslexiaToolbar, DyslexiaSettings } from "./DyslexiaToolbar";
 import { GamificationReward } from "./GamificationReward";
 import { Button } from "@/components/ui/Button";
@@ -101,7 +102,9 @@ export const FlashReader: React.FC<{ onBackToMenu?: () => void }> = ({ onBackToM
       if (nextIndex >= items.length) {
         setIsFinished(true);
         setIsStarted(false);
-        setPoints(items.length * (speedMode === "fast" ? 15 : speedMode === "medium" ? 10 : 5));
+        const earned = items.length * (speedMode === "fast" ? 15 : speedMode === "medium" ? 10 : 5);
+        setPoints(earned);
+        recordChildSession(earned);
         return prev;
       }
       if (enableAudio && items[nextIndex]?.text) {
