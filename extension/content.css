@@ -1,0 +1,193 @@
+/* HızlıOku In-Page RSVP Reader Overlay */
+#hizlioku-overlay-root {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  background: rgba(15, 23, 42, 0.75) !important;
+  backdrop-filter: blur(8px) !important;
+  z-index: 2147483647 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif !important;
+  box-sizing: border-box !important;
+}
+
+#hizlioku-modal {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  width: 90% !important;
+  max-width: 640px !important;
+  border-radius: 24px !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35) !important;
+  border: 1px solid #e2e8f0 !important;
+  overflow: hidden !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  #hizlioku-modal {
+    background: #0f172a !important;
+    color: #f8fafc !important;
+    border-color: #334155 !important;
+  }
+}
+
+.hizlioku-header {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 16px 24px !important;
+  border-bottom: 1px solid #e2e8f0 !important;
+}
+
+@media (prefers-color-scheme: dark) {
+  .hizlioku-header {
+    border-color: #1e293b !important;
+  }
+}
+
+.hizlioku-brand {
+  font-weight: 800 !important;
+  font-size: 15px !important;
+  color: #10b981 !important;
+  display: flex !important;
+  align-items: center !important;
+  gap: 8px !important;
+}
+
+.hizlioku-close-btn {
+  background: transparent !important;
+  border: none !important;
+  cursor: pointer !important;
+  font-size: 18px !important;
+  color: #64748b !important;
+  padding: 6px 10px !important;
+  border-radius: 8px !important;
+  line-height: 1 !important;
+}
+.hizlioku-close-btn:hover {
+  background: #f1f5f9 !important;
+  color: #0f172a !important;
+}
+
+.hizlioku-word-display {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 48px 24px !important;
+  min-height: 180px !important;
+  user-select: none !important;
+}
+
+.hizlioku-fixation-marker {
+  width: 4px !important;
+  height: 14px !important;
+  background-color: #f43f5e !important;
+  border-radius: 4px !important;
+  margin: 6px 0 !important;
+}
+
+.hizlioku-word-box {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace !important;
+  font-size: 44px !important;
+  font-weight: 700 !important;
+  display: flex !important;
+  align-items: baseline !important;
+  justify-content: center !important;
+  width: 100% !important;
+}
+
+.hizlioku-prefix {
+  flex: 1 !important;
+  text-align: right !important;
+  color: #1e293b !important;
+}
+@media (prefers-color-scheme: dark) {
+  .hizlioku-prefix {
+    color: #f1f5f9 !important;
+  }
+}
+
+.hizlioku-orp-char {
+  color: #e11d48 !important;
+  font-weight: 900 !important;
+  transform: scale(1.15) !important;
+  margin: 0 1px !important;
+}
+
+.hizlioku-suffix {
+  flex: 1 !important;
+  text-align: left !important;
+  color: #1e293b !important;
+}
+@media (prefers-color-scheme: dark) {
+  .hizlioku-suffix {
+    color: #f1f5f9 !important;
+  }
+}
+
+.hizlioku-progress-bar-bg {
+  width: 100% !important;
+  height: 4px !important;
+  background: #e2e8f0 !important;
+}
+@media (prefers-color-scheme: dark) {
+  .hizlioku-progress-bar-bg {
+    background: #1e293b !important;
+  }
+}
+.hizlioku-progress-bar-fill {
+  height: 100% !important;
+  background: #10b981 !important;
+  width: 0% !important;
+  transition: width 0.1s linear !important;
+}
+
+.hizlioku-controls {
+  padding: 16px 24px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  background: #f8fafc !important;
+  border-top: 1px solid #e2e8f0 !important;
+  gap: 16px !important;
+}
+@media (prefers-color-scheme: dark) {
+  .hizlioku-controls {
+    background: #1e293b !important;
+    border-color: #334155 !important;
+  }
+}
+
+.hizlioku-action-btn {
+  background: #10b981 !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 10px 20px !important;
+  border-radius: 12px !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+  cursor: pointer !important;
+}
+.hizlioku-action-btn:hover {
+  background: #059669 !important;
+}
+
+.hizlioku-speed-control {
+  display: flex !important;
+  align-items: center !important;
+  gap: 10px !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+}
+
+.hizlioku-speed-slider {
+  accent-color: #10b981 !important;
+  cursor: pointer !important;
+}

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8">
+  <title>HızlıOku</title>
+  <style>
+    body {
+      width: 320px;
+      margin: 0;
+      padding: 16px;
+      font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: #ffffff;
+      color: #0f172a;
+    }
+    @media (prefers-color-scheme: dark) {
+      body {
+        background: #0f172a;
+        color: #f8fafc;
+      }
+    }
+    .header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+    .logo {
+      font-weight: 800;
+      font-size: 16px;
+      color: #10b981;
+    }
+    .subtitle {
+      font-size: 11px;
+      color: #64748b;
+    }
+    .btn {
+      width: 100%;
+      padding: 10px;
+      border-radius: 10px;
+      border: 1px solid #e2e8f0;
+      background: #f8fafc;
+      color: #0f172a;
+      font-weight: 600;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      margin-bottom: 8px;
+      transition: background 0.15s;
+    }
+    .btn:hover {
+      background: #f1f5f9;
+    }
+    .btn-primary {
+      background: #10b981;
+      color: #ffffff;
+      border-color: #10b981;
+    }
+    .btn-primary:hover {
+      background: #059669;
+    }
+    @media (prefers-color-scheme: dark) {
+      .btn {
+        background: #1e293b;
+        color: #f8fafc;
+        border-color: #334155;
+      }
+      .btn:hover {
+        background: #334155;
+      }
+    }
+    textarea {
+      width: 100%;
+      height: 80px;
+      box-sizing: border-box;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      padding: 8px;
+      font-size: 12px;
+      resize: none;
+      margin-bottom: 8px;
+      background: transparent;
+      color: inherit;
+    }
+    .footer {
+      text-align: center;
+      margin-top: 12px;
+      font-size: 11px;
+      color: #64748b;
+    }
+    .footer a {
+      color: #10b981;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <span class="logo">⚡ HızlıOku</span>
+    <span class="subtitle">Web Okuyucu Asistanı</span>
+  </div>
+
+  <button class="btn btn-primary" id="btn-read-selection">
+    <span>📌 Seçili Metni Oku</span>
+  </button>
+
+  <textarea id="custom-text" placeholder="Veya buraya herhangi bir metin yapıştırın..."></textarea>
+  <button class="btn" id="btn-read-custom">
+    <span>⚡ Yapıştırılan Metni Oku</span>
+  </button>
+
+  <div class="footer">
+    <a href="https://mserman90.github.io/hizlioku/" target="_blank">Tam Web Platformuna Git ↗</a>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
