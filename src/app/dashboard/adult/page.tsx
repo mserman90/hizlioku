@@ -1,13 +1,35 @@
 "use client";
 
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { Eye, Zap, Grid, Activity, ArrowRight, Compass, Triangle } from "lucide-react";
+import { Eye, Zap, Grid, Activity, ArrowRight, Compass, Triangle, Flame } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
+import { loadSessionHistory, computeSessionStats } from "@/lib/sessionHistory";
+import { loadUserGoals, computeDailyProgress } from "@/lib/userGoals";
 
 export default function AdultDashboardPage() {
   const { user } = useAuth();
+  const [statsSummary, setStatsSummary] = useState({
+    avgWpm: 280,
+    targetWpm: 500,
+    streakDays: 3,
+    todayProgressPercent: 40,
+  });
+
+  useEffect(() => {
+    const sessions = loadSessionHistory();
+    const goals = loadUserGoals();
+    const stats = computeSessionStats(sessions);
+    const progress = computeDailyProgress(sessions, goals);
+
+    setStatsSummary({
+      avgWpm: stats.avgWpm || 280,
+      targetWpm: goals.targetWpm || 500,
+      streakDays: progress.currentStreakDays,
+      todayProgressPercent: progress.overallPercent,
+    });
+  }, []);
 
   return (
     <div className="space-y-6">
@@ -26,14 +48,23 @@ export default function AdultDashboardPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
-            <div className="flex flex-col px-4 py-2 bg-white/10 rounded-2xl border border-white/20">
-              <span className="text-xs text-blue-200">Temel Hız</span>
-              <span className="text-lg font-bold">250 WPM</span>
+          <div className="flex flex-wrap items-center gap-2.5">
+            <div className="flex items-center gap-2 px-3.5 py-2 bg-white/10 rounded-2xl border border-white/20">
+              <Flame className="w-5 h-5 text-amber-300" />
+              <div className="flex flex-col">
+                <span className="text-[10px] text-blue-200">Okuma Serisi</span>
+                <span className="text-sm font-bold">{statsSummary.streakDays} Gün</span>
+              </div>
             </div>
-            <div className="flex flex-col px-4 py-2 bg-white/10 rounded-2xl border border-white/20">
-              <span className="text-xs text-blue-200">Hedef Hız</span>
-              <span className="text-lg font-bold">600 WPM</span>
+
+            <div className="flex flex-col px-3.5 py-2 bg-white/10 rounded-2xl border border-white/20">
+              <span className="text-[10px] text-blue-200">Ortalama Hız</span>
+              <span className="text-sm font-bold">{statsSummary.avgWpm} WPM</span>
+            </div>
+
+            <div className="flex flex-col px-3.5 py-2 bg-white/10 rounded-2xl border border-white/20">
+              <span className="text-[10px] text-blue-200">Hedef Hız</span>
+              <span className="text-sm font-bold text-amber-300">{statsSummary.targetWpm} WPM</span>
             </div>
           </div>
         </div>

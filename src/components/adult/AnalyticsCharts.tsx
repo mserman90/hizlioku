@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { TrendingUp, Award, Clock, Activity, CheckCircle2, RotateCcw } from "lucide-react";
+import { TrendingUp, Award, Clock, Activity, CheckCircle2, RotateCcw, Download, FileSpreadsheet, FileJson } from "lucide-react";
 import { loadSessionHistory, computeSessionStats, ReadingSessionRecord } from "@/lib/sessionHistory";
 
 interface AnalyticsChartsProps {
@@ -22,6 +22,44 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
   const stats = computeSessionStats(sessions);
   const maxWpm = Math.max(stats.maxWpm, 500);
   const displaySessions = sessions.slice(-7);
+
+  const exportAsCsv = () => {
+    if (sessions.length === 0) return;
+    const headers = ["ID", "Tarih", "Metin Basligi", "WPM", "Kavrama (%)", "Kelime Sayisi", "Sure (sn)"];
+    const rows = sessions.map((s) => [
+      s.id,
+      `"${s.date || ""}"`,
+      `"${(s.textTitle || "").replace(/"/g, '""')}"`,
+      s.wpm,
+      s.comprehensionScore,
+      s.wordCount,
+      s.durationSeconds,
+    ]);
+    const csvContent = "\uFEFF" + [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `hizlioku-gecmis-${new Date().toISOString().slice(0, 10)}.csv`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
+
+  const exportAsJson = () => {
+    if (sessions.length === 0) return;
+    const jsonContent = JSON.stringify(sessions, null, 2);
+    const blob = new Blob([jsonContent], { type: "application/json" });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement("a");
+    link.href = url;
+    link.download = `hizlioku-yedek-${new Date().toISOString().slice(0, 10)}.json`;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+  };
 
   return (
     <div className="space-y-6">
@@ -147,6 +185,39 @@ export const AnalyticsCharts: React.FC<AnalyticsChartsProps> = ({
               </div>
             </div>
           ))}
+        </div>
+      </div>
+
+      {/* Export & Data Privacy Section */}
+      <div className="bg-slate-50 dark:bg-slate-900/60 p-5 rounded-3xl border border-slate-200 dark:border-slate-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div>
+          <h4 className="text-sm font-bold text-slate-800 dark:text-slate-200 flex items-center gap-2">
+            <Download className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+            Veri Yedekleme & Dışa Aktarma
+          </h4>
+          <p className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            Tüm okuma verileriniz tarayıcınızda saklanır. Excel / Sheets için CSV veya tam JSON yedeği alabilirsiniz.
+          </p>
+        </div>
+        <div className="flex items-center gap-2.5 w-full sm:w-auto">
+          <button
+            onClick={exportAsCsv}
+            disabled={sessions.length === 0}
+            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700/60 disabled:opacity-50 transition cursor-pointer"
+            title="Okuma istatistiklerini CSV olarak indir"
+          >
+            <FileSpreadsheet className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+            CSV İndir
+          </button>
+          <button
+            onClick={exportAsJson}
+            disabled={sessions.length === 0}
+            className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-1.5 px-4 py-2 rounded-xl text-xs font-bold bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700/60 disabled:opacity-50 transition cursor-pointer"
+            title="Tüm geçmişi JSON formatında yedekle"
+          >
+            <FileJson className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+            JSON Yedekle
+          </button>
         </div>
       </div>
     </div>

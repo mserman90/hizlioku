@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Button } from "@/components/ui/Button";
-import { Target, Compass, Check, ArrowRight } from "lucide-react";
+import { Target, Compass, Check, ArrowRight, Clock } from "lucide-react";
+import { loadUserGoals, saveUserGoals } from "@/lib/userGoals";
 
 interface TargetPacerProps {
   currentWpm?: number;
@@ -13,8 +14,15 @@ export const TargetPacer: React.FC<TargetPacerProps> = ({
   currentWpm = 250,
   onSetTarget,
 }) => {
-  const [target, setTarget] = useState(450);
+  const [target, setTarget] = useState(500);
+  const [dailyMinutes, setDailyMinutes] = useState(15);
   const [saved, setSaved] = useState(false);
+
+  useEffect(() => {
+    const goals = loadUserGoals();
+    setTarget(goals.targetWpm);
+    setDailyMinutes(goals.dailyMinutes);
+  }, []);
 
   const getRecommendation = (wpm: number) => {
     if (wpm < 300) {
@@ -41,6 +49,7 @@ export const TargetPacer: React.FC<TargetPacerProps> = ({
   const rec = getRecommendation(target);
 
   const handleSave = () => {
+    saveUserGoals({ targetWpm: target, dailyMinutes });
     if (onSetTarget) onSetTarget(target);
     setSaved(true);
     setTimeout(() => setSaved(false), 2000);
@@ -78,6 +87,33 @@ export const TargetPacer: React.FC<TargetPacerProps> = ({
           <span>Temel (200 WPM)</span>
           <span>Akıcı (500 WPM)</span>
           <span>İleri (900 WPM)</span>
+        </div>
+      </div>
+
+      {/* Daily Reading Habit Target */}
+      <div className="space-y-3">
+        <div className="flex items-center justify-between">
+          <span className="text-xs font-bold text-slate-600 dark:text-slate-300 uppercase flex items-center gap-1.5">
+            <Clock className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" /> Günlük Okuma Hedefi
+          </span>
+          <span className="text-sm font-bold text-brand-600 dark:text-brand-400">{dailyMinutes} dk / gün</span>
+        </div>
+
+        <div className="flex gap-2">
+          {[10, 15, 20, 30].map((mins) => (
+            <button
+              key={mins}
+              type="button"
+              onClick={() => setDailyMinutes(mins)}
+              className={`flex-1 py-1.5 rounded-xl text-xs font-bold border transition ${
+                dailyMinutes === mins
+                  ? "bg-brand-50 dark:bg-brand-950/70 border-brand-400 text-brand-700 dark:text-brand-300"
+                  : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400 hover:border-slate-300"
+              }`}
+            >
+              {mins} dk
+            </button>
+          ))}
         </div>
       </div>
 
