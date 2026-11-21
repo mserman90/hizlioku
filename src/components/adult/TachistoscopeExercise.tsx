@@ -2,27 +2,9 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
-import { Zap, Eye, RotateCcw, CheckCircle2, XCircle, Trophy, Volume2, VolumeX, Sparkles, Sliders } from "lucide-react";
+import { Zap, Eye, RotateCcw, CheckCircle2, XCircle, Trophy, Volume2, VolumeX, Sparkles, Sliders, Shuffle } from "lucide-react";
 import { playSuccessChime, playSoftThud, playMetronomeClick } from "@/lib/soundEffects";
-
-interface FlashItem {
-  prompt: string;
-  options: string[];
-  correctIndex: number;
-}
-
-const FLASH_WORD_POOL: FlashItem[] = [
-  { prompt: "odak", options: ["odak", "ortak", "ocak", "orak"], correctIndex: 0 },
-  { prompt: "bilgi", options: ["bilim", "bilgi", "belge", "bölge"], correctIndex: 1 },
-  { prompt: "sürat", options: ["suret", "sırat", "sürat", "sürüm"], correctIndex: 2 },
-  { prompt: "kavram", options: ["kavram", "kıvram", "kavruk", "kervan"], correctIndex: 0 },
-  { prompt: "zihin", options: ["zemin", "zaman", "zehir", "zihin"], correctIndex: 3 },
-  { prompt: "hafıza", options: ["havza", "hafıza", "harita", "hazine"], correctIndex: 1 },
-  { prompt: "fiksasyon", options: ["fiksasyon", "formasyon", "filtrasyon", "fraksiyon"], correctIndex: 0 },
-  { prompt: "periferik", options: ["periyodik", "politik", "periferik", "pratik"], correctIndex: 2 },
-  { prompt: "kapasite", options: ["kalite", "kapasite", "kabin", "katkı"], correctIndex: 1 },
-  { prompt: "hızlı oku", options: ["hızlı oku", "hızlı koş", "kolay oku", "hızlı bak"], correctIndex: 0 },
-];
+import { generateRandomTachistoscopeSet, FlashItem, TACHISTOSCOPE_EXPANDED_BANK } from "@/data/exercisePools";
 
 const FLASH_SPEEDS = [
   { ms: 250, label: "250 ms (Başlangıç)" },
@@ -37,16 +19,27 @@ type ExerciseState = "idle" | "countdown" | "flashing" | "answering" | "feedback
 export const TachistoscopeExercise: React.FC = () => {
   const [selectedSpeedMs, setSelectedSpeedMs] = useState(120);
   const [soundEnabled, setSoundEnabled] = useState(true);
+  const [items, setItems] = useState<FlashItem[]>(() => generateRandomTachistoscopeSet(10));
   const [currentIndex, setCurrentIndex] = useState(0);
   const [exerciseState, setExerciseState] = useState<ExerciseState>("idle");
   const [selectedOption, setSelectedOption] = useState<number | null>(null);
   const [score, setScore] = useState(0);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
-  const currentItem = FLASH_WORD_POOL[currentIndex];
+  const currentItem = items[currentIndex] || items[0];
+
+  const handleShuffleNewWords = () => {
+    if (timerRef.current) clearTimeout(timerRef.current);
+    const newItems = generateRandomTachistoscopeSet(10);
+    setItems(newItems);
+    setCurrentIndex(0);
+    setScore(0);
+    setSelectedOption(null);
+    setExerciseState("idle");
+  };
 
   const startNextRound = (index: number) => {
-    if (index >= FLASH_WORD_POOL.length) {
+    if (index >= items.length) {
       setExerciseState("finished");
       if (soundEnabled) playSuccessChime();
       return;
@@ -69,7 +62,12 @@ export const TachistoscopeExercise: React.FC = () => {
   };
 
   const handleStart = () => {
+    // Generate fresh set of random items on each new start
+    const freshSet = generateRandomTachistoscopeSet(10);
+    setItems(freshSet);
     setScore(0);
+    setCurrentIndex(0);
+    setSelectedOption(null);
     startNextRound(0);
   };
 
@@ -102,7 +100,7 @@ export const TachistoscopeExercise: React.FC = () => {
     <div className="w-full max-w-2xl mx-auto space-y-6 animate-in fade-in duration-200">
       {/* Educational Banner */}
       <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div className="flex items-center justify-between gap-4 mb-3">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
           <div className="flex items-center gap-3">
             <div className="w-12 h-12 rounded-2xl bg-rose-100 dark:bg-rose-950/60 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold">
               <Zap className="w-6 h-6" />
@@ -117,20 +115,32 @@ export const TachistoscopeExercise: React.FC = () => {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={() => setSoundEnabled((s) => !s)}
-            className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
-            title={soundEnabled ? "Sesi Kapat" : "Sesi Aç"}
-          >
-            {soundEnabled ? <Volume2 className="w-5 h-5 text-rose-500" /> : <VolumeX className="w-5 h-5" />}
-          </button>
+          <div className="flex items-center gap-2">
+            <button
+              type="button"
+              onClick={handleShuffleNewWords}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/50 text-rose-700 dark:text-rose-300 border border-rose-200 dark:border-rose-800 text-xs font-bold transition shadow-xs cursor-pointer active:scale-95"
+              title="Havuzdan yeni 10 kelime karıştır"
+            >
+              <Shuffle className="w-3.5 h-3.5" />
+              <span>Kelimeleri Değiştir</span>
+            </button>
+
+            <button
+              type="button"
+              onClick={() => setSoundEnabled((s) => !s)}
+              className="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition cursor-pointer"
+              title={soundEnabled ? "Sesi Kapat" : "Sesi Aç"}
+            >
+              {soundEnabled ? <Volume2 className="w-5 h-5 text-rose-500" /> : <VolumeX className="w-5 h-5" />}
+            </button>
+          </div>
         </div>
 
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           İnsanların çoğu kelimeleri zihninde seslendirdiği (iç ses / subvocalization) için 250 WPM hız sınırına takılır. 
           Takistoskop, kelimeleri seslendirmeye vakit bırakmayacak kadar kısa sürede (50–120 milisaniye) flaş patlatarak 
-          beynin doğrudan <strong>görsel-kavramsal tanıma</strong> devresini çalıştırır.
+          beynin doğrudan <strong>görsel-kavramsal tanıma</strong> devresini çalıştırır. Her seansta {TACHISTOSCOPE_EXPANDED_BANK.length}+ kelimelik geniş havuzdan rastgele yeni kelimeler seçilir.
         </p>
       </div>
 
@@ -155,7 +165,7 @@ export const TachistoscopeExercise: React.FC = () => {
         </div>
 
         <div className="font-bold text-slate-500 dark:text-slate-400">
-          İlerleme: {exerciseState !== "idle" && exerciseState !== "finished" ? `${currentIndex + 1} / ${FLASH_WORD_POOL.length}` : "—"}
+          İlerleme: {exerciseState !== "idle" && exerciseState !== "finished" ? `${currentIndex + 1} / ${items.length}` : `${items.length} Kelimelik Rastgele Set`}
         </div>
       </div>
 
@@ -211,11 +221,11 @@ export const TachistoscopeExercise: React.FC = () => {
 
                 return (
                   <button
-                    key={idx}
+                    key={`${opt}-${idx}`}
                     type="button"
                     onClick={() => handleSelectOption(idx)}
                     disabled={exerciseState === "feedback"}
-                    className={`p-3.5 rounded-xl border text-sm font-semibold transition text-center ${btnStyle}`}
+                    className={`p-3.5 rounded-xl border text-sm font-semibold transition text-center cursor-pointer ${btnStyle}`}
                   >
                     {opt}
                   </button>
@@ -233,15 +243,15 @@ export const TachistoscopeExercise: React.FC = () => {
             <div>
               <h3 className="text-xl font-bold text-white">Seans Tamamlandı!</h3>
               <p className="text-sm text-slate-300 mt-1">
-                Doğru Algılama: <strong className="text-emerald-400 font-extrabold">{score} / {FLASH_WORD_POOL.length}</strong> (%{Math.round((score / FLASH_WORD_POOL.length) * 100)})
+                Doğru Algılama: <strong className="text-emerald-400 font-extrabold">{score} / {items.length}</strong> (%{Math.round((score / items.length) * 100)})
               </p>
               <div className="text-xs text-rose-300 mt-2 font-medium bg-rose-950/40 p-2.5 rounded-xl border border-rose-900 inline-block">
                 ⚡ {selectedSpeedMs} milisaniyede iç seslendirme olmadan algıladınız!
               </div>
             </div>
-            <div>
-              <Button variant="secondary" size="md" onClick={handleStart} className="flex items-center gap-2 mx-auto">
-                <RotateCcw className="w-4 h-4" /> Yeniden Başlat
+            <div className="flex items-center justify-center gap-3">
+              <Button variant="primary" size="md" onClick={handleStart} className="flex items-center gap-2">
+                <Shuffle className="w-4 h-4" /> Yeni Kelimelerle Başlat
               </Button>
             </div>
           </div>

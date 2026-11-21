@@ -2,29 +2,8 @@
 
 import React, { useState, useEffect, useRef } from "react";
 import { Button } from "@/components/ui/Button";
-import { Eye, Play, Pause, RotateCcw, Zap, Sparkles, CheckCircle2, Sliders } from "lucide-react";
-import Link from "next/link";
-
-interface PyramidRow {
-  left: string;
-  right: string;
-}
-
-const DEFAULT_PYRAMID_ROWS: PyramidRow[] = [
-  { left: "ak", right: "ıl" },
-  { left: "göz", right: "kas" },
-  { left: "hız", right: "lı" },
-  { left: "odak", right: "lama" },
-  { left: "bilim", right: "insan" },
-  { left: "kelime", right: "öbeği" },
-  { left: "düşünce", right: "algısı" },
-  { left: "bilişsel", right: "kapasite" },
-  { left: "genişleyen", right: "bakışlar" },
-  { left: "foveal odak", right: "merkezde" },
-  { left: "okuma temposu", right: "yükselecek" },
-  { left: "zihniniz bütünü", right: "anında kavrar" },
-  { left: "periferik görme", right: "alanı ikiye katlar" },
-];
+import { Eye, Play, Pause, RotateCcw, Zap, Sparkles, CheckCircle2, Sliders, Shuffle } from "lucide-react";
+import { PYRAMID_THEMES, generateRandomPyramid, PyramidRow } from "@/data/exercisePools";
 
 type SpeedMode = "slow" | "medium" | "fast";
 
@@ -35,6 +14,10 @@ const SPEED_CONFIG: Record<SpeedMode, { ms: number; label: string }> = {
 };
 
 export const PyramidExercise: React.FC = () => {
+  const [selectedThemeId, setSelectedThemeId] = useState<string>("random");
+  const [activeRows, setActiveRows] = useState<PyramidRow[]>(() => generateRandomPyramid());
+  const [activeThemeName, setActiveThemeName] = useState<string>("Dinamik Rastgele Örnekler");
+
   const [isActive, setIsActive] = useState(false);
   const [speed, setSpeed] = useState<SpeedMode>("medium");
   const [currentRow, setCurrentRow] = useState(0);
@@ -42,6 +25,38 @@ export const PyramidExercise: React.FC = () => {
   const [isFinished, setIsFinished] = useState(false);
 
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+
+  // Generate / Load theme rows
+  const loadThemeRows = (themeId: string) => {
+    if (themeId === "random") {
+      setActiveRows(generateRandomPyramid());
+      setActiveThemeName("Dinamik Rastgele Örnekler");
+    } else {
+      const found = PYRAMID_THEMES.find((t) => t.id === themeId);
+      if (found) {
+        setActiveRows(found.rows);
+        setActiveThemeName(found.name);
+      }
+    }
+    setCurrentRow(0);
+    setIsFinished(false);
+  };
+
+  const handleShuffleNewExamples = () => {
+    setIsActive(false);
+    if (selectedThemeId === "random") {
+      setActiveRows(generateRandomPyramid());
+    } else {
+      // Pick another random theme from the bank
+      const otherThemes = PYRAMID_THEMES.filter((t) => t.id !== selectedThemeId);
+      const randomTheme = otherThemes[Math.floor(Math.random() * otherThemes.length)];
+      setSelectedThemeId(randomTheme.id);
+      setActiveRows(randomTheme.rows);
+      setActiveThemeName(randomTheme.name);
+    }
+    setCurrentRow(0);
+    setIsFinished(false);
+  };
 
   useEffect(() => {
     if (!isActive) {
@@ -53,7 +68,7 @@ export const PyramidExercise: React.FC = () => {
     timerRef.current = setInterval(() => {
       setCurrentRow((prev) => {
         const next = prev + 1;
-        if (next >= DEFAULT_PYRAMID_ROWS.length) {
+        if (next >= activeRows.length) {
           setIsActive(false);
           setIsFinished(true);
           setCompletedRounds((c) => c + 1);
@@ -66,10 +81,17 @@ export const PyramidExercise: React.FC = () => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
-  }, [isActive, speed]);
+  }, [isActive, speed, activeRows.length]);
 
   const handleStart = () => {
-    setIsFinished(false);
+    if (isFinished) {
+      // Automatically generate a fresh new randomized pyramid for the next round!
+      if (selectedThemeId === "random") {
+        setActiveRows(generateRandomPyramid());
+      }
+      setCurrentRow(0);
+      setIsFinished(false);
+    }
     setIsActive(true);
   };
 
@@ -87,25 +109,78 @@ export const PyramidExercise: React.FC = () => {
     <div className="w-full max-w-3xl mx-auto space-y-6 animate-in fade-in duration-200">
       {/* Exercise Explanation Header */}
       <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold">
-            <Eye className="w-6 h-6" />
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-3">
+          <div className="flex items-center gap-3">
+            <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950/60 text-amber-700 dark:text-amber-300 flex items-center justify-center font-bold">
+              <Eye className="w-6 h-6" />
+            </div>
+            <div>
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+                Göz Kası & Periferik Alan Antrenmanı
+              </span>
+              <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
+                Piramit Okuma (Görsel Alan Genişletici)
+              </h1>
+            </div>
           </div>
-          <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
-              Göz Kası & Periferik Alan Antrenmanı
-            </span>
-            <h1 className="text-xl sm:text-2xl font-bold text-slate-900 dark:text-slate-100">
-              Piramit Okuma (Görsel Alan Genişletici)
-            </h1>
+
+          {/* Active Set Badge & Shuffle Button */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={handleShuffleNewExamples}
+              type="button"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/50 hover:bg-amber-100 dark:hover:bg-amber-900/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-bold transition shadow-xs cursor-pointer active:scale-95"
+              title="Yeni ve farklı örneklerle piramidi yenile"
+            >
+              <Shuffle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <span>Örnekleri Değiştir</span>
+            </button>
           </div>
         </div>
 
         <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
           Gözlerinizi yalnızca ortadaki <strong>kırmızı fiksasyon çizgisine (•)</strong> sabitleyin. 
           Göz bebeklerinizi sağa veya sola hareket ettirmeden, yanlara doğru genişleyen kelimeleri periferik 
-          (çevresel) görüşünüzle algılamaya çalışın. Bu alıştırma tek bakışta algılanan kelime öbeği genişliğini ikiye katlar.
+          görüşünüzle algılamaya çalışın. Her turda örnekler otomatik olarak yenilenir ve farklı temalardan kelime çiftleri üretilir.
         </p>
+
+        {/* Theme Category Pills */}
+        <div className="mt-4 pt-4 border-t border-slate-100 dark:border-slate-800 flex items-center gap-1.5 flex-wrap">
+          <span className="text-xs font-semibold text-slate-400 dark:text-slate-500 mr-1 flex items-center gap-1">
+            <Sparkles className="w-3 h-3 text-amber-500" /> Tema:
+          </span>
+          <button
+            type="button"
+            onClick={() => {
+              setSelectedThemeId("random");
+              loadThemeRows("random");
+            }}
+            className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+              selectedThemeId === "random"
+                ? "bg-amber-500 text-white shadow-xs"
+                : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+            }`}
+          >
+            🎲 Her Seferinde Farklı (Rastgele)
+          </button>
+          {PYRAMID_THEMES.map((theme) => (
+            <button
+              key={theme.id}
+              type="button"
+              onClick={() => {
+                setSelectedThemeId(theme.id);
+                loadThemeRows(theme.id);
+              }}
+              className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                selectedThemeId === theme.id
+                  ? "bg-amber-500 text-white shadow-xs"
+                  : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+              }`}
+            >
+              {theme.name}
+            </button>
+          ))}
+        </div>
       </div>
 
       {/* Pyramid Visual Board */}
@@ -113,8 +188,13 @@ export const PyramidExercise: React.FC = () => {
         {/* Central Vertical Fixation Guide Line */}
         <div className="absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-[2px] bg-rose-400/30 dark:bg-rose-500/30 pointer-events-none" />
 
+        {/* Current Theme Pill */}
+        <div className="mb-2 text-[11px] font-bold text-amber-700 dark:text-amber-400 bg-amber-100/70 dark:bg-amber-950/50 px-3 py-0.5 rounded-full border border-amber-200 dark:border-amber-900/60 z-10">
+          Aktif Havuz: {activeThemeName} ({activeRows.length} Basamak)
+        </div>
+
         <div className="w-full max-w-lg space-y-2 relative z-10 py-4">
-          {DEFAULT_PYRAMID_ROWS.map((row, idx) => {
+          {activeRows.map((row, idx) => {
             const isCurrent = isActive && idx === currentRow;
             const isPast = isActive && idx < currentRow;
 
@@ -127,7 +207,7 @@ export const PyramidExercise: React.FC = () => {
 
             return (
               <div
-                key={idx}
+                key={`${row.left}-${row.right}-${idx}`}
                 className={`flex items-center justify-between text-sm sm:text-base transition-all duration-200 ${rowStyle}`}
               >
                 {/* Left Expanding Word */}
@@ -136,7 +216,7 @@ export const PyramidExercise: React.FC = () => {
                 </span>
 
                 {/* Center Fixation Anchor Marker */}
-                <div className="w-3 h-3 rounded-full bg-rose-500 dark:bg-rose-400 flex-shrink-0 flex items-center justify-center shadow-xs">
+                <div className="w-3 h-3 rounded-full bg-rose-500 dark:bg-rose-400 shrink-0 flex items-center justify-center shadow-xs">
                   <div className="w-1 h-1 rounded-full bg-white" />
                 </div>
 
@@ -151,16 +231,28 @@ export const PyramidExercise: React.FC = () => {
 
         {/* Completion Modal / Card */}
         {isFinished && (
-          <div className="mt-4 p-4 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-center animate-in zoom-in-95 duration-200">
-            <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto mb-2">
+          <div className="mt-4 p-5 rounded-2xl bg-emerald-50 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-800 text-center animate-in zoom-in-95 duration-200 space-y-2">
+            <div className="w-10 h-10 rounded-full bg-emerald-500 text-white flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-6 h-6" />
             </div>
             <h3 className="font-bold text-emerald-950 dark:text-emerald-100 text-sm">
               Tur Tamamlandı! Görsel Alanınız Genişletildi
             </h3>
-            <p className="text-xs text-emerald-800 dark:text-emerald-300 mt-1">
-              Son basamakta 34 karakterlik genişliğe periferik olarak odaklandınız.
+            <p className="text-xs text-emerald-800 dark:text-emerald-300">
+              Son basamakta geniş perifere başarıyla odaklandınız. Bir sonraki turda örnekler otomatik değişecektir!
             </p>
+            <div className="pt-1">
+              <Button
+                type="button"
+                variant="primary"
+                size="sm"
+                onClick={handleStart}
+                className="inline-flex items-center gap-1.5"
+              >
+                <Shuffle className="w-3.5 h-3.5" />
+                <span>Yeni Örneklerle Tekrar Başlat</span>
+              </Button>
+            </div>
           </div>
         )}
       </div>
@@ -212,7 +304,7 @@ export const PyramidExercise: React.FC = () => {
               key={mode}
               type="button"
               onClick={() => setSpeed(mode)}
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition ${
+              className={`px-3 py-1.5 rounded-xl text-xs font-bold transition cursor-pointer ${
                 speed === mode
                   ? "bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300 border border-amber-300 dark:border-amber-800"
                   : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"

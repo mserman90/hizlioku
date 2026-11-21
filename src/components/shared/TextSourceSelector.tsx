@@ -3,7 +3,7 @@
 import React, { useState, useMemo } from "react";
 import { PUBLIC_TEXTS, PublicTextItem } from "@/data/publicTexts";
 import { Button } from "@/components/ui/Button";
-import { BookOpen, FileText, ArrowRight, Sparkles } from "lucide-react";
+import { BookOpen, FileText, ArrowRight, Sparkles, Shuffle, Filter } from "lucide-react";
 import { calculateReadability } from "@/lib/readabilityScore";
 
 interface TextSourceSelectorProps {
@@ -14,9 +14,31 @@ export const TextSourceSelector: React.FC<TextSourceSelectorProps> = ({
   onSelectText,
 }) => {
   const [activeTab, setActiveTab] = useState<"preset" | "custom">("preset");
+  const [selectedCategory, setSelectedCategory] = useState<string>("all");
   const [customText, setCustomText] = useState("");
   const [customTitle, setCustomTitle] = useState("");
   const [error, setError] = useState<string | null>(null);
+
+  const categories = useMemo(() => {
+    const set = new Set<string>();
+    PUBLIC_TEXTS.forEach((t) => {
+      if (t.category) set.add(t.category);
+    });
+    return Array.from(set);
+  }, []);
+
+  const filteredTexts = useMemo(() => {
+    if (selectedCategory === "all") return PUBLIC_TEXTS;
+    return PUBLIC_TEXTS.filter((t) => t.category === selectedCategory);
+  }, [selectedCategory]);
+
+  const handlePickRandomText = () => {
+    const pool = filteredTexts.length > 0 ? filteredTexts : PUBLIC_TEXTS;
+    const randomItem = pool[Math.floor(Math.random() * pool.length)];
+    if (randomItem) {
+      onSelectText(randomItem.content, randomItem.title, randomItem.questions);
+    }
+  };
 
   const customMetrics = useMemo(() => {
     if (customText.trim().length < 20) return null;
@@ -83,10 +105,52 @@ export const TextSourceSelector: React.FC<TextSourceSelectorProps> = ({
       </div>
 
       {activeTab === "preset" ? (
-        <div className="space-y-3">
-          {PUBLIC_TEXTS.map((item) => {
-            const readability = calculateReadability(item.content);
-            return (
+        <div className="space-y-4">
+          {/* Category Filter & Random Pick Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-2 pt-1 pb-1">
+            <div className="flex items-center gap-1.5 overflow-x-auto max-w-full">
+              <button
+                type="button"
+                onClick={() => setSelectedCategory("all")}
+                className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer ${
+                  selectedCategory === "all"
+                    ? "bg-brand-600 text-white shadow-xs"
+                    : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                }`}
+              >
+                Tümü ({PUBLIC_TEXTS.length})
+              </button>
+              {categories.map((cat) => (
+                <button
+                  key={cat}
+                  type="button"
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`px-3 py-1 rounded-xl text-xs font-bold transition cursor-pointer whitespace-nowrap ${
+                    selectedCategory === cat
+                      ? "bg-brand-600 text-white shadow-xs"
+                      : "bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-200"
+                  }`}
+                >
+                  {cat}
+                </button>
+              ))}
+            </div>
+
+            <button
+              type="button"
+              onClick={handlePickRandomText}
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 hover:bg-amber-100 dark:hover:bg-amber-900/50 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800 text-xs font-bold transition shadow-xs cursor-pointer active:scale-95"
+              title="Havuzdan rastgele bir metin seç ve hemen başlat"
+            >
+              <Shuffle className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
+              <span>Rastgele Metin Başlat</span>
+            </button>
+          </div>
+
+          <div className="space-y-3">
+            {filteredTexts.map((item) => {
+              const readability = calculateReadability(item.content);
+              return (
               <div
                 key={item.id}
                 className="p-5 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 hover:bg-brand-50/30 dark:hover:bg-slate-800/50 transition flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 group"
@@ -123,6 +187,7 @@ export const TextSourceSelector: React.FC<TextSourceSelectorProps> = ({
               </div>
             );
           })}
+          </div>
         </div>
       ) : (
         <form onSubmit={handleCustomSubmit} className="space-y-4">

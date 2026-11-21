@@ -13,19 +13,51 @@ interface WordChallenge {
   emoji: string;
 }
 
-const CHILD_WORDS: WordChallenge[] = [
+const CHILD_WORDS_BANK: WordChallenge[] = [
+  // Hayvanlar
   { word: "kelebek", category: "Hayvanlar", emoji: "🦋" },
   { word: "sincap", category: "Hayvanlar", emoji: "🐿️" },
   { word: "kaplumbağa", category: "Hayvanlar", emoji: "🐢" },
   { word: "yunus", category: "Hayvanlar", emoji: "🐬" },
+  { word: "tavşan", category: "Hayvanlar", emoji: "🐰" },
+  { word: "zürafa", category: "Hayvanlar", emoji: "🦒" },
+  { word: "karınca", category: "Hayvanlar", emoji: "🐜" },
+  { word: "papağan", category: "Hayvanlar", emoji: "🦜" },
+  { word: "kunduz", category: "Hayvanlar", emoji: "🦫" },
+  { word: "baykuş", category: "Hayvanlar", emoji: "🦉" },
+
+  // Doğa & Çevre
   { word: "gökkuşağı", category: "Doğa", emoji: "🌈" },
   { word: "çağlayan", category: "Doğa", emoji: "🌊" },
   { word: "yıldız", category: "Doğa", emoji: "⭐" },
+  { word: "şelale", category: "Doğa", emoji: "💦" },
+  { word: "fırtına", category: "Doğa", emoji: "🌪️" },
+  { word: "papatya", category: "Doğa", emoji: "🌼" },
+  { word: "yanardağ", category: "Doğa", emoji: "🌋" },
+  { word: "nilüfer", category: "Doğa", emoji: "🪷" },
+
+  // Okul & Öğrenme
   { word: "öğretmen", category: "Okul", emoji: "👩‍🏫" },
   { word: "arkadaş", category: "Okul", emoji: "🤝" },
   { word: "kitaplık", category: "Okul", emoji: "📚" },
+  { word: "kırtasiye", category: "Okul", emoji: "✏️" },
+  { word: "teneffüs", category: "Okul", emoji: "🔔" },
+  { word: "merdiven", category: "Okul", emoji: "🪜" },
+
+  // Uzay & Bilim
   { word: "gezegen", category: "Uzay", emoji: "🪐" },
   { word: "roket", category: "Uzay", emoji: "🚀" },
+  { word: "astronot", category: "Uzay", emoji: "👨‍🚀" },
+  { word: "teleskop", category: "Uzay", emoji: "🔭" },
+  { word: "samanyolu", category: "Uzay", emoji: "🌌" },
+
+  // Meyveler & Lezzetler
+  { word: "çilek", category: "Meyveler", emoji: "🍓" },
+  { word: "portakal", category: "Meyveler", emoji: "🍊" },
+  { word: "karpuz", category: "Meyveler", emoji: "🍉" },
+  { word: "mandalina", category: "Meyveler", emoji: "🍊" },
+  { word: "böğürtlen", category: "Meyveler", emoji: "🫐" },
+  { word: "şeftali", category: "Meyveler", emoji: "🍑" },
 ];
 
 const SYLLABLE_PASTEL_COLORS = [
@@ -37,6 +69,9 @@ const SYLLABLE_PASTEL_COLORS = [
 ];
 
 export const SyllableBuilderGame: React.FC<{ onBackToMenu: () => void }> = ({ onBackToMenu }) => {
+  const [activeWords, setActiveWords] = useState<WordChallenge[]>(() =>
+    [...CHILD_WORDS_BANK].sort(() => Math.random() - 0.5)
+  );
   const [roundIndex, setRoundIndex] = useState(0);
   const [selectedSyllables, setSelectedSyllables] = useState<string[]>([]);
   const [shuffledSyllables, setShuffledSyllables] = useState<{ id: string; text: string; colorClass: string }[]>([]);
@@ -44,7 +79,7 @@ export const SyllableBuilderGame: React.FC<{ onBackToMenu: () => void }> = ({ on
   const [isRoundWon, setIsRoundWon] = useState(false);
   const [isGameOver, setIsGameOver] = useState(false);
 
-  const currentChallenge = CHILD_WORDS[roundIndex % CHILD_WORDS.length];
+  const currentChallenge = activeWords[roundIndex % activeWords.length] || CHILD_WORDS_BANK[0];
   const targetSyllables = syllabifyWord(currentChallenge.word);
 
   // Initialize round
@@ -115,6 +150,7 @@ export const SyllableBuilderGame: React.FC<{ onBackToMenu: () => void }> = ({ on
   };
 
   const handleRestart = () => {
+    setActiveWords([...CHILD_WORDS_BANK].sort(() => Math.random() - 0.5));
     setRoundIndex(0);
     setStars(0);
     setIsGameOver(false);
