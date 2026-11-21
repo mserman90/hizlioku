@@ -13,6 +13,8 @@ HızlıOku, iki farklı yaş grubunun bilişsel ve pedagojik ihtiyaçlarına gö
 - [BILIMSEL_TEMELLER.md](file:///C:/Users/mert/.gemini/antigravity/scratch/hizlioku/BILIMSEL_TEMELLER.md): Bilişsel psikoloji, okülomotor hareketler (RSVP, ORP, Sakkad), disleksi adaptasyonları ve okuma bilimi literatürü.
 - [KULLANIM_KILAVUZU.md](file:///C:/Users/mert/.gemini/antigravity/scratch/hizlioku/KULLANIM_KILAVUZU.md): Tüm ekranlar, çocuk/yetişkin/veli/yönetici akışları ve klavye kısayollarını içeren adım adım kullanım rehberi.
 - [release/hizlioku.apk](file:///C:/Users/mert/.gemini/antigravity/scratch/hizlioku/release/hizlioku.apk): Android telefon ve tabletler için doğrudan kurulabilir yerel APK paketi (v1.0, 4.7 MB).
+- [release/hizlioku.mobileconfig](file:///C:/Users/mert/.gemini/antigravity/scratch/hizlioku/release/hizlioku.mobileconfig): Apple iPhone ve iPad cihazlar için tek tıkla ana ekrana sabitleme konfigürasyon profili.
+- [ios/](file:///C:/Users/mert/.gemini/antigravity/scratch/hizlioku/ios): Apple iOS (Xcode / Swift Package Manager) yerel proje kaynak kodları.
 - [manual-test-checklist.md](file:///C:/Users/mert/.gemini/antigravity/scratch/hizlioku/tests/manual-test-checklist.md): 6 farklı ekran genişliğinde ve tüm modüllerde uçtan uca test matrisi.
 
 ---

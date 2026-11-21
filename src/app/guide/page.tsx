@@ -26,6 +26,8 @@ import {
   Smartphone,
   Github,
   ExternalLink,
+  Share,
+  PlusSquare,
 } from "lucide-react";
 
 type GuideTab = "adult" | "child" | "science";
@@ -94,38 +96,74 @@ export default function GuidePage() {
       </div>
 
       {/* App Distribution & GitHub Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Android APK Download Card */}
         <div className="p-5 rounded-3xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex flex-col justify-between gap-4">
           <div className="flex items-start gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-emerald-600/20">
-              <Smartphone className="w-6 h-6" />
+            <div className="w-11 h-11 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-emerald-600/20">
+              <Smartphone className="w-5 h-5" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
-                  Android Uygulaması (.APK) Hazır!
+                  Android (.APK)
                 </h3>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
                   v1.0 • 4.7 MB
                 </span>
               </div>
-              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1">
-                HızlıOku'yu Android telefon veya tabletinize doğrudan yerel uygulama olarak kurup çevrimdışı kullanabilirsiniz.
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                Android telefon veya tabletinize doğrudan yerel uygulama olarak kurup çevrimdışı kullanın.
               </p>
             </div>
           </div>
-          <div className="pt-1 flex items-center justify-between gap-2 border-t border-emerald-100 dark:border-emerald-900/60">
+          <div className="pt-2 flex items-center justify-between gap-2 border-t border-emerald-100 dark:border-emerald-900/60">
             <span className="text-[11px] text-emerald-700 dark:text-emerald-300 font-medium">
-              Android 7.0+ Tüm Cihazlar
+              Android 7.0+
             </span>
             <a
               href="./hizlioku.apk"
               download="hizlioku.apk"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition active:scale-95 whitespace-nowrap cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition active:scale-95 whitespace-nowrap cursor-pointer"
             >
-              <Download className="w-4 h-4" />
+              <Download className="w-3.5 h-3.5" />
               <span>APK İndir</span>
+            </a>
+          </div>
+        </div>
+
+        {/* Apple iOS / iPhone Card */}
+        <div className="p-5 rounded-3xl bg-sky-50 dark:bg-sky-950/40 border border-sky-200 dark:border-sky-800 flex flex-col justify-between gap-4">
+          <div className="flex items-start gap-3">
+            <div className="w-11 h-11 rounded-2xl bg-sky-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-sky-600/20">
+              <Smartphone className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5 flex-wrap">
+                <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                  Apple (iPhone / iPad)
+                </h3>
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-sky-200 dark:bg-sky-900 text-sky-800 dark:text-sky-200">
+                  PWA & Profil
+                </span>
+              </div>
+              <p className="text-xs text-slate-600 dark:text-slate-400 mt-1 leading-relaxed">
+                Safari'de <strong>Paylaş</strong> <Share className="w-3 h-3 inline text-sky-600 dark:text-sky-400" /> &gt; <strong>Ana Ekrana Ekle</strong> diyerek veya konfigürasyon profiliyle kurun.
+              </p>
+            </div>
+          </div>
+          <div className="pt-2 flex items-center justify-between gap-2 border-t border-sky-100 dark:border-sky-900/60">
+            <span className="text-[11px] text-sky-700 dark:text-sky-300 font-medium">
+              iOS 14+ Tam Ekran
+            </span>
+            <a
+              href="./hizlioku.mobileconfig"
+              download="hizlioku.mobileconfig"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-sky-600 hover:bg-sky-700 text-white font-bold text-xs shadow-md shadow-sky-600/20 transition active:scale-95 whitespace-nowrap cursor-pointer"
+              title="iOS Konfigürasyon Profilini İndir"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>iOS Profili (.mobileconfig)</span>
             </a>
           </div>
         </div>
@@ -133,35 +171,35 @@ export default function GuidePage() {
         {/* GitHub Repository Card */}
         <div className="p-5 rounded-3xl bg-slate-900 text-white border border-slate-800 flex flex-col justify-between gap-4 shadow-sm">
           <div className="flex items-start gap-3">
-            <div className="w-12 h-12 rounded-2xl bg-slate-800 text-white flex items-center justify-center font-bold shrink-0 border border-slate-700">
-              <Github className="w-6 h-6" />
+            <div className="w-11 h-11 rounded-2xl bg-slate-800 text-white flex items-center justify-center font-bold shrink-0 border border-slate-700">
+              <Github className="w-5 h-5" />
             </div>
             <div>
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <h3 className="text-sm font-bold text-white">
-                  GitHub Kaynak Kod Deposu
+                  GitHub Kod Deposu
                 </h3>
                 <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-brand-500/20 text-brand-300 border border-brand-500/30">
-                  Açık Kaynak • MIT
+                  MIT Açık Kaynak
                 </span>
               </div>
-              <p className="text-xs text-slate-400 mt-1">
-                Tüm algoritmalar, akademik testler, dokümantasyon ve native Android kodları açık kaynak olarak GitHub'da barındırılmaktadır.
+              <p className="text-xs text-slate-400 mt-1 leading-relaxed">
+                Tüm algoritmalar, akademik testler, Android ve iOS (Xcode/Swift) kodları GitHub'da açıktır.
               </p>
             </div>
           </div>
-          <div className="pt-1 flex items-center justify-between gap-2 border-t border-slate-800">
-            <span className="text-[11px] text-slate-400 font-mono">
-              mserman90/hizlioku
+          <div className="pt-2 flex items-center justify-between gap-2 border-t border-slate-800">
+            <span className="text-[11px] text-slate-400 font-mono truncate max-w-[100px]">
+              mserman90
             </span>
             <a
               href="https://github.com/mserman90/hizlioku"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs shadow-md transition active:scale-95 whitespace-nowrap cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-bold text-xs shadow-md transition active:scale-95 whitespace-nowrap cursor-pointer"
             >
               <Github className="w-3.5 h-3.5" />
-              <span>GitHub'da Görüntüle</span>
+              <span>İncele</span>
               <ExternalLink className="w-3 h-3 text-slate-500" />
             </a>
           </div>

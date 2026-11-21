@@ -70,6 +70,17 @@ export const Footer: React.FC = () => {
                   Android APK İndir (v1.0)
                 </a>
               </li>
+              <li>
+                <a
+                  href="./hizlioku.mobileconfig"
+                  download="hizlioku.mobileconfig"
+                  className="hover:text-sky-400 transition flex items-center gap-1.5"
+                  title="iPhone / iPad için Apple WebClip Konfigürasyon Profili"
+                >
+                  <Smartphone className="w-3.5 h-3.5 text-sky-400" />
+                  Apple iOS Profili (.mobileconfig)
+                </a>
+              </li>
             </ul>
           </div>
 
@@ -88,6 +99,16 @@ export const Footer: React.FC = () => {
                 >
                   <Github className="w-3.5 h-3.5" />
                   GitHub Kaynak Kodları
+                </a>
+              </li>
+              <li>
+                <a
+                  href="https://github.com/mserman90/hizlioku/tree/main/ios"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="hover:text-brand-400 transition"
+                >
+                  iOS Native (Xcode / Swift)
                 </a>
               </li>
               <li>

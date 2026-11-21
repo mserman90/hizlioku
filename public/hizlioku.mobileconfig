@@ -1,0 +1,53 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+    <key>PayloadContent</key>
+    <array>
+        <dict>
+            <key>FullScreen</key>
+            <true/>
+            <key>Icon</key>
+            <data>
+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
+            </data>
+            <key>IsRemovable</key>
+            <true/>
+            <key>Label</key>
+            <string>HızlıOku</string>
+            <key>PayloadDescription</key>
+            <string>HızlıOku Bilimsel Hızlı Okuma Platformu Web Uygulaması</string>
+            <key>PayloadDisplayName</key>
+            <string>HızlıOku WebClip</string>
+            <key>PayloadIdentifier</key>
+            <string>com.hizlioku.webclip</string>
+            <key>PayloadType</key>
+            <string>com.apple.webClip.managed</string>
+            <key>PayloadUUID</key>
+            <string>c38f15e8-5b48-4a6c-9f87-1e582847a9b1</string>
+            <key>PayloadVersion</key>
+            <integer>1</integer>
+            <key>Precomposed</key>
+            <true/>
+            <key>URL</key>
+            <string>https://mserman90.github.io/hizlioku/</string>
+        </dict>
+    </array>
+    <key>PayloadDescription</key>
+    <string>HızlıOku uygulamasını iPhone ve iPad ana ekranınıza yerel uygulama olarak kurar.</string>
+    <key>PayloadDisplayName</key>
+    <string>HızlıOku iOS Kurulum Profili</string>
+    <key>PayloadIdentifier</key>
+    <string>com.hizlioku.iosprofile</string>
+    <key>PayloadOrganization</key>
+    <string>HızlıOku Açık Kaynak Topluluğu</string>
+    <key>PayloadRemovalDisallowed</key>
+    <false/>
+    <key>PayloadType</key>
+    <string>Configuration</string>
+    <key>PayloadUUID</key>
+    <string>7e3b92d4-f6a1-42e8-9bc3-2947a16b9e52</string>
+    <key>PayloadVersion</key>
+    <integer>1</integer>
+</dict>
+</plist>

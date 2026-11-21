@@ -169,3 +169,33 @@ Bu kılavuz, **HızlıOku** platformunun çocuklar (6–12 yaş) ve yetişkinler
 - **3–6. Dakika:** 2'li veya 3'lü Öbekleme (Chunking) ile RSVP Okuyucu 500–600 WPM.
 - **6–12. Dakika:** Kendi ders/makale PDF'inizi yükleyip Rehber Cetvel ile 450 WPM'de tarama.
 - **12–15. Dakika:** Takistoskop 50 ms flaş antrenmanı + Analitik sonuç inceleme.
+
+---
+
+## 6. Mobil Cihazlara Kurulum Rehberi (Android & Apple iOS / iPhone)
+
+### 6.1 Android Cihazlara Doğrudan APK Kurulumu
+1. Android cihazınızın tarayıcısından [mserman90.github.io/hizlioku/hizlioku.apk](https://mserman90.github.io/hizlioku/hizlioku.apk) dosyasını indirin.
+2. İndirilen `hizlioku.apk` dosyasına dokunun ve "Bilinmeyen kaynaklardan yüklemeye izin ver" onayını verin.
+3. "Yükle" butonuna basarak kurulumu tamamlayın. Uygulama tamamen yerel ve çevrimdışı çalışmaya hazır hale gelir.
+
+### 6.2 Apple iOS (iPhone & iPad) Kurulumu
+
+#### 🍏 Yöntem 1: Safari ile Ana Ekrana Ekleme (Resmi Apple PWA - Önerilen)
+1. iPhone veya iPad'inizde **Safari** tarayıcısını açıp `https://mserman90.github.io/hizlioku/` adresine gidin.
+2. Safari'nin alt araç çubuğundaki **Paylaş (Kare ve yukarı ok ⬆️)** simgesine dokunun.
+3. Açılan paylaşım sayfasında aşağı kaydırarak **"Ana Ekrana Ekle" (Add to Home Screen)** seçeneğini seçin.
+4. Sağ üstteki **"Ekle"** düğmesine dokunun.
+5. HızlıOku logosu iPhone ana ekranınıza tıpkı App Store'dan indirilmiş gibi yerleşir; Safari adres çubuğu olmadan tam ekran ve çevrimdışı çalışır.
+
+#### 📁 Yöntem 2: Apple Konfigürasyon Profili (.mobileconfig)
+1. iPhone Safari üzerinden [hizlioku.mobileconfig](https://mserman90.github.io/hizlioku/hizlioku.mobileconfig) dosyasını indirin.
+2. Gelen "Profil indirildi" uyarısından sonra iPhone'unuzda **Ayarlar > Profil İndirildi > HızlıOku** menüsüne gidin.
+3. Sağ üstteki **Yükle** butonuna dokunun. WebClip simgesi anında ana ekranınıza sabitlenir.
+
+#### 💻 Yöntem 3: Mac & Xcode ile Derleme (Geliştiriciler & Sideloading)
+1. Repoyu Mac'inize klonlayın: `git clone https://github.com/mserman90/hizlioku.git`
+2. `ios/App/App.xcodeproj` projesini Xcode ile açın.
+3. iPhone'unuzu USB veya Wi-Fi ile bağlayıp hedef cihaz olarak seçin ve **Run (Cmd+R)** ile cihazınıza yükleyin.
+4. AltStore / Sideloadly / TrollStore kullanıcıları için GitHub Actions `.github/workflows/build-ios.yml` tarafından üretilen imzasız `.ipa` paketi de kullanılabilir.
+
