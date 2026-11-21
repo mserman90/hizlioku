@@ -1,6 +1,23 @@
 import React from "react";
 import Link from "next/link";
-import { Sparkles, Eye, ShieldCheck, ArrowRight, Zap, Target, BookOpen } from "lucide-react";
+import {
+  Sparkles,
+  Eye,
+  ShieldCheck,
+  ArrowRight,
+  Zap,
+  Target,
+  BookOpen,
+  Check,
+  X,
+  Lock,
+  Cpu,
+  Layers,
+  Smartphone,
+  Award,
+  Globe,
+  Sliders,
+} from "lucide-react";
 import { HeroDemo } from "@/components/home/HeroDemo";
 
 export default function LandingPage() {
@@ -81,53 +98,210 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Feature Highlights */}
-      <section className="w-full bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800 py-16 transition-colors">
-        <div className="max-w-screen-xl mx-auto px-4 sm:px-6">
-          <div className="text-center max-w-2xl mx-auto mb-12">
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white">
+      {/* Why HızlıOku? - Superiority & Comparative Advantages */}
+      <section className="w-full bg-white dark:bg-slate-900 border-y border-slate-200 dark:border-slate-800 py-16 sm:py-20 transition-colors">
+        <div className="max-w-screen-xl mx-auto px-4 sm:px-6 space-y-16">
+          {/* Section Header */}
+          <div className="text-center max-w-3xl mx-auto space-y-3">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-brand-50 dark:bg-brand-950/60 border border-brand-200 dark:border-brand-800 text-brand-700 dark:text-brand-300 text-xs font-bold">
+              <Award className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+              <span>Bilimsel & Açık Kaynak Üstünlüğü</span>
+            </div>
+            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white tracking-tight">
               Neden HızlıOku?
             </h2>
-            <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base mt-2">
-              Okuma bilimine dayalı pedagojik ve bilişsel yöntemler
+            <p className="text-slate-600 dark:text-slate-300 text-sm sm:text-base leading-relaxed">
+              Ticari ve yabancı hızlı okuma yazılımlarının aksine, Türkçe dil bilgisine özel algoritmalar ve sıfır veri takibiyle tasarlandı.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-col items-center text-center">
-              <div className="w-12 h-12 rounded-2xl bg-brand-100 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 flex items-center justify-center mb-4">
-                <Eye className="w-6 h-6" />
+          {/* 6 Superiority Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* 1. Turkish Language Specific */}
+            <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-rose-100 dark:bg-rose-950/70 text-rose-700 dark:text-rose-300 flex items-center justify-center mb-4 font-bold shadow-xs">
+                  <Globe className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  Türkçe Dil Yapısına & Ateşman Modeline Özel
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Yabancı uygulamalar İngilizce heceleme modelleriyle Türkçeyi bozar. HızlıOku, sondan eklemeli yapımıza uygun <strong>fonotaktik heceleme</strong> ve <strong>Ateşman Okunabilirlik İndeksi</strong> ile kelimeleri doğru ORP (Optimum Tanıma Noktası) ile odaklar.
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-                ORP & RSVP Teknolojisi
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Gözün sıçrama (saccade) hareketini minimuma indirerek kelimeleri optimum odak noktasından algılayın.
-              </p>
+              <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] font-bold text-rose-600 dark:text-rose-400">
+                ✓ Doğru Türkçe Heceleme & Vurgu
+              </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-col items-center text-center">
-              <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 flex items-center justify-center mb-4">
-                <ShieldCheck className="w-6 h-6" />
+            {/* 2. 100% Free & Open Source */}
+            <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-emerald-100 dark:bg-emerald-950/70 text-emerald-700 dark:text-emerald-300 flex items-center justify-center mb-4 font-bold shadow-xs">
+                  <Award className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  %100 Ücretsiz, Reklamsız ve Açık Kaynak
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Aylık $10–$20 abonelik isteyen ticari yazılımların (Spreeder, SwiftRead, Outread vb.) aksine; gizli ödeme duvarı, reklam veya ücretli üyelik yoktur. MIT lisansıyla sonsuza dek ücretsiz ve topluluğa açıktır.
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-                Çocuk Güvenliği & Gizlilik
-              </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                13 yaş altı için veli onayı şarttır. Reklam, profil çıkarma veya sosyal baskı içermez.
-              </p>
+              <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] font-bold text-emerald-600 dark:text-emerald-400">
+                ✓ Sıfır Ücret • Sıfır Reklam
+              </div>
             </div>
 
-            <div className="p-6 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-col items-center text-center">
-              <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 flex items-center justify-center mb-4">
-                <BookOpen className="w-6 h-6" />
+            {/* 3. Zero-Cloud Local Privacy */}
+            <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-indigo-100 dark:bg-indigo-950/70 text-indigo-700 dark:text-indigo-300 flex items-center justify-center mb-4 font-bold shadow-xs">
+                  <Lock className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  Sıfır Bulut Bağımlılığı & %100 Yerel Gizlilik
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Okuduğunuz kişisel PDF'ler, ders notları, EPUB kitapları veya metinler asla bir sunucuya yüklenmez. Tüm metin ayıklama, hız hesabı ve soru üretimi tamamen tarayıcınızda (cihaz içinde) yerel gerçekleşir.
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
-                Disleksi & Erişilebilirlik
+              <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] font-bold text-indigo-600 dark:text-indigo-400">
+                ✓ KVKK & COPPA Tam Uyumlu
+              </div>
+            </div>
+
+            {/* 4. Multi-modal Reading Engines */}
+            <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-brand-100 dark:bg-brand-950/70 text-brand-700 dark:text-brand-300 flex items-center justify-center mb-4 font-bold shadow-xs">
+                  <Layers className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  Çok Modlu Hibrit Okuma (RSVP + Pacer + Biyonik)
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Sadece tek kelime yanıp sönen flaşla sınırlandırılmazsınız. İster tek kelime <strong>RSVP</strong>, ister sayfa bütünlüğünü koruyan <strong>Rehber Cetvel (Pacer)</strong>, ister <strong>Biyonik Vurgulama</strong> ile metinleri akıcı okuyun.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] font-bold text-brand-600 dark:text-brand-400">
+                ✓ 3 Farklı Bilişsel Okuma Teknolojisi
+              </div>
+            </div>
+
+            {/* 5. Complete Eye-Brain Gym */}
+            <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-amber-100 dark:bg-amber-950/70 text-amber-700 dark:text-amber-300 flex items-center justify-center mb-4 font-bold shadow-xs">
+                  <Zap className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  Bütüncül Göz Kası ve Odak Eğitimi
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Yalnızca metin akıtmak hızlı okutmaz. <strong>Schulte Tablosu</strong> (Gorbov Kırmızı-Siyah çift görev), <strong>Piramit Okuma</strong> (görsel alan genişletici), <strong>Zigzag Sakkad</strong> ve <strong>Takistoskop</strong> ile göz-beyin reflekslerini geliştirir.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] font-bold text-amber-600 dark:text-amber-400">
+                ✓ 4 Farklı Bilimsel Göz Egzersizi
+              </div>
+            </div>
+
+            {/* 6. True Multi-Platform & Offline */}
+            <div className="p-6 rounded-3xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700/80 flex flex-col justify-between hover:shadow-md transition">
+              <div>
+                <div className="w-12 h-12 rounded-2xl bg-sky-100 dark:bg-sky-950/70 text-sky-700 dark:text-sky-300 flex items-center justify-center mb-4 font-bold shadow-xs">
+                  <Smartphone className="w-6 h-6" />
+                </div>
+                <h3 className="text-lg font-bold text-slate-900 dark:text-white mb-2">
+                  Her Cihazda Yerel & Çevrimdışı Çalışma
+                </h3>
+                <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
+                  Web tarayıcınızda anında çalışır. Android telefonunuza hafif <strong>.apk</strong> (4.7 MB) olarak kurulabilir. iPhone ve iPad'de tam ekran <strong>PWA</strong> ve <strong>Apple WebClip</strong> ile internetiniz olmasa dahi metroda ve uçakta kesintisiz çalışır.
+                </p>
+              </div>
+              <div className="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-700/60 text-[11px] font-bold text-sky-600 dark:text-sky-400">
+                ✓ Web • Android APK • iOS
+              </div>
+            </div>
+          </div>
+
+          {/* Comparison Matrix Table */}
+          <div className="pt-6">
+            <div className="text-center max-w-xl mx-auto mb-8">
+              <span className="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">
+                Şeffaf Karşılaştırma
+              </span>
+              <h3 className="text-xl sm:text-2xl font-black text-slate-900 dark:text-white mt-1">
+                HızlıOku ve Diğer Uygulamalar
               </h3>
-              <p className="text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
-                Özel fontlar, kontrast ayarları ve yüksek okunabilirlik ile her bireye eşit okuma fırsatı sunar.
-              </p>
+            </div>
+
+            <div className="overflow-x-auto rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm bg-white dark:bg-slate-900">
+              <table className="w-full text-left border-collapse text-xs sm:text-sm">
+                <thead>
+                  <tr className="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-800/60">
+                    <th className="p-4 sm:p-5 font-bold text-slate-600 dark:text-slate-300">Özellik</th>
+                    <th className="p-4 sm:p-5 font-black text-brand-600 dark:text-brand-400 bg-brand-50/50 dark:bg-brand-950/40">
+                      HızlıOku (Açık Kaynak)
+                    </th>
+                    <th className="p-4 sm:p-5 font-bold text-slate-400 dark:text-slate-500">
+                      Diğer Ticari Uygulamalar (Spreeder, SwiftRead, vb.)
+                    </th>
+                  </tr>
+                </thead>
+                <tbody className="divide-y divide-slate-100 dark:divide-slate-800 text-slate-700 dark:text-slate-300">
+                  <tr>
+                    <td className="p-4 sm:p-5 font-semibold">Fiyat & Lisans Modeli</td>
+                    <td className="p-4 sm:p-5 font-bold text-emerald-600 dark:text-emerald-400 bg-brand-50/30 dark:bg-brand-950/20">
+                      %100 Ücretsiz & MIT Açık Kaynak
+                    </td>
+                    <td className="p-4 sm:p-5 text-slate-500">Aylık $9 – $20 Ücretli Abonelik / Freemium</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 sm:p-5 font-semibold">Türkçe Dil & Heceleme Uyumu</td>
+                    <td className="p-4 sm:p-5 font-bold text-emerald-600 dark:text-emerald-400 bg-brand-50/30 dark:bg-brand-950/20">
+                      Ateşman İndeksi & Türkçe Fonotaktik ORP
+                    </td>
+                    <td className="p-4 sm:p-5 text-slate-500">Yalnızca İngilizce (Türkçe ekleri yanlış böler)</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 sm:p-5 font-semibold">Veri Gizliliği (PDF / Metin)</td>
+                    <td className="p-4 sm:p-5 font-bold text-emerald-600 dark:text-emerald-400 bg-brand-50/30 dark:bg-brand-950/20">
+                      %100 Cihaz İçi Yerel (Sunucuya Gitmez)
+                    </td>
+                    <td className="p-4 sm:p-5 text-slate-500">Metinler yabancı bulut sunuculara yüklenir</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 sm:p-5 font-semibold">Okuma Yöntemleri</td>
+                    <td className="p-4 sm:p-5 font-bold text-emerald-600 dark:text-emerald-400 bg-brand-50/30 dark:bg-brand-950/20">
+                      RSVP + Rehber Cetvel (Pacer) + Biyonik
+                    </td>
+                    <td className="p-4 sm:p-5 text-slate-500">Çoğunlukla sadece tek kelime RSVP flaş</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 sm:p-5 font-semibold">Göz Kası & Periferik Egzersizleri</td>
+                    <td className="p-4 sm:p-5 font-bold text-emerald-600 dark:text-emerald-400 bg-brand-50/30 dark:bg-brand-950/20">
+                      Schulte Pro, Piramit, Zigzag, Takistoskop
+                    </td>
+                    <td className="p-4 sm:p-5 text-slate-500">Bulunmaz veya çok ilkel düzeydedir</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 sm:p-5 font-semibold">Çocuk (6–12) ve Yetişkin Ayrımı</td>
+                    <td className="p-4 sm:p-5 font-bold text-emerald-600 dark:text-emerald-400 bg-brand-50/30 dark:bg-brand-950/20">
+                      Pedagojik İki Ayrı Mod + Veli Paneli
+                    </td>
+                    <td className="p-4 sm:p-5 text-slate-500">Tek tip yetişkin arayüzü (Çocuklara uygunsuz)</td>
+                  </tr>
+                  <tr>
+                    <td className="p-4 sm:p-5 font-semibold">Mobil Kurulum & Çevrimdışı Çalışma</td>
+                    <td className="p-4 sm:p-5 font-bold text-emerald-600 dark:text-emerald-400 bg-brand-50/30 dark:bg-brand-950/20">
+                      Android .APK (4.7 MB) + iOS PWA + Çevrimdışı
+                    </td>
+                    <td className="p-4 sm:p-5 text-slate-500">Sürekli internet bağlantısı ve App Store zorunluluğu</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
