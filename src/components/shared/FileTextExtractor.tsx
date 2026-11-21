@@ -1,10 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
-import { UploadCloud, FileText, AlertCircle, Check, ArrowRight, Download, Loader2 } from "lucide-react";
+import { UploadCloud, FileText, AlertCircle, Check, ArrowRight, Download, Loader2, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { extractTextFromPdf } from "@/lib/pdfExtractor";
 import { extractEpubText } from "@/lib/epubExtractor";
+import { calculateReadability, ReadabilityMetrics } from "@/lib/readabilityScore";
 
 interface FileTextExtractorProps {
   onExtracted: (text: string, title: string) => void;
@@ -19,11 +20,13 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
   const [loading, setLoading] = useState(false);
   const [loadingMsg, setLoadingMsg] = useState<string>("Dosya işleniyor...");
   const [stats, setStats] = useState<{ wordCount: number; charCount: number } | null>(null);
+  const [readability, setReadability] = useState<ReadabilityMetrics | null>(null);
 
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
     setError(null);
     setExtractedText(null);
     setStats(null);
+    setReadability(null);
 
     const file = e.target.files?.[0];
     if (!file) return;
@@ -48,12 +51,14 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
         const words = text.trim().split(/\s+/).filter(Boolean);
         setExtractedText(text.trim());
         setStats({ wordCount: words.length, charCount: text.length });
+        setReadability(calculateReadability(text.trim()));
       } else if (ext === "epub") {
         setLoadingMsg("EPUB e-kitap bölümleri taranıyor ve metne dönüştürülüyor...");
         const buffer = await file.arrayBuffer();
         const epubResult = await extractEpubText(buffer);
         setExtractedText(epubResult.text);
         setStats({ wordCount: epubResult.wordCount, charCount: epubResult.text.length });
+        setReadability(calculateReadability(epubResult.text));
         if (epubResult.title && epubResult.title !== "EPUB E-Kitap") {
           setFileName(`${epubResult.title} (${epubResult.author})`);
         }
@@ -70,6 +75,7 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
           const words = content.trim().split(/\s+/).filter(Boolean);
           setExtractedText(content.trim());
           setStats({ wordCount: words.length, charCount: content.length });
+          setReadability(calculateReadability(content.trim()));
           setLoading(false);
         };
         reader.onerror = () => {
@@ -174,6 +180,27 @@ export const FileTextExtractor: React.FC<FileTextExtractorProps> = ({
               {stats.wordCount.toLocaleString("tr-TR")} kelime • {stats.charCount.toLocaleString("tr-TR")} karakter
             </div>
           </div>
+
+          {/* Ateşman Turkish Readability Metrics */}
+          {readability && (
+            <div className="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-xs space-y-2 text-xs">
+              <div className="flex items-center justify-between">
+                <span className="font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5">
+                  <Sparkles className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+                  Ateşman Türkçe Okunabilirlik Düzeyi:
+                </span>
+                <span className={`px-2.5 py-0.5 rounded-full font-bold border ${readability.badgeColorClass}`}>
+                  Skor: {readability.score} / 100 • {readability.levelLabel}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-1 text-[11px] text-slate-500 dark:text-slate-400">
+                <div>Hedef Kitle: <strong className="text-slate-700 dark:text-slate-300 block">{readability.targetAudience}</strong></div>
+                <div>Hece/Kelime: <strong className="text-slate-700 dark:text-slate-300 block">{readability.avgSyllablesPerWord} hece</strong></div>
+                <div>Önerilen Hız: <strong className="text-brand-600 dark:text-brand-400 block">{readability.suggestedWpm} WPM</strong></div>
+                <div>Tahmini Süre: <strong className="text-slate-700 dark:text-slate-300 block">~{Math.max(1, Math.round(readability.estimatedReadingTimeSeconds / 60))} dk</strong></div>
+              </div>
+            </div>
+          )}
 
           <div className="p-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-xs text-slate-700 dark:text-slate-200 max-h-32 overflow-y-auto font-mono whitespace-pre-wrap leading-relaxed border border-slate-200 dark:border-slate-700">
             {extractedText.slice(0, 500)}
