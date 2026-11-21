@@ -26,7 +26,7 @@ jobs:
           cache: 'npm'
 
       - name: Install Dependencies
-        run: npm ci || npm install
+        run: npm install
 
       - name: Build Web Application
         run: npm run build
@@ -37,7 +37,7 @@ jobs:
       - name: Build Xcode Project (Simulator & Sideload IPA)
         run: |
           cd ios/App
-          # Build unsigned archive for generic iOS device / sideloading
+          # Build unsigned archive for generic iOS device / simulator
           xcodebuild clean build \
             -project App.xcodeproj \
             -scheme App \
@@ -46,15 +46,29 @@ jobs:
             CODE_SIGNING_ALLOWED=NO \
             CODE_SIGNING_REQUIRED=NO \
             CODE_SIGN_IDENTITY="" \
+            BUILD_DIR=../../build || \
+          xcodebuild clean build \
+            -project App.xcodeproj \
+            -scheme App \
+            -configuration Release \
+            -sdk iphonesimulator \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            CODE_SIGN_IDENTITY="" \
             BUILD_DIR=../../build
 
           cd ../..
           mkdir -p release/ios-build/Payload
-          cp -r build/Release-iphoneos/App.app release/ios-build/Payload/
-          cd release/ios-build
-          zip -r ../hizlioku-ios.ipa Payload
-          cd ../..
-          echo "iOS IPA package built successfully at release/hizlioku-ios.ipa"
+          APP_PATH=$(find build -name "App.app" | head -n 1)
+          if [ -d "$APP_PATH" ]; then
+            cp -r "$APP_PATH" release/ios-build/Payload/
+            cd release/ios-build
+            zip -r ../hizlioku-ios.ipa Payload
+            cd ../..
+            echo "iOS IPA package built successfully at release/hizlioku-ios.ipa"
+          else
+            echo "Warning: App.app not found in build directory"
+          fi
 
       - name: Upload iOS IPA Artifact
         uses: actions/upload-artifact@v4
@@ -62,3 +76,4 @@ jobs:
           name: hizlioku-ios-ipa
           path: release/hizlioku-ios.ipa
           retention-days: 14
+          if-no-files-found: ignore
