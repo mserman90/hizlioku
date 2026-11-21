@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { Eye, Zap, Grid, Activity, ArrowRight, Compass, Triangle, Flame, BookOpen } from "lucide-react";
+import { Eye, Zap, Grid, Activity, ArrowRight, Compass, Triangle, Flame, BookOpen, Lightbulb } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { loadSessionHistory, computeSessionStats } from "@/lib/sessionHistory";
@@ -75,6 +75,111 @@ export default function AdultDashboardPage() {
               <span className="text-sm font-bold text-amber-300">{statsSummary.targetWpm} WPM</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      {/* Beginner Guided Roadmap: "Nereden Başlamalıyım?" */}
+      <div className="bg-gradient-to-r from-amber-500/10 via-brand-500/10 to-indigo-500/10 rounded-3xl p-6 sm:p-7 border border-amber-200/80 dark:border-amber-900/60 shadow-xs space-y-4">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="flex items-center gap-3">
+            <div className="w-10 h-10 rounded-2xl bg-amber-500 text-white flex items-center justify-center font-bold shadow-md shadow-amber-500/20">
+              <Lightbulb className="w-5 h-5" />
+            </div>
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
+                Yeni Kullanıcı Rehberi
+              </span>
+              <h2 className="text-lg sm:text-xl font-black text-slate-900 dark:text-slate-100">
+                Nereden Başlamalıyım? (İlk Gün Yol Haritası)
+              </h2>
+            </div>
+          </div>
+          <Link
+            href="/guide"
+            className="text-xs font-bold text-amber-800 dark:text-amber-300 hover:underline flex items-center gap-1 shrink-0"
+          >
+            <span>Detaylı Kılavuzu Aç</span>
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
+        </div>
+
+        <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed max-w-2xl">
+          Hızlı okuma bir yetenek değil; göz kası koordinasyonu ve zihinsel odaklanma antrenmanıdır. Karmaşık hissetmenize hiç gerek yok, günde yalnızca <strong>15 dakikanızı</strong> şu 3 adıma ayırarak başlayın:
+        </p>
+
+        {/* 3 Step Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-3.5 pt-1">
+          {/* Step 1 */}
+          <Link
+            href="/dashboard/adult/exercises/zigzag"
+            className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-amber-400 dark:hover:border-amber-500 transition group flex flex-col justify-between"
+          >
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950/70 text-amber-800 dark:text-amber-300">
+                  1. Adım • 3 Dakika
+                </span>
+                <Compass className="w-4 h-4 text-amber-500 group-hover:scale-110 transition-transform" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-amber-600 transition">
+                Göz Kaslarını Isıtın
+              </h3>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                <strong>Zigzag</strong> veya <strong>Piramit</strong> ile gözünüzü merkezde tutarak çevresel görüşü açın.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-amber-600 dark:text-amber-400 mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Isınmaya Başla →
+            </span>
+          </Link>
+
+          {/* Step 2 */}
+          <Link
+            href="/dashboard/adult/exercises/schulte"
+            className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-indigo-400 dark:hover:border-indigo-500 transition group flex flex-col justify-between"
+          >
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-indigo-100 dark:bg-indigo-950/70 text-indigo-800 dark:text-indigo-300">
+                  2. Adım • 4 Dakika
+                </span>
+                <Grid className="w-4 h-4 text-indigo-500 group-hover:scale-110 transition-transform" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-indigo-600 transition">
+                Odaklanmayı Keskinleştirin
+              </h3>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                <strong>Schulte Tablosu 3×3 veya 4×4</strong> ile gözü merkez noktada sabit tutup sayıları yakalayın.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-indigo-600 dark:text-indigo-400 mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Dikkati Topla →
+            </span>
+          </Link>
+
+          {/* Step 3 */}
+          <Link
+            href="/dashboard/adult/rsvp"
+            className="p-4 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 hover:border-brand-500 dark:hover:border-brand-500 transition group flex flex-col justify-between"
+          >
+            <div className="space-y-1.5">
+              <div className="flex items-center justify-between">
+                <span className="text-[10px] font-bold px-2 py-0.5 rounded-md bg-brand-100 dark:bg-brand-950/70 text-brand-800 dark:text-brand-300">
+                  3. Adım • 8 Dakika (Ana Modül)
+                </span>
+                <Eye className="w-4 h-4 text-brand-500 group-hover:scale-110 transition-transform" />
+              </div>
+              <h3 className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-brand-600 transition">
+                İlk Hızlı Okumanızı Yapın
+              </h3>
+              <p className="text-[11px] text-slate-500 dark:text-slate-400 leading-relaxed">
+                <strong>RSVP Okuyucu</strong> ile bir metin seçin, 250 WPM hızda okuyup kavrama testinizi tamamlayın.
+              </p>
+            </div>
+            <span className="text-xs font-bold text-brand-600 dark:text-brand-400 mt-3 inline-flex items-center gap-1 group-hover:translate-x-1 transition-transform">
+              Okumayı Başlat →
+            </span>
+          </Link>
         </div>
       </div>
 
