@@ -82,10 +82,10 @@ export default function AdultDashboardPage() {
               Ana Modül
             </span>
             <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
-              RSVP & ORP Okuyucu
+              RSVP & Rehber Pacer Okuyucu
             </h2>
             <p className="text-xs text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-              150–1000 WPM ayarı, ORP odak harfi vurgusu ve kavrama değerlendirmesi.
+              Tek kelime RSVP flaş veya tüm metin üzerinde akıcı Rehber Cetvel (Pacer) ile regresyonsuz okuma.
             </p>
           </div>
           <Link href="/dashboard/adult/rsvp">

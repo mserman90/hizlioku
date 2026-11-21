@@ -4,18 +4,21 @@ import React, { useState } from "react";
 import { TextSourceSelector } from "@/components/shared/TextSourceSelector";
 import { FileTextExtractor } from "@/components/shared/FileTextExtractor";
 import { RsvpReader } from "@/components/adult/RsvpReader";
+import { GuidedPacerReader } from "@/components/adult/GuidedPacerReader";
 import { ComprehensionQuiz } from "@/components/adult/ComprehensionQuiz";
 import { ComprehensionQuestion } from "@/data/publicTexts";
 import { generateComprehensionQuestions } from "@/lib/questionGenerator";
 import { saveSessionRecord } from "@/lib/sessionHistory";
 import { calculateAdaptiveWpm, AdaptiveRecommendation } from "@/lib/adaptiveSpeed";
 import Link from "next/link";
-import { ArrowLeft, TrendingUp, TrendingDown, Minus, Sparkles } from "lucide-react";
+import { ArrowLeft, TrendingUp, TrendingDown, Minus, Sparkles, Zap, AlignLeft } from "lucide-react";
 
 type FlowStep = "select_text" | "reading" | "quiz" | "summary";
+type ReaderMode = "rsvp" | "pacer";
 
 export default function RsvpPage() {
   const [step, setStep] = useState<FlowStep>("select_text");
+  const [readerMode, setReaderMode] = useState<ReaderMode>("rsvp");
   const [selectedText, setSelectedText] = useState("");
   const [textTitle, setTextTitle] = useState("");
   const [questions, setQuestions] = useState<ComprehensionQuestion[]>([]);
@@ -77,13 +80,58 @@ export default function RsvpPage() {
       )}
 
       {step === "reading" && (
-        <RsvpReader
-          text={selectedText}
-          title={textTitle}
-          initialWpm={currentWpm}
-          onFinishReading={handleFinishReading}
-          onBackToSelector={() => setStep("select_text")}
-        />
+        <div className="space-y-4">
+          {/* Mode Switcher Banner */}
+          <div className="flex items-center justify-between bg-white dark:bg-slate-900 p-3 px-4 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-xs max-w-4xl mx-auto w-full">
+            <span className="text-xs font-bold text-slate-500 dark:text-slate-400">
+              Okuma Modu:
+            </span>
+            <div className="flex items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1 rounded-xl">
+              <button
+                type="button"
+                onClick={() => setReaderMode("rsvp")}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                  readerMode === "rsvp"
+                    ? "bg-white dark:bg-slate-700 text-brand-700 dark:text-brand-300 shadow-xs"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                }`}
+              >
+                <Zap className="w-3.5 h-3.5" />
+                RSVP (Flaş)
+              </button>
+              <button
+                type="button"
+                onClick={() => setReaderMode("pacer")}
+                className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-bold transition cursor-pointer ${
+                  readerMode === "pacer"
+                    ? "bg-white dark:bg-slate-700 text-indigo-700 dark:text-indigo-300 shadow-xs"
+                    : "text-slate-600 dark:text-slate-400 hover:text-slate-900"
+                }`}
+              >
+                <AlignLeft className="w-3.5 h-3.5" />
+                Rehber Cetvel (Pacer)
+              </button>
+            </div>
+          </div>
+
+          {readerMode === "rsvp" ? (
+            <RsvpReader
+              text={selectedText}
+              title={textTitle}
+              initialWpm={currentWpm}
+              onFinishReading={handleFinishReading}
+              onBackToSelector={() => setStep("select_text")}
+            />
+          ) : (
+            <GuidedPacerReader
+              text={selectedText}
+              title={textTitle}
+              initialWpm={currentWpm}
+              onFinishReading={handleFinishReading}
+              onBackToSelector={() => setStep("select_text")}
+            />
+          )}
+        </div>
       )}
 
       {step === "quiz" && (
