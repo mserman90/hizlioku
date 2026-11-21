@@ -106,10 +106,10 @@ export default function AdultDashboardPage() {
               Göz Kası Antrenmanı 1
             </span>
             <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
-              Schulte Tablosu (5×5)
+              Schulte Tablosu Pro
             </h2>
             <p className="text-xs text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-              5x5 sayı matrisi ile periferik görme alanınızı genişletin ve algı hızınızı artırın.
+              3×3–6×6 matrisler, harf ve Kırmızı-Siyah (Gorbov) modları ile periferik görüş ve dikkat kontrolü.
             </p>
           </div>
           <Link href="/dashboard/adult/exercises/schulte">

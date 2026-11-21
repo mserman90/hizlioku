@@ -6,7 +6,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "test": "node tests/readingUtils.test.mjs && node tests/turkishSyllabifier.test.mjs && node tests/questionGenerator.test.mjs && node tests/sessionHistory.test.mjs && node tests/epubExtractor.test.mjs && node tests/childProgress.test.mjs && node tests/bionicEngine.test.mjs && node tests/adaptiveSpeed.test.mjs && node tests/readabilityScore.test.mjs && node tests/userGoals.test.mjs",
+    "test": "node tests/readingUtils.test.mjs && node tests/turkishSyllabifier.test.mjs && node tests/questionGenerator.test.mjs && node tests/sessionHistory.test.mjs && node tests/epubExtractor.test.mjs && node tests/childProgress.test.mjs && node tests/bionicEngine.test.mjs && node tests/adaptiveSpeed.test.mjs && node tests/readabilityScore.test.mjs && node tests/userGoals.test.mjs && node tests/schulteEngine.test.mjs",
     "lint": "next lint"
   },
   "dependencies": {

@@ -51,6 +51,33 @@ export function playMetronomeClick(volume = 0.15) {
 }
 
 /**
+ * Plays a light, crisp ping when a correct cell or target is selected in exercises.
+ */
+export function playCorrectClick(volume = 0.12) {
+  try {
+    const ctx = getAudioContext();
+    if (!ctx) return;
+
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+
+    osc.type = "sine";
+    osc.frequency.setValueAtTime(1046.5, ctx.currentTime); // C6 bright ping
+
+    gain.gain.setValueAtTime(volume, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.05);
+
+    osc.connect(gain);
+    gain.connect(ctx.destination);
+
+    osc.start(ctx.currentTime);
+    osc.stop(ctx.currentTime + 0.05);
+  } catch {
+    // Audio safe fallback
+  }
+}
+
+/**
  * Plays a gentle, pleasant dual-tone chime on question or exercise completion.
  */
 export function playSuccessChime(volume = 0.2) {
