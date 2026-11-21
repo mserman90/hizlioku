@@ -32,6 +32,7 @@ Bu kılavuz, **HızlıOku** platformunun çocuklar (6–12 yaş) ve yetişkinler
 - **Canlı Web Adresi:** [https://mserman90.github.io/hizlioku/](https://mserman90.github.io/hizlioku/)
 - **Cihaz Uyumluluğu:** Masaüstü bilgisayarlar, dizüstü bilgisayarlar, tabletler (iPad/Android) ve akıllı telefonlar.
 - **PWA Kurulumu:** Tarayıcınızın adres çubuğundaki *"Yükle"* veya mobil Safari'de *"Ana Ekrana Ekle"* seçeneğini kullanarak uygulamayı cihazınıza çevrimdışı çalışacak bir uygulama gibi yükleyebilirsiniz.
+- **Android APK Doğrudan Kurulum:** Android cihaz kullananlar için derlenmiş olan [release/hizlioku.apk](file:///C:/Users/mert/.gemini/antigravity/scratch/hizlioku/release/hizlioku.apk) (v1.0, 4.7 MB) dosyasını indirip doğrudan telefonunuza veya tabletinize kurabilirsiniz. Canlı sitede de `/guide` sayfasından tek tıkla indirilebilir.
 
 ---
 

@@ -23,6 +23,7 @@ import {
   GraduationCap,
   Layers,
   HeartHandshake,
+  Smartphone,
 } from "lucide-react";
 
 type GuideTab = "adult" | "child" | "science";
@@ -88,6 +89,36 @@ export default function GuidePage() {
             Bilimsel Temeller
           </button>
         </div>
+      </div>
+
+      {/* Android APK Download Card */}
+      <div className="p-4 sm:p-5 rounded-3xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 rounded-2xl bg-emerald-600 text-white flex items-center justify-center font-bold shrink-0 shadow-md shadow-emerald-600/20">
+            <Smartphone className="w-6 h-6" />
+          </div>
+          <div>
+            <div className="flex items-center gap-2">
+              <h3 className="text-sm font-bold text-slate-900 dark:text-slate-100">
+                Android Uygulaması (.APK) Hazır!
+              </h3>
+              <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-emerald-200 dark:bg-emerald-900 text-emerald-800 dark:text-emerald-200">
+                v1.0 • 4.7 MB
+              </span>
+            </div>
+            <p className="text-xs text-slate-600 dark:text-slate-400 mt-0.5">
+              HızlıOku'yu Android telefon veya tabletinize doğrudan yerel uygulama olarak kurup çevrimdışı kullanabilirsiniz.
+            </p>
+          </div>
+        </div>
+        <a
+          href="./hizlioku.apk"
+          download="hizlioku.apk"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md shadow-emerald-600/20 transition active:scale-95 whitespace-nowrap cursor-pointer"
+        >
+          <Download className="w-4 h-4" />
+          <span>APK İndir (Doğrudan Kurulum)</span>
+        </a>
       </div>
 
       {/* TAB 1: ADULT GUIDE */}
