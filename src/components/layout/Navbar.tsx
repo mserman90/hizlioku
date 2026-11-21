@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useAuth } from "@/context/AuthContext";
-import { BookOpen, User, Shield, LogOut } from "lucide-react";
+import { BookOpen, User, Shield, LogOut, Github } from "lucide-react";
 import { ThemeToggle } from "@/components/ui/ThemeToggle";
 
 export const Navbar: React.FC = () => {
@@ -48,6 +48,17 @@ export const Navbar: React.FC = () => {
             Kullanım Kılavuzu
           </Link>
 
+          <a
+            href="https://github.com/mserman90/hizlioku"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition flex items-center gap-1.5"
+            title="GitHub Kaynak Kodları (mserman90/hizlioku)"
+          >
+            <Github className="w-4 h-4" />
+            GitHub
+          </a>
+
           {user?.role === "admin" && (
             <Link
               href="/admin"
@@ -58,10 +69,22 @@ export const Navbar: React.FC = () => {
           )}
         </nav>
 
-        {/* Actions (Theme Toggle + Auth buttons) */}
-        <div className="flex items-center gap-2 sm:gap-3">
+        {/* Actions (Theme Toggle + GitHub + Auth buttons) */}
+        <div className="flex items-center gap-1 sm:gap-2">
           {/* Day / Night Mode Toggle */}
           <ThemeToggle />
+
+          {/* GitHub Repo Link */}
+          <a
+            href="https://github.com/mserman90/hizlioku"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white rounded-xl hover:bg-slate-100 dark:hover:bg-slate-800 transition min-w-[40px] min-h-[40px] flex items-center justify-center"
+            aria-label="GitHub Deposu (mserman90/hizlioku)"
+            title="GitHub Deposu (mserman90/hizlioku)"
+          >
+            <Github className="w-5 h-5" />
+          </a>
 
           {user ? (
             <div className="flex items-center gap-2 sm:gap-3">

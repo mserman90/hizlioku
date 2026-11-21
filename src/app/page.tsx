@@ -133,12 +133,40 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Mandatory Disclaimer */}
-      <footer className="w-full max-w-screen-xl mx-auto px-4 py-8 text-center text-xs text-slate-400 dark:text-slate-500">
-        <p className="max-w-2xl mx-auto">
-          ⚠️ <strong>Yasal Bilgilendirme:</strong> HızlıOku bir eğitim ve pratik aracıdır. Tıbbi, psikolojik veya garantili akademik kazanım vaadinde bulunmaz.
-        </p>
-      </footer>
+      {/* Open Source & Community Banner */}
+      <section className="w-full max-w-screen-xl mx-auto px-4 sm:px-6 py-12">
+        <div className="rounded-3xl p-6 sm:p-10 bg-linear-to-r from-slate-900 via-slate-800 to-brand-950 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="space-y-2 text-center md:text-left">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-500/20 text-brand-300 text-xs font-bold border border-brand-500/30">
+              Açık Kaynak Kodlu ve Şeffaf
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black tracking-tight">
+              Geliştirmeye Katılın veya Kodları İnceleyin
+            </h3>
+            <p className="text-sm text-slate-300 max-w-xl">
+              HızlıOku projesinin algoritmaları, pedagojik modülleri ve tüm kaynak kodları GitHub üzerinde mevcuttur.
+            </p>
+          </div>
+
+          <div className="flex flex-wrap items-center justify-center gap-3 shrink-0">
+            <a
+              href="https://github.com/mserman90/hizlioku"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white text-slate-900 hover:bg-slate-100 font-bold text-sm shadow-md transition hover:scale-105 active:scale-95"
+            >
+              <span>GitHub Reposu</span>
+              <span className="text-xs text-slate-500 font-medium">mserman90/hizlioku</span>
+            </a>
+            <Link
+              href="/guide"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-white/10 hover:bg-white/20 text-white font-bold text-sm border border-white/20 transition"
+            >
+              Kullanım Kılavuzu
+            </Link>
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

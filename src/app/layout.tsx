@@ -3,6 +3,7 @@ import "./globals.css";
 import { AuthProvider } from "@/context/AuthContext";
 import { ThemeProvider } from "@/context/ThemeContext";
 import { Navbar } from "@/components/layout/Navbar";
+import { Footer } from "@/components/layout/Footer";
 import { BottomNav } from "@/components/layout/BottomNav";
 import { SkipToContent } from "@/components/ui/SkipToContent";
 import { PwaRegister } from "@/components/ui/PwaRegister";
@@ -45,6 +46,7 @@ export default function RootLayout({
             <main id="main-content" className="flex-1 flex flex-col focus:outline-none" tabIndex={-1}>
               {children}
             </main>
+            <Footer />
             <BottomNav />
             <PwaRegister />
           </AuthProvider>

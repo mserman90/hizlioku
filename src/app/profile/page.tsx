@@ -9,7 +9,7 @@ import { RoleGuard } from "@/components/layout/RoleGuard";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { updateUserDisplayName } from "@/lib/firestore";
-import { User, Shield, CheckCircle2, Clock, LogOut, Award } from "lucide-react";
+import { User, Shield, CheckCircle2, Clock, LogOut, Award, Github, Smartphone, ExternalLink } from "lucide-react";
 
 export default function ProfilePage() {
   const { user, logout } = useAuth();
@@ -120,7 +120,58 @@ export default function ProfilePage() {
               </Button>
             </form>
 
-            <div className="pt-6 border-t border-slate-200 dark:border-slate-800">
+            {/* App & Open Source Info */}
+            <div className="pt-6 border-t border-slate-100 dark:border-slate-800 space-y-3">
+              <div className="flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-slate-400 dark:text-slate-500">
+                  Uygulama & Açık Kaynak
+                </span>
+                <span className="text-[11px] font-mono text-slate-400 bg-slate-100 dark:bg-slate-800 px-2 py-0.5 rounded-md">
+                  v1.0.0 (Web & Android)
+                </span>
+              </div>
+
+              <div className="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2.5">
+                    <Github className="w-5 h-5 text-slate-800 dark:text-slate-200" />
+                    <div>
+                      <div className="text-xs font-bold text-slate-900 dark:text-slate-100">
+                        GitHub Deposu
+                      </div>
+                      <div className="text-[11px] text-slate-500 font-mono">
+                        mserman90/hizlioku
+                      </div>
+                    </div>
+                  </div>
+                  <a
+                    href="https://github.com/mserman90/hizlioku"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 hover:text-brand-600 text-xs font-bold border border-slate-200 dark:border-slate-600 shadow-xs transition"
+                  >
+                    <span>Görüntüle</span>
+                    <ExternalLink className="w-3 h-3" />
+                  </a>
+                </div>
+
+                <div className="pt-2 border-t border-slate-200/60 dark:border-slate-700/60 flex items-center justify-between">
+                  <div className="flex items-center gap-2 text-xs text-slate-600 dark:text-slate-400">
+                    <Smartphone className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
+                    <span>Android APK Kurulumu</span>
+                  </div>
+                  <a
+                    href="./hizlioku.apk"
+                    download="hizlioku.apk"
+                    className="text-xs font-bold text-emerald-600 dark:text-emerald-400 hover:underline"
+                  >
+                    APK İndir (4.7 MB)
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            <div className="pt-4 border-t border-slate-200 dark:border-slate-800">
               <Button
                 type="button"
                 variant="danger"
