@@ -2,7 +2,7 @@
 
 import React from "react";
 import { useAuth } from "@/context/AuthContext";
-import { Eye, Zap, Grid, Activity, ArrowRight, Compass } from "lucide-react";
+import { Eye, Zap, Grid, Activity, ArrowRight, Compass, Triangle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
@@ -40,7 +40,7 @@ export default function AdultDashboardPage() {
       </div>
 
       {/* Modules Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
         {/* RSVP Reader Card */}
         <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border-2 border-brand-200 dark:border-brand-800/60 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
           <div>
@@ -106,6 +106,30 @@ export default function AdultDashboardPage() {
             </p>
           </div>
           <Link href="/dashboard/adult/exercises/zigzag">
+            <Button variant="secondary" fullWidth size="md" className="flex items-center justify-center gap-2">
+              <span>Egzersizi Aç</span>
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+        </div>
+
+        {/* Pyramid Peripheral Expansion Card */}
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
+          <div>
+            <div className="w-12 h-12 rounded-2xl bg-rose-50 dark:bg-rose-950/50 text-rose-600 dark:text-rose-400 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
+              <Triangle className="w-6 h-6" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-rose-600 dark:text-rose-400">
+              Göz Kası Antrenmanı 3
+            </span>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
+              Piramit Okuma (Görsel Alan)
+            </h2>
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+              Merkez fiksasyon hattıyla periferik görüşünüzü yanlara doğru genişletip bakış açınızı ikiye katlayın.
+            </p>
+          </div>
+          <Link href="/dashboard/adult/exercises/pyramid">
             <Button variant="secondary" fullWidth size="md" className="flex items-center justify-center gap-2">
               <span>Egzersizi Aç</span>
               <ArrowRight className="w-4 h-4" />

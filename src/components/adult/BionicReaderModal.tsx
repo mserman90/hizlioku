@@ -20,6 +20,7 @@ export const BionicReaderModal: React.FC<BionicReaderModalProps> = ({
   const [fontSize, setFontSize] = useState<number>(18);
   const [elapsedSeconds, setElapsedSeconds] = useState<number>(0);
   const [isReading, setIsReading] = useState<boolean>(true);
+  const [theme, setTheme] = useState<"modern" | "sepia" | "eink" | "dark">("modern");
 
   const wordCount = useMemo(() => {
     return text.split(/\s+/).filter(Boolean).length;
@@ -104,6 +105,24 @@ export const BionicReaderModal: React.FC<BionicReaderModalProps> = ({
               </button>
             </div>
 
+            {/* Reading Palette Toggle */}
+            <div className="hidden md:flex items-center gap-1 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-700 rounded-xl p-1 text-[11px] font-bold">
+              {(["modern", "sepia", "eink", "dark"] as const).map((t) => (
+                <button
+                  key={t}
+                  type="button"
+                  onClick={() => setTheme(t)}
+                  className={`px-2 py-0.5 rounded-lg transition ${
+                    theme === t
+                      ? "bg-indigo-600 text-white shadow-xs"
+                      : "text-slate-500 hover:text-slate-800 dark:hover:text-slate-200"
+                  }`}
+                >
+                  {t === "modern" ? "Modern" : t === "sepia" ? "Sepya" : t === "eink" ? "E-Ink" : "Gece"}
+                </button>
+              ))}
+            </div>
+
             {/* Close Button */}
             <button
               type="button"
@@ -117,9 +136,19 @@ export const BionicReaderModal: React.FC<BionicReaderModalProps> = ({
         </div>
 
         {/* Bionic Formatted Reading Body */}
-        <div className="flex-1 overflow-y-auto p-6 sm:p-10 select-text">
+        <div
+          className={`flex-1 overflow-y-auto p-6 sm:p-10 select-text transition-colors ${
+            theme === "sepia"
+              ? "bg-[#fbf0d9] text-[#382813] [&_b]:text-[#22180c]"
+              : theme === "eink"
+              ? "bg-[#f4f4f4] text-[#111111] [&_b]:text-black"
+              : theme === "dark"
+              ? "bg-slate-950 text-slate-100 [&_b]:text-white"
+              : "bg-white dark:bg-slate-900 text-slate-800 dark:text-slate-100 [&_b]:text-slate-950 dark:[&_b]:text-white"
+          }`}
+        >
           <div
-            className="max-w-2xl mx-auto space-y-4 leading-relaxed text-slate-800 dark:text-slate-100 transition-all font-sans [&>p]:mb-4 [&>p]:leading-loose [&_b]:text-slate-950 dark:[&_b]:text-white [&_b]:font-black"
+            className="max-w-2xl mx-auto space-y-4 leading-relaxed transition-all font-sans [&>p]:mb-4 [&>p]:leading-loose [&_b]:font-black"
             style={{ fontSize: `${fontSize}px` }}
             dangerouslySetInnerHTML={{ __html: bionicHtml }}
           />

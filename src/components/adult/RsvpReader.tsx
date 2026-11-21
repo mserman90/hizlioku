@@ -19,6 +19,7 @@ import {
   CheckCircle,
   X,
   BookOpen,
+  Palette,
 } from "lucide-react";
 
 interface RsvpReaderProps {
@@ -61,6 +62,9 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
 
   // Bionic Reading Modal state
   const [isBionicModalOpen, setIsBionicModalOpen] = useState(false);
+
+  // Reading Palette Theme
+  const [readingTheme, setReadingTheme] = useState<"modern" | "sepia" | "eink" | "dark">("modern");
 
   // Time tracking
   const startTimeRef = useRef<number | null>(null);
@@ -217,12 +221,58 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
         />
       </div>
 
-      {/* RSVP Word Stage - High-comfort dark mode for zero eye fatigue */}
-      <div className="w-full min-h-[240px] sm:min-h-[320px] rounded-3xl bg-slate-50 dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-800 shadow-inner flex flex-col items-center justify-center p-6 relative transition-colors">
-        <OrpWordDisplay word={currentWord} />
+      {/* Theme Palette Bar */}
+      <div className="flex items-center justify-between px-1 text-xs">
+        <span className="text-[11px] font-bold text-slate-400 dark:text-slate-500 uppercase flex items-center gap-1.5">
+          <Palette className="w-3.5 h-3.5" /> Okuma Paleti:
+        </span>
+        <div className="flex items-center gap-1 bg-slate-100 dark:bg-slate-800/80 p-1 rounded-xl">
+          {[
+            { id: "modern", label: "Modern" },
+            { id: "sepia", label: "📜 Sepya" },
+            { id: "eink", label: "📰 E-Ink" },
+            { id: "dark", label: "🌙 Gece" },
+          ].map((th) => (
+            <button
+              key={th.id}
+              type="button"
+              onClick={() => setReadingTheme(th.id as any)}
+              className={`px-2.5 py-0.5 rounded-lg text-xs font-bold transition ${
+                readingTheme === th.id
+                  ? "bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-300 shadow-xs"
+                  : "text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-slate-100"
+              }`}
+            >
+              {th.label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* RSVP Word Stage - Multi-palette comfort mode */}
+      <div
+        className={`w-full min-h-[240px] sm:min-h-[320px] rounded-3xl border-2 shadow-inner flex flex-col items-center justify-center p-6 relative transition-colors ${
+          readingTheme === "sepia"
+            ? "bg-[#fbf0d9] border-[#e8d8b8]"
+            : readingTheme === "eink"
+            ? "bg-[#f4f4f4] border-[#d4d4d4]"
+            : readingTheme === "dark"
+            ? "bg-slate-950 border-slate-800"
+            : "bg-slate-50 dark:bg-slate-900 border-slate-200 dark:border-slate-800"
+        }`}
+      >
+        <OrpWordDisplay word={currentWord} theme={readingTheme} />
 
         {/* Small subtle helper */}
-        <div className="absolute bottom-3 text-[11px] text-slate-400 dark:text-slate-500">
+        <div
+          className={`absolute bottom-3 text-[11px] ${
+            readingTheme === "sepia"
+              ? "text-amber-900/60"
+              : readingTheme === "eink"
+              ? "text-neutral-500"
+              : "text-slate-400 dark:text-slate-500"
+          }`}
+        >
           Klavye: [Boşluk] Duraklat/Başlat • [Sol/Sağ Ok] -5/+5 Kelime
         </div>
       </div>
