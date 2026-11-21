@@ -137,6 +137,30 @@ export default function AdultDashboardPage() {
           </Link>
         </div>
 
+        {/* Tachistoscope Subvocalization Breaker Card */}
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
+          <div>
+            <div className="w-12 h-12 rounded-2xl bg-amber-50 dark:bg-amber-950/50 text-amber-600 dark:text-amber-400 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
+              <Zap className="w-6 h-6" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-600 dark:text-amber-400">
+              Bilişsel Antrenman 4
+            </span>
+            <h2 className="text-lg font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
+              Takistoskop & İç Ses Bastırma
+            </h2>
+            <p className="text-xs text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+              50–250 ms aralığında şimşek kelime flaşlarıyla iç seslendirmeyi devreden çıkarıp doğrudan algılayın.
+            </p>
+          </div>
+          <Link href="/dashboard/adult/exercises/tachistoscope">
+            <Button variant="secondary" fullWidth size="md" className="flex items-center justify-center gap-2">
+              <span>Egzersizi Aç</span>
+              <ArrowRight className="w-4 h-4" />
+            </Button>
+          </Link>
+        </div>
+
         {/* Analytics Card */}
         <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border border-slate-200 dark:border-slate-800 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
           <div>

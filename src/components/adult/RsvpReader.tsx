@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef, useCallback } from "react";
 import { OrpWordDisplay } from "./OrpWordDisplay";
 import { BionicReaderModal } from "./BionicReaderModal";
 import { calculateRsvpIntervalMs } from "@/lib/readingUtils";
+import { playMetronomeClick } from "@/lib/soundEffects";
 import { Button } from "@/components/ui/Button";
 import {
   Play,
@@ -20,6 +21,8 @@ import {
   X,
   BookOpen,
   Palette,
+  Volume2,
+  VolumeX,
 } from "lucide-react";
 
 interface RsvpReaderProps {
@@ -52,6 +55,7 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
 
   // Advanced Reading Settings
   const [enableSmartPacing, setEnableSmartPacing] = useState(true);
+  const [enableMetronome, setEnableMetronome] = useState(false);
   const [chunkSize, setChunkSize] = useState<1 | 2 | 3>(1);
   const [showSettings, setShowSettings] = useState(false);
 
@@ -107,6 +111,9 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
 
     timerRef.current = setTimeout(() => {
       totalElapsedMsRef.current += intervalMs;
+      if (enableMetronome) {
+        playMetronomeClick();
+      }
       // Auto-trigger 20-20-20 rule if continuous reading exceeds 20 minutes (1200000 ms)
       if (totalElapsedMsRef.current >= 1200000 && !isEyeRestOpen) {
         setIsPlaying(false);
@@ -119,7 +126,7 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
     return () => {
       if (timerRef.current) clearTimeout(timerRef.current);
     };
-  }, [isPlaying, currentIndex, wpm, chunkSize, enableSmartPacing, stepForward, words, isEyeRestOpen]);
+  }, [isPlaying, currentIndex, wpm, chunkSize, enableSmartPacing, enableMetronome, stepForward, words, isEyeRestOpen]);
 
   // 20-20-20 Timer Countdown Loop
   useEffect(() => {
@@ -368,6 +375,21 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
           >
             <Sparkles className="w-3.5 h-3.5" />
             <span>Dinamik Noktalama: {enableSmartPacing ? "Açık (Akıllı)" : "Kapalı"}</span>
+          </button>
+
+          {/* Audio Metronome Pacing Toggle */}
+          <button
+            type="button"
+            onClick={() => setEnableMetronome((prev) => !prev)}
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded-xl border font-semibold transition ${
+              enableMetronome
+                ? "bg-amber-50 dark:bg-amber-950/60 border-amber-300 dark:border-amber-800 text-amber-700 dark:text-amber-300 shadow-xs"
+                : "bg-slate-50 dark:bg-slate-800 border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-400"
+            }`}
+            title="İç seslendirmeyi bastırmak ve odaklanmayı artırmak için ritmik vuruş temposu"
+          >
+            {enableMetronome ? <Volume2 className="w-3.5 h-3.5 text-amber-600" /> : <VolumeX className="w-3.5 h-3.5" />}
+            <span>Metronom: {enableMetronome ? "Açık" : "Kapalı"}</span>
           </button>
 
           {/* Chunk Size Selector */}
