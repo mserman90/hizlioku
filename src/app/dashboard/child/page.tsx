@@ -47,7 +47,14 @@ export default function ChildDashboardPage() {
             </p>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-3">
+            <Link
+              href="/guide"
+              className="flex items-center gap-1.5 px-4 py-2 bg-white/70 hover:bg-white rounded-2xl font-bold text-xs text-amber-950 transition shadow-xs"
+            >
+              <BookOpen className="w-4 h-4 text-amber-700" />
+              <span>Nasıl Oynanır?</span>
+            </Link>
             <div className="flex items-center gap-2 px-4 py-2 bg-white/60 rounded-2xl font-bold text-sm">
               <Flame className="w-5 h-5 text-orange-600" />
               <span>{childStats.streakDays} Günlük Seri</span>

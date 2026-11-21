@@ -1,144 +1,170 @@
-# HızlıOku — Detaylı Kullanım Kılavuzu (User Manual)
+# HızlıOku — Pratik Kullanım Kılavuzu
 
-Bu kılavuz; **HızlıOku** platformunun çocuklar, ebeveynler, yetişkin okuyucular ve sistem yöneticileri için sunduğu tüm ekranları, özellikleri ve klavye kısayollarını adım adım açıklamaktadır.
+Bu kılavuz, **HızlıOku** platformunun çocuklar (6–12 yaş) ve yetişkinler (13+ yaş) tarafından en verimli şekilde nasıl kullanılacağını, tüm modül ve egzersizlerin püf noktalarını ve önerilen günlük antrenman programlarını açıklamaktadır.
 
 ---
 
 ## 📑 İçindekiler
 1. [Hızlı Başlangıç & Giriş](#1-hızlı-başlangıç--giriş)
-2. [Yaş Kapısı & Hesap Türleri](#2-yaş-kapısı--hesap-türleri)
-3. [Veli Onay Süreci (Çocuk Hesapları İçin)](#3-veli-onay-süreci-çocuk-hesapları-için)
-4. [Çocuk Modülü Kullanımı (6–12 Yaş)](#4-çocuk-modülü-kullanımı-612-yaş)
-   - Flaş Okuma Alıştırmaları
-   - Disleksi & Erişilebilirlik Araç Çubuğu
-   - Puanlar ve Rozetler
-   - Veli Gelişim Takip Ekranı
-5. [Yetişkin Modülü Kullanımı (13+ Yaş)](#5-yetişkin-modülü-kullanımı-13-yaş)
-   - Metin Seçimi ve Dosya Yükleme (.txt, .md)
-   - RSVP & ORP Okuyucu Denetimleri
-   - Klavye Kısayolları
-   - Kavrama Testi ve Skorlama
-   - Schulte Tablosu (5×5) Göz Egzersizi
-   - Sakkad / Zigzag Odak Takip Egzersizi
-   - Analitik ve Trend Grafikleri
-   - Hedef Tempo Asistanı
-6. [Yönetici (Admin) Konsolu](#6-yönetici-admin-konsolu)
-7. [Sıkça Sorulan Sorular (SSS)](#7-sıkça-sorulan-sorular-sss)
+2. [Yetişkin Modülü Kullanım Rehberi (13+ Yaş)](#2-yetişkin-modülü-kullanım-rehberi-13-yaş)
+   - [RSVP Flaş Okuyucu & Optimum Odak (ORP)](#21-rsvp-flaş-okuyucu--optimum-odak-orp)
+   - [Rehber Cetvel (Pacer Wand Reader)](#22-rehber-cetvel-pacer-wand-reader)
+   - [Bionic Reading Okuyucu](#23-bionic-reading-okuyucu)
+   - [Schulte Tablosu Pro (Göz & Dikkat Matrisi)](#24-schulte-tablosu-pro-göz--dikkat-matrisi)
+   - [Takistoskop (İç Ses Kırıcı & Hızlı Flaş)](#25-takistoskop-iç-ses-kırıcı--hızlı-flaş)
+   - [Piramit Okuma (Periferal Genişleme)](#26-piramit-okuma-periferal-genişleme)
+   - [Zigzag & Sakkad Takip Antrenmanı](#27-zigzag--sakkad-takip-antrenmanı)
+   - [Kendi Metnini Yükleme (PDF, EPUB, TXT)](#28-kendi-metnini-yükleme-pdf-epub-txt)
+   - [Analitik, Hedefler ve Veri Yedekleme (CSV / JSON)](#29-analitik-hedefler-ve-veri-yedekleme-csv--json)
+3. [Çocuk Modülü Kullanım Rehberi (6–12 Yaş) & Ebeveyn Kılavuzu](#3-çocuk-modülü-kullanım-rehberi-612-yaş--ebeveyn-kılavuzu)
+   - [Renkli Heceli Flaş Okuma](#31-renkli-heceli-flaş-okuma)
+   - [Sesli Okuma (TTS) Desteği](#32-sesli-okuma-tts-desteği)
+   - [Hece Yakalama & Kelime İnşa Oyunu](#33-hece-yakalama--kelime-inşa-oyunu)
+   - [Kademeli Masal Kütüphanesi (1.–4. Sınıf)](#34-kademeli-masal-kütüphanesi-14-sınıf)
+   - [Ebeveyn Gelişim Paneli & Rozetler](#35-ebeveyn-gelişim-paneli--rozetler)
+4. [Klavye Kısayolları](#4-klavye-kısayolları)
+5. [Önerilen Günlük 15 Dakikalık Antrenman Programları](#5-önerilen-günlük-15-dakikalık-antrenman-programları)
 
 ---
 
 ## 1. Hızlı Başlangıç & Giriş
 
-Uygulamayı tarayıcınızda açtığınızda karşılayıcı ana sayfa (Landing Page) görüntülenir.
-- **Doğrudan Başlama:** Ana sayfadaki *"Çocuk Olarak Başla"* veya *"Yetişkin Olarak Başla"* butonlarına tıklayarak doğrudan ilgili yaş grubunun kayıt formuna gidebilirsiniz.
-- **Giriş:** Önceden açılmış bir hesabınız varsa üst gezinme çubuğundaki (veya mobilde alt bardaki) **"Giriş Yap"** bağlantısını kullanabilirsiniz.
+- **Canlı Web Adresi:** [https://mserman90.github.io/hizlioku/](https://mserman90.github.io/hizlioku/)
+- **Cihaz Uyumluluğu:** Masaüstü bilgisayarlar, dizüstü bilgisayarlar, tabletler (iPad/Android) ve akıllı telefonlar.
+- **PWA Kurulumu:** Tarayıcınızın adres çubuğundaki *"Yükle"* veya mobil Safari'de *"Ana Ekrana Ekle"* seçeneğini kullanarak uygulamayı cihazınıza çevrimdışı çalışacak bir uygulama gibi yükleyebilirsiniz.
 
 ---
 
-## 2. Yaş Kapısı & Hesap Türleri
+## 2. Yetişkin Modülü Kullanım Rehberi (13+ Yaş)
 
-Kayıt formuna (`/signup`) ilk ulaşıldığında sistem zorunlu bir yaş seçimi sunar:
-- **Çocuk (6–12 Yaş):** Çocuğun adı, çocuk kullanıcı e-postası, şifre ve **Veli / Ebeveyn E-postası** girilmesi zorunludur. Çocukların gizliliği gereği doğrudan üçüncü taraf Google girişi kapatılmıştır.
-- **Yetişkin (13+ Yaş):** Standart e-posta/şifre veya tek tıkla **Google ile Giriş** seçeneği aktiftir. Veli izni talep edilmez.
+### 2.1. RSVP Flaş Okuyucu & Optimum Odak (ORP)
+- **Amaç:** Gözün satır üzerinde vakit kaybettiren sakkadik sıçramalarını ortadan kaldırmak ve kelimeleri tek bir odak noktasında flaşlamak.
+- **Nasıl Kullanılır?**
+  1. Yetişkin Panosu'ndan *"RSVP & Rehber Pacer"* modülünü açın.
+  2. Bir klasik metin seçin veya kendi metninizi yükleyin.
+  3. Açılan ekranda **Başlat (Boşluk Tuşu)** düğmesine basın.
+  4. Bakışlarınızı kelimenin **kırmızı renkli harfine (ORP)** odaklayın. Gözünüzü sağa sola oynatmayın.
+  5. Hızı (WPM) alt kaydırıcıdan veya **Yukarı/Aşağı Ok** tuşlarıyla ayarlayın (Başlangıç için 250–350 WPM önerilir).
+  6. **Öbekleme (Chunking):** Dilerseniz Ayarlar menüsünden 1'li, 2'li veya 3'lü kelime bloklarını seçebilirsiniz.
+
+### 2.2. Rehber Cetvel (Pacer Wand Reader)
+- **Amaç:** Metnin sayfa/paragraf bütünlüğünü korurken kontrolsüz geriye dönüşleri (regresyonu) ve satır kayıplarını önlemek.
+- **Nasıl Kullanılır?**
+  1. Okuma ekranının üstündeki mod seçiciden **"Rehber Cetvel (Pacer)"** seçeneğine tıklayın.
+  2. Tüm metin ekranda listelenir; **Başlat**'a bastığınızda bir ışıklı imleç (wand) hedef kelimeyi takip eder ve sayfa ritmik olarak aşağı kayar.
+  3. Görünüm menüsünden **Kelime Vurgusu**, **Satır Cetveli** veya **Bionic Vurgu** modlarından birini seçebilirsiniz.
+
+### 2.3. Bionic Reading Okuyucu
+- **Amaç:** Kelimelerin ilk harflerini yapay olarak koyulaştırarak beynin kelimeyi tamamlamasını (görsel tamamlama) kolaylaştırmak.
+- **Nasıl Kullanılır?**
+  1. RSVP okuyucu içerisindeki **"Bionic Reader"** düğmesine tıklayın.
+  2. Metin otomatik olarak Türkçe morfolojik kurallara göre kalınlaştırılmış harflerle biçimlendirilir.
+  3. İster okuma modunda, ister tüm metin görünümünde inceleyebilirsiniz.
+
+### 2.4. Schulte Tablosu Pro (Göz & Dikkat Matrisi)
+- **Amaç:** Periferal (çevresel) görüş açısını genişletmek ve görsel arama hızını artırmak.
+- **Nasıl Kullanılır?**
+  1. Yetişkin Panosu'ndan *"Schulte Tablosu Pro"* sayfasına gidin.
+  2. Tablo boyutunu seçin: **3×3** (ısınma), **4×4** (orta), **5×5** (standart), **6×6** (ileri).
+  3. Modu seçin:
+     - **Sayılar:** 1'den sırayla tıkla.
+     - **Harfler:** A'dan Z'ye alfabeyi takip et.
+     - **Kırmızı-Siyah Gorbov:** 1 Siyah, 1 Kırmızı, 2 Siyah, 2 Kırmızı... (Nöropsikolojik dikkat ayrıştırma).
+  4. **Önemli Kural:** Gözünüzü tablonun **tam merkezindeki yeşil noktaya** sabitleyin! Sayıları gözünüzü çevirmeden çevresel görüşünüzle bulmaya çalışın.
+  5. En iyi süreleriniz cihazınıza kaydedilir.
+
+### 2.5. Takistoskop (İç Ses Kırıcı & Hızlı Flaş)
+- **Amaç:** Kelimeleri 50–150 milisaniyelik anlık flaşlarla ekrana getirerek iç seslendirmeye fırsat bırakmadan görsel algıyı çalıştırmak.
+- **Nasıl Kullanılır?**
+  1. Egzersizi başlatın, ortadaki `+` işaretine bakın.
+  2. Anlık olarak yanıp sönen kelimeyi yakalayın ve ardından gelen çoktan seçmeli seçenekten doğru olanı işaretleyin.
+
+### 2.6. Piramit Okuma (Periferal Genişleme)
+- **Amaç:** Gözün tek bir fiksasyonda kavrayabildiği harf/kelime genişliğini satır satır genişletmek.
+- **Nasıl Kullanılır?**
+  1. Piramidin tepesinden başlayarak her satırın tam ortasındaki dikey kırmızı çizgiye bakın.
+  2. Bakışınızı ortada tutarak sol ve sağ kenardaki harf/kelimeleri aynı anda okumaya çalışın.
+
+### 2.7. Zigzag & Sakkad Takip Antrenmanı
+- **Amaç:** Göz kaslarının satır atlama ve çapraz geçiş hızını ve koordinasyonunu artırmak.
+- **Nasıl Kullanılır?**
+  1. Egzersizi başlatın ve ekranda beliren hedef noktayı gözünüzle kesintisiz takip edin.
+  2. Kafanızı sabit tutun, yalnızca göz bebeklerinizi hareket ettirin.
+
+### 2.8. Kendi Metnini Yükleme (PDF, EPUB, TXT)
+- Metin Seçim ekranında:
+  - **Panodan Yapıştır:** İstediğiniz haber, makale veya ders notunu yapıştırın.
+  - **Dosya Yükle:** `.pdf`, `.epub` veya `.txt` dosyalarınızı yükleyin. Sistem Türkçe karakterleri ve paragrafları otomatik ayıklar, Ateşman okunabilirlik puanını hesaplar ve anlama sorularını otomatik oluşturur.
+
+### 2.9. Analitik, Hedefler ve Veri Yedekleme (CSV / JSON)
+- Analitik sayfasında:
+  - Günlük **Okuma Serisi (Streak)** ve haftalık WPM gelişim grafiğinizi görün.
+  - Hedef okuma hızınızı ve günlük hedef sürenizi ayarlayın.
+  - **CSV İndir:** Tüm okuma geçmişinizi Excel/Google E-Tablolar formatında indirin.
+  - **JSON Yedekle:** Verilerinizi tarayıcıdan dışa aktarın (Sıfır-sunucu, tam gizlilik).
 
 ---
 
-## 3. Veli Onay Süreci (Çocuk Hesapları İçin)
+## 3. Çocuk Modülü Kullanım Rehberi (6–12 Yaş) & Ebeveyn Kılavuzu
 
-1. Bir çocuk hesabı oluşturulduğunda, hesap otomatik olarak `pending` (veli onayı bekleniyor) statüsüne alınır ve `/consent-pending` sayfasına yönlendirilir.
-2. Veli e-posta adresine bilgilendirme iletilir.
-3. Çocuk koruma ilkeleri gereğince, **veli onayı verilene kadar hiçbir okuma çalışması başlatılamaz ve çocuğa ait hiçbir veri kaydedilmez**.
-4. Geliştirme ve deneme aşamasında bu süreci test etmek için sayfadaki *"Veli Onayını Onayla ve Paneli Aç"* butonu kullanılabilir. Onay verildikten sonra çocuk paneli derhal kullanıma açılır.
+### 3.1. Renkli Heceli Flaş Okuma
+- Kelimeler ekrana gelirken Türkçenin fonotaktik kurallarına göre hecelerine ayrılır (`el-ma`, `öğ-ren-ci`).
+- Her hece çocukların gözünü yormayan pastel mavi, yeşil, mercan renklerle renklendirilir.
+- Çocuk hece sınırlarını sezgisel olarak kavrar, kelimeyi bölmeden akıcı okur.
 
----
+### 3.2. Sesli Okuma (TTS) Desteği
+- Ekrandaki hoparlör simgesi açıkken, okunan kelime tarayıcının yerleşik Türkçe ses motoruyla telaffuz edilir.
+- Görsel ve işitsel uyarı aynı anda çalıştığı için özellikle ilkokul 1–3. sınıf ve disleksi eğilimli çocuklarda öğrenme hızı katlanır.
 
-## 4. Çocuk Modülü Kullanımı (6–12 Yaş)
+### 3.3. Hece Yakalama & Kelime İnşa Oyunu
+- Ekranda dağınık olarak sunulan hece bloklarını sırasıyla tıklayarak hedef kelimeyi inşa etme oyunu.
+- Çocuk her doğru kelimede puan ve yıldız kazanır, hatalı tıklamalarda yumuşak uyarı alır.
 
-Çocuk paneli (`/dashboard/child`), dikkat dağıtıcı öğelerden arındırılmış, yüksek kontrastlı ve sıcak renk paletine (kehribar, mercan, nane) sahiptir.
+### 3.4. Kademeli Masal Kütüphanesi (1.–4. Sınıf)
+- MEB ilkokul kazanımlarına ve sözcük sıklıklarına uygun masal ve hikayeler:
+  - **1. Sınıf (6–7 Yaş):** 60–100 WPM, kısa cümleler, basit heceler.
+  - **2. Sınıf (7–8 Yaş):** 100–140 WPM, temel hikaye örgüsü.
+  - **3. Sınıf (8–9 Yaş):** 140–180 WPM, zengin kelime dağarcığı.
+  - **4. Sınıf (9–10 Yaş):** 180–220 WPM, analitik kavrama metinleri.
 
-### 4.1. Flaş Okuma Alıştırmaları
-1. **Alıştırma Türü Seçimi:**
-   - *Heceler:* Temel fonetik algı (BA, KA, GÖZ, BAL vb.).
-   - *Kelimeler:* Sık kullanılan temel kelimeler (Kedi, Güneş, Balık, Kitap vb.).
-   - *Cümleler:* Kısa ve akıcı cümleler.
-2. **Hız Seçimi:**
-   - *Yavaş (800ms):* Yeni başlayanlar ve harfleri birleştirenler için.
-   - *Orta (500ms):* Akıcı okuma temposu.
-   - *Hızlı (300ms):* Kelimeyi anında tanıma refleksi kazanan şampiyon okurlar için.
-3. **Seans Akışı:**
-   - Kelimeler ekranda sırayla parlar ve kaybolur.
-   - Duraklatmak için ekran altındaki *"Duraklat"* butonuna dokunulabilir.
-   - 10-12 kelimelik seans bittiğinde başarı tebriği, kazanılan puanlar ve yıldızlar ekrana gelir.
-
-### 4.2. Disleksi & Erişilebilirlik Araç Çubuğu
-Flaş okuma ekranında yer alan araç çubuğu ile:
-- **Disleksi Fontu:** Özel harf anatomisine sahip yüksek okunabilirlikli yazı tipini açıp kapatabilirsiniz.
-- **Harf Aralığı:** 1x, 1.5x ve 2x aralık seçenekleriyle harf kalabalıklaşmasını önleyebilirsiniz.
-- **Renk Katmanı:** Beyaz zemin parlamasını önlemek için *Sıcak Sarı, Açık Mavi, Nane Yeşili, Şeftali* renk filtrelerinden dilediğinizi seçebilirsiniz.
-
-### 4.3. Veli Gelişim Takip Ekranı (`/dashboard/child/parent`)
-- Yalnızca ilgili çocuğun velisine açıktır.
-- Tamamlanan oturum sayısı, düzenli çalışma gün serisi ve kazanılan rozetleri (Örn: *İlk Adım, Kelime Avcısı*) listeler.
-- Çocuğun psikolojisini ve gizliliğini korumak amacıyla detaylı hata veya süre takibi tutulmaz.
+### 3.5. Ebeveyn Gelişim Paneli & Rozetler
+- Ebeveynler `/dashboard/child/parent` adresinden çocuklarının:
+  - Toplam okuduğu kelime sayısını,
+  - Ulaştığı WPM hızını,
+  - Açılan başarı rozetlerini (Kitap Kurdu, Flaş Göz vb.) canlı olarak takip edebilir.
+- Veriler tamamen yereldir, hiçbir kişisel veri internete aktarılmaz.
 
 ---
 
-## 5. Yetişkin Modülü Kullanımı (13+ Yaş)
+## 4. Klavye Kısayolları
 
-Yetişkin paneli (`/dashboard/adult`), RSVP tabanlı hızlı okuma ve bilişsel göz kası antrenmanlarını bir araya getirir.
-
-### 5.1. Metin Seçimi ve Dosya Yükleme
-RSVP okuyucusunu başlatmadan önce iki yöntemle metin temin edebilirsiniz:
-1. **Kamu Malı Kütüphane:** Ezop Fablları veya Bilimsel Okuma Metni gibi önceden hazırlanmış telifsiz metinlerden birini seçebilirsiniz.
-2. **Kendi Metnini Yapıştır:** İstediğiniz herhangi bir makale, rapor veya ders notunu metin kutusuna kopyalayıp yapıştırabilirsiniz.
-3. **Dosya Yükleme:** `.txt` veya `.md` uzantılı yerel dosyanızı sürükleyip bırakarak doğrudan okuyucuya aktarabilirsiniz.
-
-### 5.2. RSVP & ORP Okuyucu Denetimleri
-- **WPM Hız Ayarı:** 150 WPM ile 1000 WPM arasında 25'er birimlik adımlarla okuma hızını anlık olarak değiştirebilirsiniz.
-- **ORP Vurgusu:** Her kelimenin optimum tanıma harfi kırmızı renkle işaretlenir. Gözünüzü sadece üst ve alt kırmızı noktalara sabitleyerek kelimenin tamamını tek bakışta algılayabilirsiniz.
-- **Tam Ekran Modu:** Sağ üst köşedeki büyütme butonuna basarak dikkat dağıtan tüm tarayıcı öğelerini gizleyebilirsiniz.
-
-### 5.3. Klavye Kısayolları (Masaüstü Kullanıcıları İçin)
 | Tuş | İşlev |
 | :--- | :--- |
 | **Boşluk (Space)** | Okumayı Başlat / Duraklat |
-| **Sol Ok (←)** | 5 Kelime Geri Sar |
-| **Sağ Ok (→)** | 5 Kelime İleri Atla |
-| **Tab / Shift+Tab** | Düğmeler arası klavye odağı |
-
-### 5.4. Kavrama Testi ve Skorlama
-Kamu malı metinler okunduktan sonra okuyucunun karşısına 3–5 soruluk çoktan seçmeli kavrama testi çıkar. Cevaplar işaretlenip gönderildiğinde kavrama başarı yüzdesi (`%`) ve doğru cevap anahtarı anında raporlanır.
-
-### 5.5. Schulte Tablosu (5×5) Göz Egzersizi
-- **Amaç:** Bakışları merkez noktada tutarken periferik (çevresel) görüş alanını tarayarak 1'den 25'e kadar sayıları sırayla bulmak.
-- **Kullanım:** Egzersizi başlatın, ekranda beliren "Hedef Sayı"yı takip ederek 1, 2, 3... 25 sırasıyla kutucuklara tıklayın. Yanlış tıklamalarda hata sayacı artar; 25 tamamlandığında toplam süre saniye cinsinden gösterilir.
-
-### 5.6. Sakkad / Zigzag Odak Takip Egzersizi
-- **Amaç:** Gözün satır atlama ve istemsiz sıçrama (saccade) hareketlerini koordine etmek.
-- **Kullanım:** 12 istasyondan oluşan geometrik rotada hareket eden ışık hedefini başınızı oynatmadan yalnızca gözlerinizle takip edin. Yavaş (800ms), Orta (500ms) ve Hızlı (300ms) modları mevcuttur.
-
-### 5.7. Analitik & Hedef Tempo Asistanı
-- `/dashboard/adult/analytics` rotasında son seanslarınızın WPM gelişim çubukları ve ortalama kavrama yüzdeniz sergilenir.
-- **Hedef Hız Asistanı:** Hedeflediğiniz okuma hızını kaydırıcıyla belirlediğinizde (örn: 450 WPM), sistem bu hıza ulaşmanız için ideal seans süresini (örn: 2 dakika) ve odaklanmanız gereken teknikleri (örn: iç seslendirmeyi azaltma) tavsiye eder.
+| **Sağ Ok ($\rightarrow$)** | 10 Kelime İleri Sar |
+| **Sol Ok ($\leftarrow$)** | 10 Kelime Geri Sar |
+| **Yukarı Ok ($\uparrow$)** | Hızı Artır (+25 WPM) |
+| **Aşağı Ok ($\downarrow$)** | Hızı Azalt (-25 WPM) |
+| **Esc** | Tam Ekrandan Çık |
 
 ---
 
-## 6. Yönetici (Admin) Konsolu (`/admin`)
+## 5. Önerilen Günlük 15 Dakikalık Antrenman Programları
 
-Yönetici rolüne sahip kullanıcılar için özel olarak kurgulanan bu konsolda:
-1. **Kullanıcı & İzin Yönetimi:** Tüm kullanıcıların yaş grubu, rolü ve veli onay durumları listelenir. Yetkili kullanıcılar tek tıkla admin yetkisi atayabilir veya kaldırabilir.
-2. **Telifsiz Metin Kütüphanesi CRUD:** Kamu malı okuma metinleri eklenebilir, başlık/yazar düzenlenebilir ve silinebilir.
-3. **Kullanım Raporu İhracı:** Toplam kullanıcı sayısı, seans sayısı ve ortalama okuma hızlarını içeren anonim özet rapor tek tıkla `.csv` formatında indirilebilir.
+### Program A: Başlangıç Seviyesi (İlk 2 Hafta)
+- **1. Dakika:** Göz kası esnetme (Zigzag egzersizi - 1 döngü).
+- **2–5. Dakika:** Schulte Tablosu 3×3 ve 4×4 (Gözü merkezde tutarak 3 tekrar).
+- **5–12. Dakika:** RSVP veya Rehber Cetvel ile 200–250 WPM hızında 1 metin okuma + Kavrama Testi.
+- **12–15. Dakika:** Takistoskop ile hızlı kelime tanıma (10 soru).
 
----
+### Program B: Orta Seviye (2–6. Hafta)
+- **1–3. Dakika:** Schulte Tablosu 5×5 (Merkez odaklı, 2 tekrar).
+- **3–6. Dakika:** Piramit Okuma (Genişleyen bloklar, 2 tekrar).
+- **6–13. Dakika:** RSVP Okuyucu 350–450 WPM (Akıllı noktalama ve metronom açık) + Test.
+- **13–15. Dakika:** Rehber Cetvel ile kendi yüklediğiniz bir PDF/haber makalesi.
 
-## 7. Sıkça Sorulan Sorular (SSS)
-
-**S: Hızlı okuma yaparken anlama oranım düşüyor, ne yapmalıyım?**  
-*C: Okuma bilimi araştırmalarına göre, hızınızı aniden 2-3 katına çıkarmak kavrama çöküşüne yol açar. Hızınızı haftada 25–50 WPM artırarak ve kavrama testlerinde en az %75 doğruluğu koruyarak ilerlemeniz tavsiye edilir.*
-
-**S: Çocuğumun okuma verilerini başka kimse görebilir mi?**  
-*C: Hayır. Çocuk hesaplarında hiçbir genel profil veya liderlik tablosu yoktur. Bilgiler yalnızca ilgili çocuğa ve onay veren ebeveynine özeldir.*
-
-**S: PDF dosyası yüklediğimde metin çıkmıyorsa ne yapmalıyım?**  
-*C: Taranmış resimlerden oluşan veya şifreli PDF'lerde istemci taraflı metin ayrıştırma sınırlı olabilir. Belgenizdeki metni seçip kopyalayarak "Kendi Metnini Yapıştır" sekmesine yapıştırmanız en doğru ve hızlı sonucu verir.*
+### Program C: İleri Düzey & Sınavlara Hazırlık (LGS / YKS / ALES / KPSS)
+- **1–3. Dakika:** Kırmızı-Siyah Gorbov-Schulte 5×5 (Çift görev dikkat testi).
+- **3–6. Dakika:** 2'li veya 3'lü Öbekleme (Chunking) ile RSVP Okuyucu 500–600 WPM.
+- **6–12. Dakika:** Kendi ders/makale PDF'inizi yükleyip Rehber Cetvel ile 450 WPM'de tarama.
+- **12–15. Dakika:** Takistoskop 50 ms flaş antrenmanı + Analitik sonuç inceleme.

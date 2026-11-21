@@ -4,7 +4,7 @@ import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "@/context/AuthContext";
-import { Home, LayoutDashboard, User, Shield } from "lucide-react";
+import { Home, LayoutDashboard, User, Shield, BookOpen } from "lucide-react";
 import clsx from "clsx";
 
 export const BottomNav: React.FC = () => {
@@ -19,6 +19,11 @@ export const BottomNav: React.FC = () => {
             label: "Panel",
             href: "/dashboard",
             icon: LayoutDashboard,
+          },
+          {
+            label: "Kılavuz",
+            href: "/guide",
+            icon: BookOpen,
           },
           {
             label: "Profil",
@@ -36,6 +41,11 @@ export const BottomNav: React.FC = () => {
             : []),
         ]
       : [
+          {
+            label: "Kılavuz",
+            href: "/guide",
+            icon: BookOpen,
+          },
           {
             label: "Giriş",
             href: "/login",

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
-import { Eye, Zap, Grid, Activity, ArrowRight, Compass, Triangle, Flame } from "lucide-react";
+import { Eye, Zap, Grid, Activity, ArrowRight, Compass, Triangle, Flame, BookOpen } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 import { loadSessionHistory, computeSessionStats } from "@/lib/sessionHistory";
@@ -49,6 +49,14 @@ export default function AdultDashboardPage() {
           </div>
 
           <div className="flex flex-wrap items-center gap-2.5">
+            <Link
+              href="/guide"
+              className="flex items-center gap-1.5 px-3.5 py-2 bg-white/20 hover:bg-white/30 rounded-2xl border border-white/30 transition text-xs font-bold text-white shadow-xs"
+            >
+              <BookOpen className="w-4 h-4 text-amber-300" />
+              <span>Kullanım Kılavuzu</span>
+            </Link>
+
             <div className="flex items-center gap-2 px-3.5 py-2 bg-white/10 rounded-2xl border border-white/20">
               <Flame className="w-5 h-5 text-amber-300" />
               <div className="flex flex-col">

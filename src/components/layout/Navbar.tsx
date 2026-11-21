@@ -40,6 +40,14 @@ export const Navbar: React.FC = () => {
             </Link>
           )}
 
+          <Link
+            href="/guide"
+            className="text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-brand-600 dark:hover:text-brand-400 transition flex items-center gap-1.5"
+          >
+            <BookOpen className="w-4 h-4 text-brand-600 dark:text-brand-400" />
+            Kullanım Kılavuzu
+          </Link>
+
           {user?.role === "admin" && (
             <Link
               href="/admin"
