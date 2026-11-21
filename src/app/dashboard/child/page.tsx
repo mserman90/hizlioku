@@ -1,18 +1,33 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "@/context/AuthContext";
 import { FlashReader } from "@/components/child/FlashReader";
-import { Sparkles, Flame, Trophy, Play, BookOpen, ShieldCheck, Heart } from "lucide-react";
+import { SyllableBuilderGame } from "@/components/child/SyllableBuilderGame";
+import { loadChildProgress } from "@/lib/childProgress";
+import { Sparkles, Flame, Trophy, Play, BookOpen, ShieldCheck, Heart, Puzzle } from "lucide-react";
 import Link from "next/link";
 import { Button } from "@/components/ui/Button";
 
 export default function ChildDashboardPage() {
   const { user } = useAuth();
-  const [isPlayingFlash, setIsPlayingFlash] = useState(false);
+  const [activeActivity, setActiveActivity] = useState<"menu" | "flash" | "syllable">("menu");
+  const [childStats, setChildStats] = useState({ streakDays: 3, totalPoints: 120 });
 
-  if (isPlayingFlash) {
-    return <FlashReader onBackToMenu={() => setIsPlayingFlash(false)} />;
+  useEffect(() => {
+    const progress = loadChildProgress();
+    setChildStats({
+      streakDays: progress.streakDays,
+      totalPoints: progress.totalPoints,
+    });
+  }, [activeActivity]);
+
+  if (activeActivity === "flash") {
+    return <FlashReader onBackToMenu={() => setActiveActivity("menu")} />;
+  }
+
+  if (activeActivity === "syllable") {
+    return <SyllableBuilderGame onBackToMenu={() => setActiveActivity("menu")} />;
   }
 
   return (
@@ -35,18 +50,18 @@ export default function ChildDashboardPage() {
           <div className="flex items-center gap-3">
             <div className="flex items-center gap-2 px-4 py-2 bg-white/60 rounded-2xl font-bold text-sm">
               <Flame className="w-5 h-5 text-orange-600" />
-              <span>3 Günlük Seri</span>
+              <span>{childStats.streakDays} Günlük Seri</span>
             </div>
             <div className="flex items-center gap-2 px-4 py-2 bg-white/60 rounded-2xl font-bold text-sm">
               <Trophy className="w-5 h-5 text-amber-700" />
-              <span>120 Puan</span>
+              <span>{childStats.totalPoints} Puan</span>
             </div>
           </div>
         </div>
       </div>
 
       {/* Modules Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Flash-Reading Exercise Card */}
         <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border-2 border-amber-300 dark:border-amber-800/80 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
           <div>
@@ -54,13 +69,13 @@ export default function ChildDashboardPage() {
               <BookOpen className="w-6 h-6" />
             </div>
             <span className="text-xs font-bold uppercase tracking-wider text-amber-700 dark:text-amber-400">
-              Eğlenceli Alıştırma
+              Eğlenceli Alıştırma 1
             </span>
             <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
               Flaş Okuma Alıştırmaları
             </h2>
             <p className="text-sm text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
-              Kelimeler ve heceler ekranda belirir ve kaybolur. Gözlerinle yakala, disleksi modunu dene ve puanları topla!
+              Kelimeler ekranda parlar ve kaybolur. Renkli heceleme ve sesli telaffuz ile okuma hızını artır!
             </p>
           </div>
           <Button
@@ -68,11 +83,40 @@ export default function ChildDashboardPage() {
             variant="child"
             size="lg"
             fullWidth
-            onClick={() => setIsPlayingFlash(true)}
+            onClick={() => setActiveActivity("flash")}
             className="flex items-center justify-center gap-2"
           >
             <Play className="w-5 h-5 fill-current" />
             Flaş Okumaya Başla
+          </Button>
+        </div>
+
+        {/* Syllable Catcher / Word Builder Card */}
+        <div className="bg-white dark:bg-slate-900 rounded-3xl p-6 border-2 border-orange-300 dark:border-orange-800/80 shadow-sm flex flex-col justify-between group hover:shadow-md transition">
+          <div>
+            <div className="w-12 h-12 rounded-2xl bg-orange-100 dark:bg-orange-950/60 text-orange-800 dark:text-orange-300 flex items-center justify-center font-bold mb-4 group-hover:scale-105 transition-transform">
+              <Puzzle className="w-6 h-6" />
+            </div>
+            <span className="text-xs font-bold uppercase tracking-wider text-orange-700 dark:text-orange-400">
+              Eğlenceli Alıştırma 2
+            </span>
+            <h2 className="text-xl font-bold text-slate-900 dark:text-slate-100 mt-1 mb-2">
+              Hece Avcısı & Kelime İnşa
+            </h2>
+            <p className="text-sm text-slate-600 dark:text-slate-300 mb-6 leading-relaxed">
+              Karışık heceleri doğru sırayla birleştirerek kelimeleri inşa et, sesini dinle ve yıldızları topla!
+            </p>
+          </div>
+          <Button
+            type="button"
+            variant="child"
+            size="lg"
+            fullWidth
+            onClick={() => setActiveActivity("syllable")}
+            className="flex items-center justify-center gap-2"
+          >
+            <Play className="w-5 h-5 fill-current" />
+            Oyuna Başla
           </Button>
         </div>
 
