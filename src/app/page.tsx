@@ -1,6 +1,7 @@
 import React from "react";
 import Link from "next/link";
 import { Sparkles, Eye, ShieldCheck, ArrowRight, Zap, Target, BookOpen } from "lucide-react";
+import { HeroDemo } from "@/components/home/HeroDemo";
 
 export default function LandingPage() {
   return (
@@ -22,6 +23,9 @@ export default function LandingPage() {
         <p className="mt-6 text-base sm:text-lg lg:text-xl text-slate-600 dark:text-slate-300 max-w-2xl mx-auto leading-relaxed">
           Çocuklar için eğlenceli ve güvenli flaş okuma oyunları; yetişkinler için RSVP ve ORP odaklı bilimsel antrenman programı.
         </p>
+
+        {/* Live Interactive RSVP Demo Widget */}
+        <HeroDemo />
 
         {/* Age group choice cards */}
         <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto text-left">

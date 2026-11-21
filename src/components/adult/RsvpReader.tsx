@@ -23,6 +23,8 @@ import {
   Palette,
   Volume2,
   VolumeX,
+  Clock,
+  Zap,
 } from "lucide-react";
 
 interface RsvpReaderProps {
@@ -79,6 +81,13 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
   const currentWord = React.useMemo(() => {
     return words.slice(currentIndex, currentIndex + chunkSize).join(" ") || "";
   }, [words, currentIndex, chunkSize]);
+
+  const remainingTimeText = React.useMemo(() => {
+    const remainingWords = Math.max(0, words.length - currentIndex);
+    const secs = Math.ceil((remainingWords / Math.max(1, wpm)) * 60);
+    if (secs < 60) return `${secs} sn`;
+    return `${Math.floor(secs / 60)} dk ${secs % 60} sn`;
+  }, [words.length, currentIndex, wpm]);
 
   // Advance word function
   const stepForward = useCallback(() => {
@@ -206,7 +215,11 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
           </h2>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2">
+          <div className="hidden sm:inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-600 dark:text-slate-300">
+            <Clock className="w-3.5 h-3.5 text-brand-600 dark:text-brand-400" />
+            <span>~{remainingTimeText} kaldı</span>
+          </div>
           <div className="text-xs font-bold px-3 py-1 bg-slate-100 dark:bg-slate-800 rounded-full text-slate-700 dark:text-slate-300">
             {currentIndex + 1} / {words.length} kelime
           </div>
@@ -340,7 +353,7 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
             <span className="text-xl font-black text-brand-600 dark:text-brand-400">{wpm} WPM</span>
           </div>
 
-          <div className="flex-1 sm:w-48">
+          <div className="flex-1 sm:w-52">
             <input
               type="range"
               min={150}
@@ -354,6 +367,25 @@ export const RsvpReader: React.FC<RsvpReaderProps> = ({
               <span>150</span>
               <span>500</span>
               <span>1000</span>
+            </div>
+
+            {/* Quick Presets Pills */}
+            <div className="flex items-center gap-1.5 mt-2">
+              {[250, 350, 450, 600].map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setWpm(preset)}
+                  className={`flex-1 py-1 text-[10px] font-bold rounded-lg border transition cursor-pointer ${
+                    wpm === preset
+                      ? "bg-brand-600 text-white border-brand-600 shadow-xs"
+                      : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100 dark:hover:bg-slate-700"
+                  }`}
+                  title={`${preset} WPM`}
+                >
+                  {preset}
+                </button>
+              ))}
             </div>
           </div>
         </div>

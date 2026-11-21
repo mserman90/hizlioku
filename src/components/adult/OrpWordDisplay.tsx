@@ -58,6 +58,9 @@ export const OrpWordDisplay: React.FC<OrpWordDisplayProps> = ({
 
   return (
     <div className="relative flex flex-col items-center justify-center select-none py-6">
+      {/* Subtle Optical Focus Backdrop Glow */}
+      <div className="absolute inset-0 m-auto w-48 h-28 rounded-full bg-rose-500/5 dark:bg-rose-400/10 pointer-events-none blur-2xl" />
+
       {/* Top Fixation Marker */}
       <div className={`w-1.5 h-3.5 ${markerColor} rounded-full mb-3 opacity-90 shadow-xs`} />
 

@@ -18,6 +18,7 @@ import {
   CheckCircle2,
   Palette,
   Type,
+  Clock,
 } from "lucide-react";
 import {
   tokenizePacerText,
@@ -233,6 +234,13 @@ export const GuidedPacerReader: React.FC<GuidedPacerReaderProps> = ({
   const themeStyles = getThemeStyles();
   const progressPercent = totalWords > 0 ? Math.round((currentIndex / totalWords) * 100) : 0;
 
+  const remainingTimeText = useMemo(() => {
+    const remainingWords = Math.max(0, totalWords - currentIndex);
+    const secs = Math.ceil((remainingWords / Math.max(1, wpm)) * 60);
+    if (secs < 60) return `${secs} sn`;
+    return `${Math.floor(secs / 60)} dk ${secs % 60} sn`;
+  }, [totalWords, currentIndex, wpm]);
+
   return (
     <div
       className={`flex flex-col gap-6 w-full max-w-4xl mx-auto transition-colors duration-200 ${
@@ -399,12 +407,18 @@ export const GuidedPacerReader: React.FC<GuidedPacerReaderProps> = ({
         className={`rounded-3xl p-6 sm:p-10 border transition-all duration-300 shadow-sm max-h-[60vh] sm:max-h-[65vh] overflow-y-auto relative select-none scroll-smooth ${themeStyles.bg} ${themeStyles.card}`}
       >
         <div className="mb-6 border-b pb-4 border-black/10 dark:border-white/10 flex items-center justify-between">
-          <h2 className="text-base sm:text-lg font-black truncate max-w-[80%]">
+          <h2 className="text-base sm:text-lg font-black truncate max-w-[60%] sm:max-w-[70%]">
             {title || "Rehber Okuma"}
           </h2>
-          <span className="text-xs font-bold opacity-60">
-            {currentIndex} / {totalWords} Kelime
-          </span>
+          <div className="flex items-center gap-2">
+            <span className="hidden sm:inline-flex items-center gap-1 text-xs font-bold px-2.5 py-0.5 rounded-full bg-black/5 dark:bg-white/10 opacity-80">
+              <Clock className="w-3 h-3 text-brand-600 dark:text-brand-400" />
+              ~{remainingTimeText}
+            </span>
+            <span className="text-xs font-bold opacity-60">
+              {currentIndex} / {totalWords} Kelime
+            </span>
+          </div>
         </div>
 
         {/* Paragraphs and Word Tokens */}
@@ -529,19 +543,40 @@ export const GuidedPacerReader: React.FC<GuidedPacerReaderProps> = ({
             </button>
           </div>
 
-          {/* Speed WPM Slider */}
-          <div className="flex items-center gap-3 w-full sm:w-64">
-            <span className="text-xs font-bold text-slate-400">150</span>
-            <input
-              type="range"
-              min={150}
-              max={800}
-              step={25}
-              value={wpm}
-              onChange={(e) => setWpm(Number(e.target.value))}
-              className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-600"
-            />
-            <span className="text-xs font-bold text-slate-400">800</span>
+          {/* Speed WPM Slider & Presets */}
+          <div className="flex flex-col gap-1.5 w-full sm:w-64">
+            <div className="flex items-center gap-3">
+              <span className="text-xs font-bold text-slate-400">150</span>
+              <input
+                type="range"
+                min={150}
+                max={800}
+                step={25}
+                value={wpm}
+                onChange={(e) => setWpm(Number(e.target.value))}
+                className="w-full h-2 bg-slate-200 dark:bg-slate-700 rounded-lg appearance-none cursor-pointer accent-brand-600"
+              />
+              <span className="text-xs font-bold text-slate-400">800</span>
+            </div>
+
+            {/* Quick Presets */}
+            <div className="flex items-center gap-1.5">
+              {[250, 350, 450, 600].map((preset) => (
+                <button
+                  key={preset}
+                  type="button"
+                  onClick={() => setWpm(preset)}
+                  className={`flex-1 py-1 text-[10px] font-bold rounded-lg border transition cursor-pointer ${
+                    wpm === preset
+                      ? "bg-brand-600 text-white border-brand-600 shadow-xs"
+                      : "bg-slate-50 dark:bg-slate-800 text-slate-600 dark:text-slate-400 border-slate-200 dark:border-slate-700 hover:bg-slate-100"
+                  }`}
+                  title={`${preset} WPM`}
+                >
+                  {preset}
+                </button>
+              ))}
+            </div>
           </div>
 
           {/* Complete Early Button */}
